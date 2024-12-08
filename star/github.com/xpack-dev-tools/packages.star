@@ -1,4 +1,4 @@
-"""packages/github.com/xpack-dev-tools packages"""
+"""star/github.com/xpack-dev-tools packages"""
 
 load("wine-xpack/packages.star", wine_xpack = "packages")
 load("windows-build-tools-xpack/packages.star", windows_build_tools_xpack = "packages")

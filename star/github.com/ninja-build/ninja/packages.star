@@ -1,4 +1,4 @@
-"""packages/github.com/ninja-build/ninja packages"""
+"""star/github.com/ninja-build/ninja packages"""
 
 load("v1.12.1.star", platforms_v1_12_1_star = "platforms")
 

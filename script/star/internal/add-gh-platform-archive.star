@@ -30,7 +30,7 @@ def add_gh_platform_archive(name, tag):
         repo,
     )
 
-    package_directory = "packages/{}/{}/{}".format(domain, owner, repo)
+    package_directory = "star/{}/{}/{}".format(domain, owner, repo)
     package_file_path = "{}/{}.star".format(package_directory, tag)
 
     if fs.exists(package_file_path):

@@ -1,4 +1,4 @@
-"""packages/github.com/bazelbuild packages"""
+"""star/github.com/bazelbuild packages"""
 
 load("bazelisk/packages.star", bazelisk = "packages")
 

@@ -1,4 +1,4 @@
-"""packages/nodejs.org packages"""
+"""star/nodejs.org packages"""
 
 load("node/packages.star", node = "packages")
 

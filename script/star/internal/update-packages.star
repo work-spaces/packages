@@ -88,5 +88,5 @@ def _update_domains(path):
 
 
 def update_packages():
-    _update_domains("packages")
+    _update_domains("star")
 

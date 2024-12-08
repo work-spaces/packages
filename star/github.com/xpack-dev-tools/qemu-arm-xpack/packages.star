@@ -1,4 +1,4 @@
-"""packages/github.com/xpack-dev-tools/qemu-arm-xpack packages"""
+"""star/github.com/xpack-dev-tools/qemu-arm-xpack packages"""
 
 load("v6.2.0-2.star", platforms_v6_2_0_2_star = "platforms")
 load("v8.2.2-1.star", platforms_v8_2_2_1_star = "platforms")

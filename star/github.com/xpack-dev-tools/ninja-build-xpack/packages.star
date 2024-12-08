@@ -1,4 +1,4 @@
-"""packages/github.com/xpack-dev-tools/ninja-build-xpack packages"""
+"""star/github.com/xpack-dev-tools/ninja-build-xpack packages"""
 
 load("v1.11.1-3.star", platforms_v1_11_1_3_star = "platforms")
 

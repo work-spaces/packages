@@ -1,4 +1,4 @@
-"""packages/github.com/facebook packages"""
+"""star/github.com/facebook packages"""
 
 load("dotslash/packages.star", dotslash = "packages")
 

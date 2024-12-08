@@ -1,4 +1,4 @@
-"""packages/github.com/work-spaces packages"""
+"""star/github.com/work-spaces packages"""
 
 load("tools/packages.star", tools = "packages")
 load("spaces/packages.star", spaces = "packages")

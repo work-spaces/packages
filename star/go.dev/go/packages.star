@@ -1,4 +1,4 @@
-"""packages/go.dev/go packages"""
+"""star/go.dev/go packages"""
 
 load("go/packages.star", go = "packages")
 

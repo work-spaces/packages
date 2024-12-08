@@ -1,4 +1,4 @@
-"""packages/github.com/cargo-bins packages"""
+"""star/github.com/cargo-bins packages"""
 
 load("cargo-binstall/packages.star", cargo_binstall = "packages")
 

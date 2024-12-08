@@ -1,4 +1,4 @@
-"""packages/github.com/llvm packages"""
+"""star/github.com/llvm packages"""
 
 load("llvm-project/packages.star", llvm_project = "packages")
 

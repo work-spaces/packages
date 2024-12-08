@@ -1,4 +1,4 @@
-"""packages/nodejs.org/node/nodejs packages"""
+"""star/nodejs.org/node/nodejs packages"""
 
 load("v17.7.0.star", platforms_v17_7_0_star = "platforms")
 load("v16.7.0.star", platforms_v16_7_0_star = "platforms")

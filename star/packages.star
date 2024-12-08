@@ -1,4 +1,4 @@
-"""packages packages"""
+"""star packages"""
 
 load("go.dev/packages.star", go_dev = "packages")
 load("nodejs.org/packages.star", nodejs_org = "packages")

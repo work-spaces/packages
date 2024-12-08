@@ -23,7 +23,7 @@ def add_http_platform_archive(name, version):
     platforms = map["platforms"]
 
 
-    package_directory = "packages/{}/{}/{}".format(domain, owner, repo)
+    package_directory = "star/{}/{}/{}".format(domain, owner, repo)
     package_file_path = "{}/{}.star".format(package_directory, version)
 
     if fs.exists(package_file_path):

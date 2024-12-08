@@ -1,4 +1,4 @@
-"""packages/arm.developer.com/gnu packages"""
+"""star/arm.developer.com/gnu packages"""
 
 load("arm-none-eabi/packages.star", arm_none_eabi = "packages")
 load("arm-none-linux-gnueabihf/packages.star", arm_none_linux_gnueabihf = "packages")

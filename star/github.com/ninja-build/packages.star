@@ -1,4 +1,4 @@
-"""packages/github.com/ninja-build packages"""
+"""star/github.com/ninja-build packages"""
 
 load("ninja/packages.star", ninja = "packages")
 

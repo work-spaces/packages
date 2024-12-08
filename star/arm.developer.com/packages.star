@@ -1,4 +1,4 @@
-"""packages/arm.developer.com packages"""
+"""star/arm.developer.com packages"""
 
 load("gnu/packages.star", gnu = "packages")
 
