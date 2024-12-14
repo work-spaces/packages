@@ -12,6 +12,7 @@ load("cli/packages.star", cli = "packages")
 load("facebook/packages.star", facebook = "packages")
 load("jqlang/packages.star", jqlang = "packages")
 load("work-spaces/packages.star", work_spaces = "packages")
+load("oras-project/packages.star", oras_project = "packages")
 load("protocolbuffers/packages.star", protocolbuffers = "packages")
 
 
@@ -28,5 +29,6 @@ packages = {
     "facebook": facebook,
     "jqlang": jqlang,
     "work-spaces": work_spaces,
+    "oras-project": oras_project,
     "protocolbuffers": protocolbuffers,
 }
