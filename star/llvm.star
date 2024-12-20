@@ -2,9 +2,9 @@
 Add LLVM to your sysroot.
 """
 
-load("//@star/packages/star/github.com/llvm/llvm-project/packages.star", github_llvm_project_packages = "packages")
+load("github.com/llvm/llvm-project/packages.star", github_llvm_project_packages = "packages")
 load(
-    "checkout.star",
+    "//@star/sdk/star/checkout.star",
     "checkout_add_platform_archive",
     "checkout_update_env",
     "checkout_add_asset",
