@@ -84,27 +84,27 @@ endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -fno-exceptions -fno-unwind-tables -fno-rtti" CACHE INTERNAL "CMAKE CXX FLAGS")
 """
 
-def arm_gnu_add_arm_none_eabi_add(rule_name, version):
+def arm_gnu_add_arm_none_eabi_add(name, version):
     """
     Add arm-none-eabi to your sysroot.
 
     Args:
-        rule_name (str): The name of the rule.
+        name (str): The name of the rule.
         version (str): arm-none-eabi version from packages/arm.developer.com/gnu/arm-none-eabi
     """
     checkout_add_platform_archive(
-        rule_name,
+        name,
         platforms = packages[version],
     )
 
     checkout_add_asset(
-        "{}_toolchain-cmake".format(rule_name),
+        "{}_toolchain-cmake".format(name),
         destination = "sysroot/cmake/arm-gnu-arm-none-eabi-toolchain.cmake",
         content = _toolchain_contents,
     )
 
     checkout_update_env(
-        "{}_toolchain-cmake-env".format(rule_name),
+        "{}_toolchain-cmake-env".format(name),
         vars = {
             "ARM_GNU_TOOLCHAIN_CMAKE": "sysroot/cmake/arm-gnu-arm-none-eabi-toolchain.cmake",
         },
