@@ -2,7 +2,7 @@
 Add Bazelisk to your sysroot.
 """
 
-load("//@sdk/packages/star/github.com/bazelbuild/bazelisk/packages.star", packages = "packages")
+load("//@star/packages/star/github.com/bazelbuild/bazelisk/packages.star", packages = "packages")
 
 def bazelisk_add(name, version):
     """

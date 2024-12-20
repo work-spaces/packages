@@ -3,7 +3,7 @@ Add arm-none-eabi toolchain to your sysroot.
 """
 
 load(
-    "//@sdk/sdk/star/checkout.star",
+    "//@star/sdk/star/checkout.star",
     "checkout_add_asset",
     "checkout_add_platform_archive",
     "checkout_update_env",

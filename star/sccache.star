@@ -2,7 +2,7 @@
 Add sccache to the workspace
 """
 
-load("//@sdk/sdk/star/checkout.star", "checkout_update_asset", "checkout_add_cargo_bin")
+load("//@star/sdk/star/checkout.star", "checkout_update_asset", "checkout_add_cargo_bin")
 
 def sccache_add(name, version):
     """

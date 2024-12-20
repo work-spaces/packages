@@ -2,7 +2,7 @@
 Spaces starlark function for archiving and publishing to github using GH
 """
 
-load("//@sdk/sdk/star/checkout.star", "checkout_add_platform_archive")
+load("//@star/sdk/star/checkout.star", "checkout_add_platform_archive")
 load("github.com/cli/cli/packages.star", "packages")
 
 def gh_add(name, version):

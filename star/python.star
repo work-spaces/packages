@@ -3,12 +3,12 @@ Add Python to your sysroot.
 """
 
 load(
-    "//@sdk/sdk/star/checkout.star",
+    "//@star/sdk/star/checkout.star",
     "checkout_add_platform_archive",
     "checkout_update_asset",
     "checkout_update_env"
 )
-load("//@sdk/sdk/star/run.star", "run_add_exec")
+load("//@star/sdk/star/run.star", "run_add_exec")
 load("github.com/astral-sh/packages.star", astral_packages = "packages")
 
 def python_add_uv(name, uv_version, ruff_version, python_version, packages = []):

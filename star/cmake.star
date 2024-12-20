@@ -4,7 +4,7 @@ Add CMake to your sysroot.
 
 load("packages.star", "packages")
 load(
-    "//@sdk/sdk/star/checkout.star",
+    "//@star/sdk/star/checkout.star",
     "checkout_add_platform_archive",
     "checkout_update_asset",
 )

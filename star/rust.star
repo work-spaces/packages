@@ -3,12 +3,12 @@ Add Rust
 """
 
 load(
-    "//@sdk/sdk/star/checkout.star",
+    "//@star/sdk/star/checkout.star",
     "checkout_add_platform_archive",
     "checkout_update_asset",
     "checkout_update_env",
 )
-load("//@sdk/sdk/star/run.star", "run_add_exec")
+load("//@star/sdk/star/run.star", "run_add_exec")
 
 def rust_add(name, version):
     """
