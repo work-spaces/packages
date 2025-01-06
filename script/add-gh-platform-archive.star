@@ -5,7 +5,7 @@ Adds a platform archive to the packages using a maps file.
 
 Usage Example:
 
-./add_gh_platform_archive.star --name=cli_cli --tag=v2.60.1
+./add-gh-platform-archive.star --name=cli_cli --tag=v2.60.1
 
 """
 
