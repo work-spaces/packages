@@ -86,8 +86,8 @@ def add_gh_platform_archive(name, tag):
         asset_url = ""
         asset_name = ""
         for asset in assets:
-            name = asset["name"]
-            found = name.find(platform_info["name_pattern"])
+            tmp_name = asset["name"]
+            found = tmp_name.find(platform_info["name_pattern"])
             if found >= 0:
                 asset_url = asset["url"]
                 asset_name = asset["name"]
