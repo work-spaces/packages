@@ -8,7 +8,7 @@ load(
     "checkout_update_asset",
     "checkout_update_env"
 )
-load("//@star/sdk/star/run.star", "run_add_exec")
+load("//@star/sdk/star/run.star", "run_add_exec_setup")
 load("github.com/astral-sh/packages.star", astral_packages = "packages")
 
 def python_add_uv(name, uv_version, ruff_version, python_version, packages = []):
@@ -58,24 +58,21 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [])
         },
     )
 
-    run_add_exec(
+    run_add_exec_setup(
         "{}_install_python".format(name),
-        type = "Setup",
         command = "uv",
         args = ["python", "install", "{}".format(python_version)],
     )
 
-    run_add_exec(
+    run_add_exec_setup(
         "{}_venv".format(name),
-        type = "Setup",
         deps = ["{}_install_python".format(name)],
         command = "uv",
         args = ["venv", "--python={}".format(python_version), "venv"],
     )
 
-    run_add_exec(
+    run_add_exec_setup(
         "{}_packages".format(name),
-        type = "Setup",
         deps = ["{}_venv".format(name)],
         command = "uv",
         args = ["pip", "install"] + packages,

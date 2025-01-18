@@ -8,7 +8,7 @@ load(
     "checkout_update_asset",
     "checkout_update_env",
 )
-load("//@star/sdk/star/run.star", "run_add_exec")
+load("//@star/sdk/star/run.star", "run_add_exec_setup")
 
 def rust_add(name, version):
     """
@@ -63,19 +63,17 @@ def rust_add(name, version):
     rustup_init = "{}_rustup-init".format(name)
     vscode_settings = "{}_vscode_settings".format(name)
 
-    run_add_exec(
+    run_add_exec_setup(
         "{}".format(init_permissions),
-        type = "Setup",
         command = "chmod",
         args = ["755", "sysroot/bin/rustup-init"],
     )
 
     cargo_path = "{}/cargo/bin".format(info.get_path_to_store())
     cargo_exists = fs.exists("{}/cargo".format(cargo_path))
-    run_add_exec(
+    run_add_exec_setup(
         "{}".format(rustup_init),
         deps = ["{}".format(init_permissions)],
-        type = "Setup",
         command = "sysroot/bin/rustup-init",
         args = ["--version"] if cargo_exists else ["--profile=default", "--no-modify-path", "-y"],
     )
