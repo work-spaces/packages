@@ -26,6 +26,7 @@ def shfmt_add(name, version):
         platforms = packages[version],
     )
 
+    PLATFORM_RULE = "{}_platform_archive".format(name)
     platform = info_get_platform_name()
     suffix_map = {
         "macos-aarch64": "darwin_arm64",
@@ -39,7 +40,8 @@ def shfmt_add(name, version):
     bin_suffix = suffix_map.get(platform)
 
     checkout_add_hard_link_asset(
-        "{}_hard_link".format(name),
+        name,
         source = "sysroot/bin/shfmt_{}_{}".format(version, bin_suffix),
         destination = "sysroot/bin/shfmt",
+        deps = [PLATFORM_RULE],
     )

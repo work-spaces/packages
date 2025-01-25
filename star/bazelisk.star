@@ -21,8 +21,10 @@ def bazelisk_add(name, version):
         name (str): The name of the rule.
         version (str): Bazelisk version from github.com/bazelbuild/bazelisk/releases
     """
+
+    PLATFORM_RULE = "{}_platform_archive".format(name)
     checkout_add_platform_archive(
-        name,
+        PLATFORM_RULE,
         platforms = packages[version],
     )
 
@@ -39,7 +41,8 @@ def bazelisk_add(name, version):
     bin_suffix = suffix_map.get(platform)
 
     checkout_add_hard_link_asset(
-        "{}_hard_link".format(name),
+        name,
         source = "sysroot/bin/bazelisk-{}".format(bin_suffix),
         destination = "sysroot/bin/bazelisk",
+        deps = [PLATFORM_RULE],
     )
