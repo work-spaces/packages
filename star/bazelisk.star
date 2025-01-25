@@ -8,11 +8,13 @@ load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_hard_link_asset",
     "checkout_add_platform_archive",
+    "checkout_update_env"
 )
 
 load(
     "//@star/sdk/star/info.star",
     "info_get_platform_name",
+    "info_get_path_to_store",
 )
 
 load(
@@ -53,6 +55,13 @@ def bazelisk_add(name, version):
         source = "sysroot/bin/bazelisk-{}".format(bin_suffix),
         destination = "sysroot/bin/bazelisk",
         deps = [PLATFORM_RULE],
+    )
+
+    checkout_update_env(
+        "{}_update_env".format(name),
+        vars = {
+            "BAZELISK_HOME": "{}/bazelisk".format(info_get_path_to_store()),
+        }
     )
 
     chmod(
