@@ -7,6 +7,7 @@ load("google/packages.star", google = "packages")
 load("ninja-build/packages.star", ninja_build = "packages")
 load("cargo-bins/packages.star", cargo_bins = "packages")
 load("llvm/packages.star", llvm = "packages")
+load("koalaman/packages.star", koalaman = "packages")
 load("xpack-dev-tools/packages.star", xpack_dev_tools = "packages")
 load("cli/packages.star", cli = "packages")
 load("mvdan/packages.star", mvdan = "packages")
@@ -25,6 +26,7 @@ packages = {
     "ninja-build": ninja_build,
     "cargo-bins": cargo_bins,
     "llvm": llvm,
+    "koalaman": koalaman,
     "xpack-dev-tools": xpack_dev_tools,
     "cli": cli,
     "mvdan": mvdan,
