@@ -40,6 +40,6 @@ def shfmt_add(name, version):
 
     checkout_add_hard_link_asset(
         "{}_hard_link".format(name),
-        source = "sysroot/bin/shfmt_{}".format(bin_suffix),
+        source = "sysroot/bin/shfmt__{}_{}".format(version, bin_suffix),
         destination = "sysroot/bin/shfmt",
     )
