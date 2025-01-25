@@ -58,6 +58,6 @@ def bazelisk_add(name, version):
     chmod(
         "{}_chmod".format(name),
         type = "Setup",
-        path = "sysroot/bin/shfmt",
+        path = "sysroot/bin/bazelisk",
         mode = "0755",
     )
