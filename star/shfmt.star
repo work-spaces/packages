@@ -13,7 +13,7 @@ load(
     "info_get_platform_name",
 )
 
-def bazelisk_add(name, version):
+def shfmt_add(name, version):
     """
     Add shfmt to your sysroot.
 
