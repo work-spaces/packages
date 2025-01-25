@@ -21,12 +21,13 @@ def shfmt_add(name, version):
         name (str): The name of the rule.
         version (str): shfmt version from github.com/mvdan/sh/packages
     """
+    
+    PLATFORM_RULE = "{}_platform_archive".format(name)
     checkout_add_platform_archive(
-        name,
+        PLATFORM_RULE,
         platforms = packages[version],
     )
 
-    PLATFORM_RULE = "{}_platform_archive".format(name)
     platform = info_get_platform_name()
     suffix_map = {
         "macos-aarch64": "darwin_arm64",
