@@ -56,9 +56,8 @@ def bazelisk_add(name, version):
     )
 
     chmod(
-        name,
+        "{}_chmod".format(name),
         type = "Setup",
         path = "sysroot/bin/shfmt",
         mode = "0755",
-        deps = [HARD_LINK_RULE],
     )
