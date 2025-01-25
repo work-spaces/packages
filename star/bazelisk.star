@@ -40,6 +40,6 @@ def bazelisk_add(name, version):
 
     checkout_add_hard_link_asset(
         "{}_hard_link".format(name),
-        source = "bazelisk-{}".format(bin_suffix),
+        source = "sysroot/bin/bazelisk-{}".format(bin_suffix),
         destination = "sysroot/bin/bazelisk",
     )
