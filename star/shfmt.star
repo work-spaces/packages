@@ -13,6 +13,11 @@ load(
     "info_get_platform_name",
 )
 
+load(
+    "//@star/sdk/star/shell.star",
+    "chmod",
+)
+
 def shfmt_add(name, version):
     """
     Add shfmt to your sysroot.
@@ -21,7 +26,7 @@ def shfmt_add(name, version):
         name (str): The name of the rule.
         version (str): shfmt version from github.com/mvdan/sh/packages
     """
-    
+
     PLATFORM_RULE = "{}_platform_archive".format(name)
     checkout_add_platform_archive(
         PLATFORM_RULE,
@@ -40,9 +45,18 @@ def shfmt_add(name, version):
 
     bin_suffix = suffix_map.get(platform)
 
+    HARD_LINK_RULE = "{}_hard_link_asset".format(name)
     checkout_add_hard_link_asset(
-        name,
+        HARD_LINK_RULE,
         source = "sysroot/bin/shfmt_{}_{}".format(version, bin_suffix),
         destination = "sysroot/bin/shfmt",
         deps = [PLATFORM_RULE],
+    )
+    
+    chmod(
+        name,
+        type = "Setup",
+        path = "sysroot/bin/shfmt",
+        mode = "0755",
+        deps = [HARD_LINK_RULE],
     )

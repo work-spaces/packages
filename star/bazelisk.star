@@ -40,9 +40,18 @@ def bazelisk_add(name, version):
 
     bin_suffix = suffix_map.get(platform)
 
+    HARD_LINK_RULE = "{}_hard_link_asset".format(name)
     checkout_add_hard_link_asset(
-        name,
+        HARD_LINK_RULE,
         source = "sysroot/bin/bazelisk-{}".format(bin_suffix),
         destination = "sysroot/bin/bazelisk",
         deps = [PLATFORM_RULE],
+    )
+
+    chmod(
+        name,
+        type = "Setup",
+        path = "sysroot/bin/shfmt",
+        mode = "0755",
+        deps = [HARD_LINK_RULE],
     )
