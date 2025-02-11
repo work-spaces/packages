@@ -1,5 +1,6 @@
 """star/github.com packages"""
 
+load("ccache/packages.star", ccache = "packages")
 load("bazelbuild/packages.star", bazelbuild = "packages")
 load("astral-sh/packages.star", astral_sh = "packages")
 load("Kitware/packages.star", kitware = "packages")
@@ -19,6 +20,7 @@ load("protocolbuffers/packages.star", protocolbuffers = "packages")
 
 
 packages = {
+    "ccache": ccache,
     "bazelbuild": bazelbuild,
     "astral-sh": astral_sh,
     "Kitware": kitware,
