@@ -28,6 +28,6 @@ def ccache_add(name, version):
     checkout_update_env(
         "{}_update_env".format(name),
         vars = {
-            "CCACHE_DIR": "{}/sccache".format(info_get_path_to_store()),
+            "CCACHE_DIR": "{}/ccache".format(info_get_path_to_store()),
         },
     )
