@@ -4,11 +4,9 @@ Add sccache to the workspace
 
 load(
     "//@star/sdk/star/checkout.star",
-    "checkout_add_cargo_bin",
-    "checkout_update_asset",
-    "checkout_update_env"
+    "checkout_add_platform_archive",
+    "checkout_update_env",
 )
-
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("github.com/ccache/ccache/packages.star", "packages")
 
