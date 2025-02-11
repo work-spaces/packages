@@ -10,8 +10,9 @@ load(
 )
 
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
+load("github.com/ccache/ccache/packages.star", "packages")
 
-def sccache_add(name, version):
+def ccache_add(name, version):
     """
     Add sccache to the workspace and to .cargo/config.toml
 
@@ -20,24 +21,15 @@ def sccache_add(name, version):
         version (str): The version of sccache to add.
     """
 
-    checkout_add_cargo_bin(
-        "{}_sccache_cargo_bin".format(name),
-        crate = "sccache",
-        version = version,
-        bins = ["sccache"],
-    )
-
-    checkout_update_asset(
-        "{}_cargo_config".format(name),
-        destination = ".cargo/config.toml",
-        value = {
-            "build": {"rustc-wrapper": "sccache"},
-        },
+    PLATFORM_RULE = "{}_platform_archive".format(name)
+    checkout_add_platform_archive(
+        PLATFORM_RULE,
+        platforms = packages[version],
     )
 
     checkout_update_env(
         "{}_update_env".format(name),
         vars = {
-            "SCCACHE_DIR": "{}/sccache".format(info_get_path_to_store()),
-        }
+            "CCACHE_DIR": "{}/sccache".format(info_get_path_to_store()),
+        },
     )
