@@ -33,8 +33,8 @@ def shfmt_add(name, version):
         platforms = packages[version],
     )
 
-    platform = info_get_platform_name()
-    suffix_map = {
+    PLATFORM = info_get_platform_name()
+    SUFFIX_MAP = {
         "macos-aarch64": "darwin_arm64",
         "macos-x86_64": "darwin_amd64",
         "windows-x86_64": "windows_amd64.exe",
@@ -43,7 +43,7 @@ def shfmt_add(name, version):
         "linux-x86_64": "linux_amd64",
     }
 
-    bin_suffix = suffix_map.get(platform)
+    bin_suffix = SUFFIX_MAP.get(PLATFORM)
 
     HARD_LINK_RULE = "{}_hard_link_asset".format(name)
     checkout_add_hard_link_asset(

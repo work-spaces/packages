@@ -10,7 +10,7 @@ load(
 )
 load("arm.developer.com/gnu/arm-none-eabi/packages.star", "packages")
 
-_toolchain_contents = """
+_TOOLCHAIN_CONTENTS = """
 set(SYSROOT $ENV{SPACES_WORKSPACE}/sysroot)
 
 set(CMAKE_SYSTEM_NAME Generic CACHE INTERNAL "")
@@ -100,7 +100,7 @@ def arm_gnu_add_arm_none_eabi_add(name, version):
     checkout_add_asset(
         "{}_toolchain-cmake".format(name),
         destination = "sysroot/cmake/arm-gnu-arm-none-eabi-toolchain.cmake",
-        content = _toolchain_contents,
+        content = _TOOLCHAIN_CONTENTS,
     )
 
     checkout_update_env(

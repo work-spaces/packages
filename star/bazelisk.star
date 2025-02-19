@@ -37,8 +37,8 @@ def bazelisk_add(name, version):
         platforms = packages[version],
     )
 
-    platform = info_get_platform_name()
-    suffix_map = {
+    PLATFORM = info_get_platform_name()
+    SUFFIX_MAP = {
         "macos-aarch64": "darwin-arm64",
         "macos-x86_64": "darwin-amd64",
         "windows-x86_64": "windows-amd64.exe",
@@ -47,7 +47,7 @@ def bazelisk_add(name, version):
         "linux-x86_64": "linux-amd64",
     }
 
-    bin_suffix = suffix_map.get(platform)
+    bin_suffix = SUFFIX_MAP.get(PLATFORM)
 
     HARD_LINK_RULE = "{}_hard_link_asset".format(name)
     checkout_add_hard_link_asset(
