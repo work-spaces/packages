@@ -10,7 +10,8 @@ load(
 )
 load("//@star/sdk/star/run.star", "run_add_exec_setup")
 load("github.com/astral-sh/packages.star", astral_packages = "packages")
-load("//@star/sdk/star/workspace.star", "workspace_get_absolute_path")
+load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
+load("//@star/sdk/star/info.star", "info_get_path_to_store")
 
 def python_add_uv(name, uv_version, ruff_version, python_version, packages = []):
     """
@@ -23,17 +24,17 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [])
         python_version (str): The version of Python to install
         packages (list): The Python packages to install
     """
-    uv_platforms = astral_packages["uv"][uv_version]
-    ruff_platforms = astral_packages["ruff"][ruff_version]
+    UV_PLATFORMS = astral_packages["uv"][uv_version]
+    RUFF_PLATFORMS = astral_packages["ruff"][ruff_version]
 
     checkout_add_platform_archive(
         "{}_checkout_uv".format(name),
-        platforms = uv_platforms,
+        platforms = UV_PLATFORMS,
     )
 
     checkout_add_platform_archive(
         "{}_checkout_ruff".format(name),
-        platforms = ruff_platforms,
+        platforms = RUFF_PLATFORMS,
     )
 
     checkout_update_asset(
@@ -44,18 +45,18 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [])
         },
     )
 
-    workspace_path = workspace_get_absolute_path()
-    store_path = info.get_path_to_store()
+    WORKSPACE_PATH = workspace_get_absolute_path()
+    STORE_PATH = info_get_path_to_store()
 
     checkout_update_env(
         "{}_update_uv_env".format(name),
-        paths = ["{}/venv/bin".format(workspace_path)],
+        paths = ["{}/venv/bin".format(WORKSPACE_PATH)],
         vars = {
-            "VIRTUAL_ENV": "{}/venv".format(workspace_path),
-            "UV_TOOL_DIR": "{}/uv".format(store_path),
-            "UV_TOOL_BIN_DIR": "{}/uv/bin".format(store_path),
+            "VIRTUAL_ENV": "{}/venv".format(WORKSPACE_PATH),
+            "UV_TOOL_DIR": "{}/uv".format(STORE_PATH),
+            "UV_TOOL_BIN_DIR": "{}/uv/bin".format(STORE_PATH),
             "UV_PROJECT_ENVIRONMENT": "venv",
-            "UV_PYTHON_INSTALL_DIR": "{}/uv/python".format(store_path),
+            "UV_PYTHON_INSTALL_DIR": "{}/uv/python".format(STORE_PATH),
         },
     )
 

@@ -9,7 +9,7 @@ load(
     "checkout_update_env",
     "checkout_add_asset",
 )
-load("//@star/sdk/star/workspace.star", "workspace_get_absolute_path")
+load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 
 def llvm_add(name, version, toolchain_name = "llvm-toolchain.cmake"):
     """
@@ -32,7 +32,7 @@ def llvm_add(name, version, toolchain_name = "llvm-toolchain.cmake"):
         },
     )
 
-    toolchain_content = """
+    TOOLCHAIN_CONTENT = """
 set(SYSROOT $ENV{LLVM_SPACES_WORKSPACE}/sysroot)
 
 set(CMAKE_NO_SYSTEM_FROM_IMPORTED ON CACHE INTERNAL "LLVM don't use isystem")
@@ -54,5 +54,5 @@ set(CMAKE_SHARED_LINKER_FLAGS_INIT "-fuse-ld=lld")
     checkout_add_asset(
         "{}_toolchain".format(name),
         destination = toolchain_name,
-        content = toolchain_content,
+        content = TOOLCHAIN_CONTENT,
     )
