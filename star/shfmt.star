@@ -43,12 +43,12 @@ def shfmt_add(name, version):
         "linux-x86_64": "linux_amd64",
     }
 
-    bin_suffix = SUFFIX_MAP.get(PLATFORM)
+    BIN_SUFFIX = SUFFIX_MAP.get(PLATFORM)
 
     HARD_LINK_RULE = "{}_hard_link_asset".format(name)
     checkout_add_hard_link_asset(
         HARD_LINK_RULE,
-        source = "sysroot/bin/shfmt_{}_{}".format(version, bin_suffix),
+        source = "sysroot/bin/shfmt_{}_{}".format(version, BIN_SUFFIX),
         destination = "sysroot/bin/shfmt",
         deps = [PLATFORM_RULE],
     )
