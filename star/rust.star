@@ -61,7 +61,7 @@ def rust_add(name, version):
 
     INIT_PERMISSIONS = "{}_rustup-init-permissions".format(name)
     RUSTUP_INIT = "{}_rustup-init".format(name)
-    VSCODE_SETTINGS = "{}_VSCODE_SETTINGS".format(name)
+    VSCODE_SETTINGS = "{}_vscode_settings".format(name)
 
     run_add_exec_setup(
         "{}".format(INIT_PERMISSIONS),
