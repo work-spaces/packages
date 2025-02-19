@@ -10,6 +10,7 @@ load(
 )
 load("//@star/sdk/star/run.star", "run_add_exec_setup")
 load("github.com/astral-sh/packages.star", astral_packages = "packages")
+load("//@star/sdk/star/workspace.star", "workspace_get_absolute_path")
 
 def python_add_uv(name, uv_version, ruff_version, python_version, packages = []):
     """
@@ -43,7 +44,7 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [])
         },
     )
 
-    workspace_path = info.get_absolute_path_to_workspace()
+    workspace_path = workspace_get_absolute_path()
     store_path = info.get_path_to_store()
 
     checkout_update_env(

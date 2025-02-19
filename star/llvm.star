@@ -9,6 +9,7 @@ load(
     "checkout_update_env",
     "checkout_add_asset",
 )
+load("//@star/sdk/star/workspace.star", "workspace_get_absolute_path")
 
 def llvm_add(name, version, toolchain_name = "llvm-toolchain.cmake"):
     """
@@ -27,7 +28,7 @@ def llvm_add(name, version, toolchain_name = "llvm-toolchain.cmake"):
     checkout_update_env(
         "{}_update_env".format(name),
         vars = {
-            "LLVM_SPACES_WORKSPACE": info.get_absolute_path_to_workspace(),
+            "LLVM_SPACES_WORKSPACE": workspace_get_absolute_path(),
         },
     )
 
