@@ -1,5 +1,10 @@
 # Changes
 
+## v0.2.2
+
+- Update packages
+- Fix typo in `ccache_add()`
+
 ## v0.2.1
 
 - Remove `info_get_absolute_path_to_workspace()`
@@ -20,7 +25,7 @@
 ## Developer Notes
 
 ```sh
-export VERSION=0.2.1
+export VERSION=0.2.2
 git tag -a v$VERSION -m "Update version"
 git push origin tag v$VERSION
 ```
