@@ -1,5 +1,10 @@
 # Changes
 
+## v0.2.3
+
+- Update `spaces_add()` to optionally create a link to the workspace root
+  - this allows devs to keep a fixed version of spaces in the workspace
+
 ## v0.2.2
 
 - Update packages
@@ -25,7 +30,7 @@
 ## Developer Notes
 
 ```sh
-export VERSION=0.2.2
+export VERSION=0.2.3
 git tag -a v$VERSION -m "Update version"
 git push origin tag v$VERSION
 ```
