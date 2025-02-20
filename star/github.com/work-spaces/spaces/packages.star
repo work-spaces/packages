@@ -1,5 +1,6 @@
 """star/github.com/work-spaces/spaces packages"""
 
+load("v0.14.3.star", platforms_v0_14_3_star = "platforms")
 load("v0.10.4.star", platforms_v0_10_4_star = "platforms")
 load("v0.11.24.star", platforms_v0_11_24_star = "platforms")
 load("v0.11.33.star", platforms_v0_11_33_star = "platforms")
@@ -18,6 +19,7 @@ load("v0.12.6.star", platforms_v0_12_6_star = "platforms")
 
 
 packages = {
+    "v0.14.3": platforms_v0_14_3_star,
     "v0.10.4": platforms_v0_10_4_star,
     "v0.11.24": platforms_v0_11_24_star,
     "v0.11.33": platforms_v0_11_33_star,

@@ -1,5 +1,9 @@
 # Changes
 
+## v0.2.4
+
+- Update to latest releases (includes spaces and ruff)
+
 ## v0.2.3
 
 - Update `spaces_add()` to optionally create a link to the workspace root
@@ -30,7 +34,7 @@
 ## Developer Notes
 
 ```sh
-export VERSION=0.2.3
+export VERSION=0.2.4
 git tag -a v$VERSION -m "Update version"
 git push origin tag v$VERSION
 ```
