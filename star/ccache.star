@@ -7,11 +7,8 @@ load(
     "checkout_add_platform_archive",
     "checkout_update_env",
 )
-load(
-    "//@star/sdk/star/info.star",
-    "info_get_absolute_path_to_workspace",
-    "info_get_path_to_store",
-)
+load("//@star/sdk/star/info.star", "info_get_path_to_store")
+load("//@star/sdk/star/ws.star", "workspace_get_abosolute_path")
 load("github.com/ccache/ccache/packages.star", "packages")
 
 def ccache_add(name, version):
@@ -36,7 +33,7 @@ def ccache_add(name, version):
         "{}_update_env".format(name),
         vars = {
             "CCACHE_DIR": "{}/ccache".format(info_get_path_to_store()),
-            "CCACHE_BASEDIR": info_get_absolute_path_to_workspace(),
+            "CCACHE_BASEDIR": workspace_get_abosolute_path(),
             "CCACHE_ABSSTDERR": "1",
         },
     )
