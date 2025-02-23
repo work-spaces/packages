@@ -70,12 +70,11 @@ def rust_add(name, version):
     )
 
     CARGO_PATH = "{}/cargo/bin".format(info.get_path_to_store())
-    cargo_exists = fs.exists("{}/cargo".format(CARGO_PATH))
     run_add_exec_setup(
         "{}".format(RUSTUP_INIT),
         deps = ["{}".format(INIT_PERMISSIONS)],
         command = "sysroot/bin/rustup-init",
-        args = ["--version"] if cargo_exists else ["--profile=default", "--no-modify-path", "-y"],
+        args = ["--profile=default", "--no-modify-path", "-y"],
     )
 
     checkout_update_asset(
