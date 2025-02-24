@@ -1,5 +1,10 @@
 # Changes
 
+## v0.2.5
+
+- See [Milestone](https://github.com/work-spaces/packages/milestone/1?closed=1)
+- update packages
+
 ## v0.2.4
 
 - Update to latest releases (includes spaces and ruff)
@@ -34,7 +39,7 @@
 ## Developer Notes
 
 ```sh
-export VERSION=0.2.4
+export VERSION=0.2.5
 git tag -a v$VERSION -m "Update version"
 git push origin tag v$VERSION
 ```
