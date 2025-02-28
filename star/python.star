@@ -38,10 +38,10 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [])
     )
 
     checkout_update_asset(
-        "{}_black_formatter_vs_code".format(name),
+        "{}_ruff_formatter_vs_code".format(name),
         destination = ".vscode/extensions.json",
         value = {
-            "recommendations": ["ms-python.python", "ms-python.black-formatter"],
+            "recommendations": ["ms-python.python", "charliermarsh.ruff"],
         },
     )
 
