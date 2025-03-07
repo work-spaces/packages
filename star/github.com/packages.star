@@ -12,6 +12,7 @@ load("koalaman/packages.star", koalaman = "packages")
 load("xpack-dev-tools/packages.star", xpack_dev_tools = "packages")
 load("cli/packages.star", cli = "packages")
 load("mvdan/packages.star", mvdan = "packages")
+load("gohugoio/packages.star", gohugoio = "packages")
 load("facebook/packages.star", facebook = "packages")
 load("jqlang/packages.star", jqlang = "packages")
 load("work-spaces/packages.star", work_spaces = "packages")
@@ -32,6 +33,7 @@ packages = {
     "xpack-dev-tools": xpack_dev_tools,
     "cli": cli,
     "mvdan": mvdan,
+    "gohugoio": gohugoio,
     "facebook": facebook,
     "jqlang": jqlang,
     "work-spaces": work_spaces,
