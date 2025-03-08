@@ -20,11 +20,11 @@ load(
 
 def shfmt_add(name, version):
     """
-    Add shfmt to your sysroot.
+    Add `shfmt` to your sysroot.
 
     Args:
-        name (str): The name of the rule.
-        version (str): shfmt version from github.com/mvdan/sh/packages
+        name: `str` The name of the rule.
+        version: `str` shfmt version from github.com/mvdan/sh/packages
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)

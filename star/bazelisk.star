@@ -26,9 +26,11 @@ def bazelisk_add(name, version):
     """
     Add Bazelisk to your sysroot.
 
+    This also configures the bazel cache to live in the spaces store by setting `BAZELISK_HOME`.
+
     Args:
-        name (str): The name of the rule.
-        version (str): Bazelisk version from github.com/bazelbuild/bazelisk/releases
+        name: `str` The name of the rule.
+        version: `str` Bazelisk version from github.com/bazelbuild/bazelisk/releases
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)

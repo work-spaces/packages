@@ -15,10 +15,14 @@ def llvm_add(name, version, toolchain_name = "llvm-toolchain.cmake"):
     """
     Add LLVM to your sysroot.
 
+    Sets `LLVM_SPACES_WORKSPACE` to the workspace root and adds a cmake toolchain file
+    with the specified name. The toolchain file needs `LLVM_SPACES_WORKSPACE` set to 
+    work correctly.
+
     Args:
-        name (str): The name of the rule.
-        version (str): The LLVM version from //@packages/star/llvm.org/llvm
-        toolchain_name (str): The name of the toolchain file (default is "llvm-toolchain.cmake").
+        name: `str` The name of the rule.
+        version: `str` The LLVM version from //@packages/star/llvm.org/llvm
+        toolchain_name: `str` The name of the toolchain file (default is "llvm-toolchain.cmake").
     """
     checkout_add_platform_archive(
         name,

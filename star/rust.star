@@ -14,7 +14,15 @@ load("//@star/sdk/star/info.star", "info_get_path_to_store")
 
 def rust_add(name, version):
     """
-    Add the Rust toolchain to your sysroot using rustup in the spaces store
+    Add the Rust toolchain to your sysroot using rustup in the spaces store.
+
+    This function creates rules to manage the rust toolchain in the spaces store.
+    It uses `rustup_init` to install a copy of cargo and the rust toolchain.
+
+    It sets up `rust-analyzer` VS code settings for the workspace. It also sets:
+    - `RUSTUP_HOME` to the rustup directory in the spaces store
+    - `RUST_TOOLCHAIN` to the version of the rust toolchain to use
+    - `CARGO_HOME` to the cargo directory in the spaces store
 
     Args:
         name (str): The name of the rule to add the Rust toolchain to

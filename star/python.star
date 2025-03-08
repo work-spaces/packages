@@ -17,12 +17,16 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [])
     """
     Add Python to your sysroot.
 
+    This sets up the workspace to use the spaces store to cache `uv` python
+    installations. It sets `VIRTUAL_ENV` and `UV_PROJECT_ENVIRONMENT` to the workspace `venv` directory
+    which is created by a setup rule created with this function. 
+
     Args:
-        name (str): The name of the rule.
-        uv_version (str): uv version from //@packages/star/github.com/astral-sh/uv
-        ruff_version (str): ruff version from //@packages/star/github.com/astral-sh/ruff
-        python_version (str): The version of Python to install
-        packages (list): The Python packages to install
+        name: `str` The name of the rule.
+        uv_version: `str` uv version from //@packages/star/github.com/astral-sh/uv
+        ruff_version: `str` ruff version from //@packages/star/github.com/astral-sh/ruff
+        python_version: `str` The version of Python to install
+        packages: `[str]` The Python packages to install
     """
     UV_PLATFORMS = astral_packages["uv"][uv_version]
     RUFF_PLATFORMS = astral_packages["ruff"][ruff_version]

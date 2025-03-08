@@ -13,9 +13,11 @@ def cmake_add(name, version):
     """
     Add CMake to your sysroot.
 
+    This also recommends the `txws.cmake` extension for Visual Studio Code.
+
     Args:
-        name (str): The name of the rule.
-        version (str): CMake version from github.com/Kitware/CMake
+        name: `str` The name of the rule.
+        version: `str` CMake version from github.com/Kitware/CMake
     """
     checkout_add_platform_archive(
         name,

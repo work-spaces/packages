@@ -13,11 +13,13 @@ load("//@star/sdk/star/info.star", "info_get_path_to_store")
 
 def sccache_add(name, version):
     """
-    Add sccache to the workspace and to .cargo/config.toml
+    Add sccache to the workspace and to .cargo/config.toml.
+
+    Sets `SCCACHE_DIR` to store cache files in the spaces store.
 
     Args:
-        name (str): The name of the rule.
-        version (str): The version of sccache to add.
+        name: `str` The name of the rule.
+        version: `str` The version of sccache to add.
     """
 
     checkout_add_cargo_bin(

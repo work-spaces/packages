@@ -12,10 +12,10 @@ def package_add(domain, owner, repo, version):
     Add a package to the workspace.
 
     Args:
-        domain (str): The domain of the package.
-        owner (str): The owner of the package.
-        repo (str): The repository of the package.
-        version (str): The version of the package.
+        domain: `str` The domain of the package.
+        owner: `str` The owner of the package.
+        repo: `str` The repository of the package.
+        version: `str` The version of the package.
     """
 
     checkout_add_platform_archive(

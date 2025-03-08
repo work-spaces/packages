@@ -19,8 +19,8 @@ def ccache_add(name, version):
     `CCACHE_BASEDIR` to the workspace.
 
     Args:
-        name (str): The name of the rule.
-        version (str): The version of ccache to add.
+        name: `str` The name of the rule.
+        version: `str` The version of ccache to add.
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
