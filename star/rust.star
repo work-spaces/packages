@@ -9,6 +9,8 @@ load(
     "checkout_update_env",
 )
 load("//@star/sdk/star/run.star", "run_add_exec_setup")
+load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
+load("//@star/sdk/star/info.star", "info_get_path_to_store")
 
 def rust_add(name, version):
     """
@@ -53,7 +55,7 @@ def rust_add(name, version):
         },
     )
 
-    STORE_PATH = info.get_path_to_store()
+    STORE_PATH = info_get_path_to_store()
     CARGO_PATH = "{}/cargo/bin".format(STORE_PATH)
     RUSTUP_HOME = "{}/rustup".format(STORE_PATH)
     CARGO_HOME = "{}/cargo".format(STORE_PATH)
@@ -74,7 +76,6 @@ def rust_add(name, version):
         args = ["755", "sysroot/bin/rustup-init"],
     )
 
-    CARGO_PATH = "{}/cargo/bin".format(info.get_path_to_store())
     run_add_exec_setup(
         "{}".format(RUSTUP_INIT),
         deps = ["{}".format(INIT_PERMISSIONS)],
@@ -90,7 +91,7 @@ def rust_add(name, version):
             "rust-analyzer.cargo.buildScripts.invocationStrategy": "once",
             "rust-analyzer.cargo.buildScripts.invocationLocation": "root",
             "rust-analyzer.cargo.buildScripts.overrideCommand": [
-                "cargo",
+                "{}/cargo".format(CARGO_PATH),
                 "check",
                 "--quiet",
                 "--message-format=json",
@@ -105,6 +106,10 @@ def rust_add(name, version):
             "rust-analyzer.imports.granularity.group": "module",
             "rust-analyzer.cargo.buildScripts.enable": True,
             "rust-analyzer.procMacro.attributes.enable": False,
-            "rust-analyzer.cargo.extraEnv": {"CARGO_HOME": CARGO_HOME, "RUSTUP_HOME": RUSTUP_HOME},
+            "rust-analyzer.cargo.extraEnv": {
+                "CARGO_HOME": CARGO_HOME, 
+                "RUSTUP_HOME": RUSTUP_HOME,
+                "PATH": "{}/sysroot/bin:{}".format(workspace_get_absolute_path(), CARGO_PATH)
+            },
         },
     )
