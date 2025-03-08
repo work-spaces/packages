@@ -28,6 +28,11 @@ def rust_add(name, version):
         "link": "Hard",
     }
 
+    MACOS_AARCH64 = MACOS_X86_64 | {
+        "url": "https://static.rust-lang.org/rustup/dist/aarch64-apple-darwin/rustup-init",
+        "sha256": "966892cda29f0152315f5b4add9b865944c97d5573ae33855b8fc2c0d592ca5a"
+    }
+
     LINUX_X86_64 = MACOS_X86_64 | {
         "url": "https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init",
         "sha256": "6aeece6993e902708983b209d04c0d1dbb14ebb405ddb87def578d41f920f56d",
@@ -42,7 +47,7 @@ def rust_add(name, version):
         "rustup-init-archive",
         platforms = {
             "macos-x86_64": MACOS_X86_64,
-            "macos-aarch64": MACOS_X86_64,
+            "macos-aarch64": MACOS_AARCH64,
             "linux-x86_64": LINUX_X86_64,
             "windows-x86_64": WINDOWS_X86_64,
         },
