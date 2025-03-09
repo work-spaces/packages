@@ -24,6 +24,14 @@ def rust_add(name, version):
     - `RUST_TOOLCHAIN` to the version of the rust toolchain to use
     - `CARGO_HOME` to the cargo directory in the spaces store
 
+    Example:
+
+    ```python
+    load("//@star/packages/star/rust.star", "rust_add")
+
+    rust_add("rust", "1.80")
+    ```
+
     Args:
         name (str): The name of the rule to add the Rust toolchain to
         version (str): The version of the Rust toolchain to install

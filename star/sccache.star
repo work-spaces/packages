@@ -17,6 +17,14 @@ def sccache_add(name, version):
 
     Sets `SCCACHE_DIR` to store cache files in the spaces store.
 
+    Example:
+
+    ```python
+    load("//@star/packages/star/sccache.star", "sccache_add")
+
+    sccache_add("sccache0", "0.8")
+    ```
+
     Args:
         name: `str` The name of the rule.
         version: `str` The version of sccache to add.

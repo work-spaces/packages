@@ -13,9 +13,17 @@ def spaces_add(name, version, add_link_to_workspace_root = False):
     """
     Add the spaces binary to a workflow.
 
-    All workflows should include a copy of the spaces binary so that the run
-    rules will continue to work reproducibly even if the system spaces binary
+    All workflows should include a copy of `spaces` so that the run
+    rules will continue to work reproducibly even if the system copy of `spaces`
     is updated.
+
+    Example:
+
+    ```python
+    load("//@star/packages/star/spaces-cli.star", "spaces_add")
+
+    spaces_add("spaces0", "v0.14.4")
+    ```
 
     Args:
         name: `str` The name of the binary
