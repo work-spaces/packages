@@ -18,9 +18,17 @@ def ccache_add(name, version):
     This will also set `CCACHE_DIR` to the spaces store. It will set
     `CCACHE_BASEDIR` to the workspace.
 
+    Example:
+
+    ```python
+    load("//@star/packages/star/ccache.star", "ccache_add")
+
+    ccache_add("ccache4", "v4.10.2")
+    ```
+
     Args:
-        name (str): The name of the rule.
-        version (str): The version of ccache to add.
+        name: `str` The name of the rule.
+        version: `str` The version of ccache to add.
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
