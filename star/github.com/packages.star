@@ -1,9 +1,9 @@
 """star/github.com packages"""
 
 load("ccache/packages.star", ccache = "packages")
+load("Kitware/packages.star", kitware = "packages")
 load("bazelbuild/packages.star", bazelbuild = "packages")
 load("astral-sh/packages.star", astral_sh = "packages")
-load("Kitware/packages.star", kitware = "packages")
 load("google/packages.star", google = "packages")
 load("ninja-build/packages.star", ninja_build = "packages")
 load("cargo-bins/packages.star", cargo_bins = "packages")
@@ -22,9 +22,9 @@ load("protocolbuffers/packages.star", protocolbuffers = "packages")
 
 packages = {
     "ccache": ccache,
+    "Kitware": kitware,
     "bazelbuild": bazelbuild,
     "astral-sh": astral_sh,
-    "Kitware": kitware,
     "google": google,
     "ninja-build": ninja_build,
     "cargo-bins": cargo_bins,
