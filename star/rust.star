@@ -125,7 +125,7 @@ def rust_add(name, version):
             "rust-analyzer.cargo.extraEnv": {
                 "CARGO_HOME": CARGO_HOME, 
                 "RUSTUP_HOME": RUSTUP_HOME,
-                "PATH": "{}/sysroot/bin:{}".format(workspace_get_absolute_path(), CARGO_PATH)
+                "PATH": "{}/sysroot/bin:{}:/usr/bin:/bin".format(workspace_get_absolute_path(), CARGO_PATH)
             },
         },
     )
