@@ -8,8 +8,8 @@ platforms = {
   "linux-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "680eab34aa04133267b6ec61073dd39a12d8678ed8c9ab56822577159ff7352c",
-    "url": "https://github.com/gohugoio/hugo/releases/download/v0.143.1/hugo_0.143.1_linux-amd64.deb"
+    "sha256": "77bd962ab1114c82de77d7d7c6f8cc7bd56fcce44d0ff7f5fb03016884c8e5cf",
+    "url": "https://github.com/gohugoio/hugo/releases/download/v0.143.1/hugo_0.143.1_linux-amd64.tar.gz"
   },
   "macos-aarch64": {
     "add_prefix": "sysroot/bin",

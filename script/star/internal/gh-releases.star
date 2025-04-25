@@ -506,7 +506,7 @@ gh_releases = xpack_releases | {
                 "name_pattern": "darwin-universal",
             },
             "linux-x86_64": {
-                "name_pattern": "linux-amd64",
+                "name_pattern": "linux-amd64.tar.gz",
             },
             "windows-x86_64": {
                 "name_pattern": "windows-amd64",
