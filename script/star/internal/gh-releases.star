@@ -516,4 +516,37 @@ gh_releases = xpack_releases | {
             },
         },
     },
+    "git-lfs_git-lfs": {
+        "settings": {
+            "domain": "github.com",
+            "owner": "git-lfs",
+            "repo": "git-lfs",
+        } | sysroot_bin,
+        "platforms": {
+            "macos-aarch64": {
+                "name_pattern": "darwin-arm64",
+                "strip_prefix": "git-lfs-$VERSION",
+            },
+            "macos-x86_64": {
+                "name_pattern": "darwin-amd64",
+                "strip_prefix": "git-lfs-$VERSION",
+            },
+            "linux-x86_64": {
+                "name_pattern": "linux-amd64",
+                "strip_prefix": "git-lfs-$VERSION",
+            },
+            "linux-aarch64": {
+                "name_pattern": "linux-arm64",
+                "strip_prefix": "git-lfs-$VERSION",
+            },
+            "windows-x86_64": {
+                "name_pattern": "windows-amd64",
+                "strip_prefix": "git-lfs-$VERSION",
+            },
+            "windows-aarch64": {
+                "name_pattern": "windows-arm64",
+                "strip_prefix": "git-lfs-$VERSION",
+            },
+        },
+    },
 }
