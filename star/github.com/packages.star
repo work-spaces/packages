@@ -1,5 +1,6 @@
 """star/github.com packages"""
 
+load("git-lfs/packages.star", git_lfs = "packages")
 load("ccache/packages.star", ccache = "packages")
 load("Kitware/packages.star", kitware = "packages")
 load("bazelbuild/packages.star", bazelbuild = "packages")
@@ -21,6 +22,7 @@ load("protocolbuffers/packages.star", protocolbuffers = "packages")
 
 
 packages = {
+    "git-lfs": git_lfs,
     "ccache": ccache,
     "Kitware": kitware,
     "bazelbuild": bazelbuild,
