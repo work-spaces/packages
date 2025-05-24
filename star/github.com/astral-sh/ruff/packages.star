@@ -1,5 +1,6 @@
 """star/github.com/astral-sh/ruff packages"""
 
+load("0.11.11.star", platforms_0_11_11_star = "platforms")
 load("0.9.1.star", platforms_0_9_1_star = "platforms")
 load("0.8.5.star", platforms_0_8_5_star = "platforms")
 load("0.9.10.star", platforms_0_9_10_star = "platforms")
@@ -18,6 +19,7 @@ load("0.9.3.star", platforms_0_9_3_star = "platforms")
 
 
 packages = {
+    "0.11.11": platforms_0_11_11_star,
     "0.9.1": platforms_0_9_1_star,
     "0.8.5": platforms_0_8_5_star,
     "0.9.10": platforms_0_9_10_star,
