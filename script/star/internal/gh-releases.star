@@ -242,19 +242,19 @@ gh_releases = xpack_releases | {
         } | sysroot_bin,
         "platforms": {
             "macos-aarch64": {
-                "name_pattern": "macos.$VERSION.tar.gz",
+                "name_pattern": "macos.v$VERSION.tar.gz",
             },
             "macos-x86_64": {
-                "name_pattern": "macos.$VERSION.tar.gz",
+                "name_pattern": "macos.v$VERSION.tar.gz",
             },
             "windows-x86_64": {
-                "name_pattern": "windows.$VERSION.tar.gz",
+                "name_pattern": "windows.v$VERSION.tar.gz",
             },
             "linux-aarch64": {
-                "name_pattern": "linux-musl.arm64.$VERSION.tar.gz",
+                "name_pattern": "linux-musl.arm64.v$VERSION.tar.gz",
             },
             "linux-x86_64": {
-                "name_pattern": "linux-musl.x86_64.$VERSION.tar.gz",
+                "name_pattern": "linux-musl.x86_64.v$VERSION.tar.gz",
             },
         },
     },

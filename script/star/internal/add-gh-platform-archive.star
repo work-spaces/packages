@@ -81,13 +81,14 @@ def add_gh_platform_archive(name, tag):
         script.print("Processing {}-{}: {}".format(name, tag, platform))
 
         platform_info = platforms[platform]
+        name_pattern = platform_info["name_pattern"].replace("$VERSION", version)
 
         # download the asset using gh based on the name_pattern
         asset_url = ""
         asset_name = ""
         for asset in assets:
             tmp_name = asset["name"]
-            found = tmp_name.find(platform_info["name_pattern"])
+            found = tmp_name.find(name_pattern)
             if found >= 0:
                 asset_url = asset["url"]
                 asset_name = asset["name"]
@@ -157,4 +158,3 @@ platforms = {}
 """.format(header, json.to_string_pretty(output_platforms))
 
     fs.write_string_to_file(path = package_file_path, content = starlark)
-
