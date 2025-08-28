@@ -22,6 +22,7 @@ load("0.5.30.star", platforms_0_5_30_star = "platforms")
 load("0.7.17.star", platforms_0_7_17_star = "platforms")
 load("0.6.16.star", platforms_0_6_16_star = "platforms")
 load("0.6.6.star", platforms_0_6_6_star = "platforms")
+load("0.8.13.star", platforms_0_8_13_star = "platforms")
 
 
 packages = {
@@ -47,4 +48,5 @@ packages = {
     "0.7.17": platforms_0_7_17_star,
     "0.6.16": platforms_0_6_16_star,
     "0.6.6": platforms_0_6_6_star,
+    "0.8.13": platforms_0_8_13_star,
 }
