@@ -8,26 +8,25 @@ platforms = {
   "linux-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "f7a504eebdb3a86d304ee416686d67f13be53650e5475f91d31feac3d05ffb6c",
+    "sha256": "e3f53135eeda08b30730fc3bc457a4e773d7bdebed76245b8effee345fd82673",
     "url": "https://github.com/google/flatbuffers/releases/download/v25.2.10/Linux.flatc.binary.clang%2B%2B-18.zip"
   },
   "macos-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "79cd6d70ecf01461a2f6ac9855c9561ae85c4b7849aa97a40fe0c0c49d137141",
+    "sha256": "eabd8e8c4d8b9381b7ea4c6324c629f9200d8bb73f94b6b28ef406efc8c06c62",
     "url": "https://github.com/google/flatbuffers/releases/download/v25.2.10/Mac.flatc.binary.zip"
   },
   "macos-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "a12600851415abbf6730b15aed1344318017a2a6dda9573c6edf3739f16117ad",
+    "sha256": "c0d5142c465809b92fbe1eb1fd528e418de53da9de69bbb078df3fcf7443fee0",
     "url": "https://github.com/google/flatbuffers/releases/download/v25.2.10/MacIntel.flatc.binary.zip"
   },
   "windows-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "2d791c10c1c49b1d36b018e09c0750c85603100d4f62ea7a5457a5d2820e36e0",
+    "sha256": "bd9b3cb6bf5ab8009f1927b6e00207db968c3d5c93e3bc215dae084cc681249a",
     "url": "https://github.com/google/flatbuffers/releases/download/v25.2.10/Windows.flatc.binary.zip"
   }
 }
-

@@ -8,38 +8,37 @@ platforms = {
   "linux-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "ec9e0c67201325bbb704abcfe9fa8f84ab8d64920cf0c67273c6afa975371fbd",
+    "sha256": "e5e24dbd8bef9b3d5579c20f118fec62ccd9a72c0f7a7534179a662b45feb47a",
     "url": "https://github.com/bazelbuild/bazelisk/releases/download/v1.24.0/bazelisk-linux-arm64"
   },
   "linux-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "8fede4d1fde801590d6e7cf919e705f740768d56ae38d55d473536714719af04",
+    "sha256": "c50d662dcec8832eca56be673f5f9eef31d66a82d47762f46c7a7cd63edfa314",
     "url": "https://github.com/bazelbuild/bazelisk/releases/download/v1.24.0/bazelisk-linux-amd64"
   },
   "macos-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "9a63c0c3ee6e99b3e664c596667a02980ad64440ee0bd01c3fa099ac147b6539",
+    "sha256": "8e13a5ca47fcdb34c283dcc9e301a4cb47d4986adf6a4c74626a5c43589d26ae",
     "url": "https://github.com/bazelbuild/bazelisk/releases/download/v1.24.0/bazelisk-darwin-arm64"
   },
   "macos-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "da518d9199d43a1541054e90b3cdcad4d4b2056907bc1b859405992e2a9714f1",
+    "sha256": "cee2dd6f98a3c164303cfcad97e955d51e609993476572e7ccba2b571ed2c78f",
     "url": "https://github.com/bazelbuild/bazelisk/releases/download/v1.24.0/bazelisk-darwin-amd64"
   },
   "windows-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "388bd7be984d8539509bea67c3a9d4003fda703bae329404311e252e9b478b37",
+    "sha256": "abb66d1aac869aa65d9a0e9756907ac01529e5eebdaa1e7390bc738ef6beb865",
     "url": "https://github.com/bazelbuild/bazelisk/releases/download/v1.24.0/bazelisk-windows-arm64.exe"
   },
   "windows-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "6a8fc015f19efcb02746fb03289d5ef0826b5f05ad74e091ef510768f43308c5",
+    "sha256": "72c4687ce3faa45027730518fbcc8b3dc904f1ee705dc2a31d4ab1481b02cf8c",
     "url": "https://github.com/bazelbuild/bazelisk/releases/download/v1.24.0/bazelisk-windows-amd64.exe"
   }
 }
-
