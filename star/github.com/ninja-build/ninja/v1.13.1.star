@@ -8,38 +8,37 @@ platforms = {
   "linux-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "b2b2f956963ef6300841c253a7aa81c3e9e5dbd2ed059bee6f8bcd851b5bb096",
+    "sha256": "740f1b9f9d8ae68438240a6a2f3f7a27fc8b1946d2024a6a6b25857ee877987b",
     "url": "https://github.com/ninja-build/ninja/releases/download/v1.13.1/ninja-linux-aarch64.zip"
   },
   "linux-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "46aa8ad0a431e9b6e39f6ca0abc47bf8b13be094e3ac7d0f6d39e94bbdc746f9",
+    "sha256": "0830252db77884957a1a4b87b05a1e2d9b5f658b8367f82999a941884cbe0238",
     "url": "https://github.com/ninja-build/ninja/releases/download/v1.13.1/ninja-linux.zip"
   },
   "macos-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "229314c7ef65e9c11d19f84e5f4bb374105a4f21f64ed55e8f403df765ab52a7",
+    "sha256": "da7797794153629aca5570ef7c813342d0be214ba84632af886856e8f0063dd9",
     "url": "https://github.com/ninja-build/ninja/releases/download/v1.13.1/ninja-mac.zip"
   },
   "macos-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "229314c7ef65e9c11d19f84e5f4bb374105a4f21f64ed55e8f403df765ab52a7",
+    "sha256": "da7797794153629aca5570ef7c813342d0be214ba84632af886856e8f0063dd9",
     "url": "https://github.com/ninja-build/ninja/releases/download/v1.13.1/ninja-mac.zip"
   },
   "windows-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "f089535ab1536d3017628ac60542e731a4fda431417826a442308f0bb128330b",
+    "sha256": "fb959b674970e36a7c9a23191524b80fb5298fc71fc98bfa42456bcc0a8dfb2f",
     "url": "https://github.com/ninja-build/ninja/releases/download/v1.13.1/ninja-winarm64.zip"
   },
   "windows-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "beb3c1bfcd01d352cb46586a4677b0a49a93b7bb668cfa5d0695283e1d8efb61",
+    "sha256": "26a40fa8595694dec2fad4911e62d29e10525d2133c9a4230b66397774ae25bf",
     "url": "https://github.com/ninja-build/ninja/releases/download/v1.13.1/ninja-win.zip"
   }
 }
-

@@ -8,38 +8,37 @@ platforms = {
   "linux-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "fddc5e1c31c8a8a5b38218286b7fce39d24b4f68274d2b518694e4db3a9fea28",
+    "sha256": "b096a3586346dc74bb50e2ffb8003e9fe89fd8f5e8b1e030e72052dde44742bb",
     "url": "https://github.com/cargo-bins/cargo-binstall/releases/download/v1.14.4/cargo-binstall-aarch64-unknown-linux-gnu.tgz"
   },
   "linux-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "6102f94b57813dd89d79e562c70ce67eb20b4fb0abb6114428f55e489e641bd9",
+    "sha256": "7f0aad5360c0bc063557867301dc6b13a1e8e1eb3f99d9291fde0497f2a58512",
     "url": "https://github.com/cargo-bins/cargo-binstall/releases/download/v1.14.4/cargo-binstall-x86_64-unknown-linux-gnu.tgz"
   },
   "macos-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "07d46d31fb68ac10b906c5d39d611ded7787966f4ed15c598cb6175b45a2b069",
+    "sha256": "7d9b3f57dafbc847d9de690773f467ff976edc0afb5bfca037a0762e8030152d",
     "url": "https://github.com/cargo-bins/cargo-binstall/releases/download/v1.14.4/cargo-binstall-aarch64-apple-darwin.zip"
   },
   "macos-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "3de381bdcca08c418dc790d2a283711894a0577c6e55bba0d4e6cb8b0378b36d",
+    "sha256": "398c9ef78dffdb0179dbb15ad8c1ed40f351854430c439006c09e07e6a6f181b",
     "url": "https://github.com/cargo-bins/cargo-binstall/releases/download/v1.14.4/cargo-binstall-x86_64-apple-darwin.zip"
   },
   "windows-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "e998ed6f30fc4c979bead45f555dc56c85962197a451b12dbe0fdc4de61d63c4",
+    "sha256": "da7ad61840bfde2fc694f09c31c1836e6ea6b34f83e4366e01d972bad9a29fa1",
     "url": "https://github.com/cargo-bins/cargo-binstall/releases/download/v1.14.4/cargo-binstall-aarch64-pc-windows-msvc.zip"
   },
   "windows-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "a43fb6403e7286c08387c5d0f2780306da7a61c5f0a893761b160d3e2d1cee5a",
+    "sha256": "941b86a3bb0ff113d318d1515e00972b2faf669ba6bfabd67d18356ec1c3ca5d",
     "url": "https://github.com/cargo-bins/cargo-binstall/releases/download/v1.14.4/cargo-binstall-x86_64-pc-windows-msvc.zip"
   }
 }
-

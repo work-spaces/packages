@@ -8,37 +8,36 @@ platforms = {
   "linux-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "52baba71881c978d32b7c32216ad0cde4546a4dc62e606c9834ec4616c1610eb",
+    "sha256": "1c6045bec4d5ca17777dd271401a0407c5acad79f74fd38f35c31ca64c689808",
     "strip_prefix": "uv-aarch64-unknown-linux-musl",
     "url": "https://github.com/astral-sh/uv/releases/download/0.8.11/uv-aarch64-unknown-linux-musl.tar.gz"
   },
   "linux-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "560bb64e060354e45138d7dd47c8dd48a4f7a349af5520d29cd3c704e79f286c",
+    "sha256": "0c66f4d06a4f933bddf75d4ad64e0e2d717f015ba1876c51e32ff293c84f57d5",
     "strip_prefix": "uv-x86_64-unknown-linux-musl",
     "url": "https://github.com/astral-sh/uv/releases/download/0.8.11/uv-x86_64-unknown-linux-musl.tar.gz"
   },
   "macos-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "721f532b73171586574298d4311a91d5ea2c802ef4db3ebafc434239330090c6",
+    "sha256": "c9e74f779a65798057bca2ff328d5c9952f458391e220c3d3216d7a03a338d9f",
     "strip_prefix": "uv-aarch64-apple-darwin",
     "url": "https://github.com/astral-sh/uv/releases/download/0.8.11/uv-aarch64-apple-darwin.tar.gz"
   },
   "macos-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "d785753ac092e25316180626aa691c5dfe1fb075290457ba4fdb72c7c5661321",
+    "sha256": "7ed76b0cc314fa0cb6dd7ae99379efd3cf8fc14d71af8d71b0b5238582c7958d",
     "strip_prefix": "uv-x86_64-apple-darwin",
     "url": "https://github.com/astral-sh/uv/releases/download/0.8.11/uv-x86_64-apple-darwin.tar.gz"
   },
   "windows-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "e199b10bef1a7cc540014483e7f60f825a174988f41020e9d2a6b01bd60f0669",
+    "sha256": "3e802b69307b10f228c8f1d096bd5721ac37a133bf33672f9fcc46a58dd5c920",
     "strip_prefix": "uv-x86_64-pc-windows-msvc",
     "url": "https://github.com/astral-sh/uv/releases/download/0.8.11/uv-x86_64-pc-windows-msvc.zip"
   }
 }
-

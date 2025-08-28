@@ -8,37 +8,36 @@ platforms = {
   "linux-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "26152b092f6ace9bec1fe91b39fe11f55428ce5fba87f5de0ec6b16e2c65928f",
+    "sha256": "9a90ef4761d75ee1a5158cc2fbd787c78dcfb1c12532a00a3c13b915db720c2e",
     "strip_prefix": "uv-aarch64-unknown-linux-musl",
     "url": "https://github.com/astral-sh/uv/releases/download/0.6.2/uv-aarch64-unknown-linux-musl.tar.gz"
   },
   "linux-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "71347d2fdda9e3e7105ecd3a8566e3b607da9fddf23ac83adafcf6451ea9139d",
+    "sha256": "fcd01693df76379be5bc325efa43c644cf0704a2e720ccd6695f41ded09934d7",
     "strip_prefix": "uv-x86_64-unknown-linux-musl",
     "url": "https://github.com/astral-sh/uv/releases/download/0.6.2/uv-x86_64-unknown-linux-musl.tar.gz"
   },
   "macos-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "74f501d91b4db0b767d5d621086d3e2e8acc3f5356cf5527de80e97bb312a626",
+    "sha256": "4af802a1216053650dd82eee85ea4241994f432937d41c8b0bc90f2639e6ae14",
     "strip_prefix": "uv-aarch64-apple-darwin",
     "url": "https://github.com/astral-sh/uv/releases/download/0.6.2/uv-aarch64-apple-darwin.tar.gz"
   },
   "macos-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "66a0f5ea3aee2d497450138ae1e99f734eed7457af5e839a41ef219d51e90e17",
+    "sha256": "2b9e78b2562aea93f13e42df1177cb07c59a4d4f1c8ff8907d0c31f3a5e5e8db",
     "strip_prefix": "uv-x86_64-apple-darwin",
     "url": "https://github.com/astral-sh/uv/releases/download/0.6.2/uv-x86_64-apple-darwin.tar.gz"
   },
   "windows-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "9968e8ef4b567d5690ccb9ac6e8338eb56cb964c57430a2843dd21f88ec5b81a",
+    "sha256": "5f33c3cc5c183775cc51b3e661a0d2ce31142d32a50406a67c7ad0321fc841d9",
     "strip_prefix": "uv-x86_64-pc-windows-msvc",
     "url": "https://github.com/astral-sh/uv/releases/download/0.6.2/uv-x86_64-pc-windows-msvc.zip"
   }
 }
-

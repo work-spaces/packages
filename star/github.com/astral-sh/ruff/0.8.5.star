@@ -8,37 +8,36 @@ platforms = {
   "linux-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "a9978f88e3e5e1c2789f93cc1f264cf8981f7a4b6969ea8dd7e630c5c46e3972",
+    "sha256": "120a34b83b45374466914d2a5836f68c31dc99f04f490816a5a16e72ce4879fb",
     "strip_prefix": "ruff-aarch64-unknown-linux-musl",
     "url": "https://github.com/astral-sh/ruff/releases/download/0.8.5/ruff-aarch64-unknown-linux-musl.tar.gz"
   },
   "linux-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "14c104c0d862b0419766136f616973cedd549b33863f480b5b6dcd6fcc75747b",
+    "sha256": "187b47984ab559a5ad0a1d3401c37fd1afa8c3816ef21cc073240b64026f0c85",
     "strip_prefix": "ruff-x86_64-unknown-linux-musl",
     "url": "https://github.com/astral-sh/ruff/releases/download/0.8.5/ruff-x86_64-unknown-linux-musl.tar.gz"
   },
   "macos-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "b99da0f689b01d5b556fe2f66a756c99fe85b78cebd19f73817de7315438d53e",
+    "sha256": "36043a503192fd0c4c37b3f4b9f4d4351a6a3b1734120f0c780b4b8dc4ebea4a",
     "strip_prefix": "ruff-aarch64-apple-darwin",
     "url": "https://github.com/astral-sh/ruff/releases/download/0.8.5/ruff-aarch64-apple-darwin.tar.gz"
   },
   "macos-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "92b471249c6c7341ebfc75719620e7d1b01ef70a8ffe1309549e98b57d4d9850",
+    "sha256": "04ac1eaa178ba358bfd4d31926cdf588f1bee2c6a2085d220ff20ad15f8c117f",
     "strip_prefix": "ruff-x86_64-apple-darwin",
     "url": "https://github.com/astral-sh/ruff/releases/download/0.8.5/ruff-x86_64-apple-darwin.tar.gz"
   },
   "windows-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "297b8b1c8a888cadd12ca6baf4af115cc65890ccee75d51ca4057000cb0f4c3a",
+    "sha256": "3cbe83e67640f080f8fee0daa47929c5f88c89af6e0b50a69339051629a593c0",
     "strip_prefix": "ruff-x86_64-pc-windows-msvc",
     "url": "https://github.com/astral-sh/ruff/releases/download/0.8.5/ruff-x86_64-pc-windows-msvc.zip"
   }
 }
-

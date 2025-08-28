@@ -8,37 +8,36 @@ platforms = {
   "linux-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "3ca33d9b68b8b0bc7e3673b7638910ac2f7c5399303b37bec4d13c005481a78a",
+    "sha256": "cade8ed7dde323d5592928c0ce75c78c34d514cc51e044cb0d0f7766d3c7a2b7",
     "strip_prefix": "ruff-aarch64-unknown-linux-musl",
     "url": "https://github.com/astral-sh/ruff/releases/download/0.12.1/ruff-aarch64-unknown-linux-musl.tar.gz"
   },
   "linux-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "bb64b083767a5fd0a62e10e9a35614974ad53025e2878cf14a0c698680e6c30c",
+    "sha256": "490102d2426a2941dea07af49dc8befbe4f0d2c29dfeb4290adde824a10099ed",
     "strip_prefix": "ruff-x86_64-unknown-linux-musl",
     "url": "https://github.com/astral-sh/ruff/releases/download/0.12.1/ruff-x86_64-unknown-linux-musl.tar.gz"
   },
   "macos-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "814ccb26bed9c027bfc20ac88d33494ab0be62721757c73be70e26c23efbb3f7",
+    "sha256": "f33ec69d83f713e0ff2cb720969325bb1553e43978e2f1c21498bd31e11fc643",
     "strip_prefix": "ruff-aarch64-apple-darwin",
     "url": "https://github.com/astral-sh/ruff/releases/download/0.12.1/ruff-aarch64-apple-darwin.tar.gz"
   },
   "macos-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "8bef00e82bc07ea26b45adcffc3d55b2d0821f3a3e4d5f441f4dd4ad608fc1be",
+    "sha256": "eb1728cfd8b969079e232047c70ece00dbb110248b61dd5f9b7e57191fd466c1",
     "strip_prefix": "ruff-x86_64-apple-darwin",
     "url": "https://github.com/astral-sh/ruff/releases/download/0.12.1/ruff-x86_64-apple-darwin.tar.gz"
   },
   "windows-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "b7619ff27098a4d7f37c52fb8fc61ccfe677aaade7722a385b40f8d5273ebddd",
+    "sha256": "ed16ae044866378c27855f44400c1eb0db8ecec26ef07582dae1d550b968d9fe",
     "strip_prefix": "ruff-x86_64-pc-windows-msvc",
     "url": "https://github.com/astral-sh/ruff/releases/download/0.12.1/ruff-x86_64-pc-windows-msvc.zip"
   }
 }
-
