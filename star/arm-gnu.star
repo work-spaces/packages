@@ -82,7 +82,7 @@ if(thumbv8m.main-none-eabihf)
 endif()
 
 set(CMAKE_CXX_FLAGS "${LOCAL_C_FLAGS} -fno-exceptions -fno-unwind-tables -fno-rtti" CACHE STRING "CMAKE CXX FLAGS")
-set(CMAKE_C_FLAGS "${LOCAL_C_FLAGS}" CACHE STRING "CMAKE C FLAGS
+set(CMAKE_C_FLAGS "${LOCAL_C_FLAGS}" CACHE STRING "CMAKE C FLAGS")
 """
 
 def arm_gnu_add_arm_none_eabi_add(name, version):
