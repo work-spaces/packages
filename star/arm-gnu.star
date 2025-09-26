@@ -81,8 +81,8 @@ if(thumbv8m.main-none-eabihf)
     set(LOCAL_C_FLAGS "${LOCAL_C_FLAGS} -mcpu=cortex-m33 -mfloat-abi=hard -mfpu=fpv5-sp-d16")
 endif()
 
-set(CMAKE_CXX_FLAGS "${LOCAL_C_FLAGS} -fno-exceptions -fno-unwind-tables -fno-rtti" CACHE STRING "CMAKE CXX FLAGS")
-set(CMAKE_C_FLAGS "${LOCAL_C_FLAGS}" CACHE STRING "CMAKE C FLAGS")
+set(CMAKE_CXX_FLAGS_INIT "${LOCAL_C_FLAGS} -fno-exceptions -fno-unwind-tables -fno-rtti" CACHE STRING "CMAKE CXX FLAGS")
+set(CMAKE_C_FLAGS_INIT "${LOCAL_C_FLAGS}" CACHE STRING "CMAKE C FLAGS")
 """
 
 def arm_gnu_add_arm_none_eabi_add(name, version):
