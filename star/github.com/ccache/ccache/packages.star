@@ -1,6 +1,7 @@
 """star/github.com/ccache/ccache packages"""
 
 load("v4.7.5.star", platforms_v4_7_5_star = "platforms")
+load("v4.12.1.star", platforms_v4_12_1_star = "platforms")
 load("v4.11.star", platforms_v4_11_star = "platforms")
 load("v4.11.3.star", platforms_v4_11_3_star = "platforms")
 load("v4.11.2.star", platforms_v4_11_2_star = "platforms")
@@ -12,6 +13,7 @@ load("v4.10.2.star", platforms_v4_10_2_star = "platforms")
 
 packages = {
     "v4.7.5": platforms_v4_7_5_star,
+    "v4.12.1": platforms_v4_12_1_star,
     "v4.11": platforms_v4_11_star,
     "v4.11.3": platforms_v4_11_3_star,
     "v4.11.2": platforms_v4_11_2_star,
