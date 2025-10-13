@@ -1,0 +1,39 @@
+
+"""
+Spaces starlark checkout for https://github.com/oras-project/oras:v1.3.0
+"""
+
+
+platforms = {
+  "linux-aarch64": {
+    "add_prefix": "sysroot/bin",
+    "link": "Hard",
+    "sha256": "7649738b48fde10542bcc8b0e9b460ba83936c75fb5be01ee6d4443764a14352",
+    "url": "https://github.com/oras-project/oras/releases/download/v1.3.0/oras_1.3.0_linux_arm64.tar.gz"
+  },
+  "linux-x86_64": {
+    "add_prefix": "sysroot/bin",
+    "link": "Hard",
+    "sha256": "6cdc692f929100feb08aa8de584d02f7bcc30ec7d88bc2adc2054d782db57c64",
+    "url": "https://github.com/oras-project/oras/releases/download/v1.3.0/oras_1.3.0_linux_amd64.tar.gz"
+  },
+  "macos-aarch64": {
+    "add_prefix": "sysroot/bin",
+    "link": "Hard",
+    "sha256": "e10c6552c02d5a7c7eaf7170d3b6f7f094b675a98a1e0edf4d4478a909447245",
+    "url": "https://github.com/oras-project/oras/releases/download/v1.3.0/oras_1.3.0_darwin_arm64.tar.gz"
+  },
+  "macos-x86_64": {
+    "add_prefix": "sysroot/bin",
+    "link": "Hard",
+    "sha256": "82c33f7da8430ea7fa7e7bdf7721be0a0d0481e5ccb2472ea438490d5e8641a9",
+    "url": "https://github.com/oras-project/oras/releases/download/v1.3.0/oras_1.3.0_darwin_amd64.tar.gz"
+  },
+  "windows-x86_64": {
+    "add_prefix": "sysroot/bin",
+    "link": "Hard",
+    "sha256": "b050e93aa0dc7a79a61fa8e4074dfa302c41d4af01b634fe393c5dd687536aee",
+    "url": "https://github.com/oras-project/oras/releases/download/v1.3.0/oras_1.3.0_windows_amd64.zip"
+  }
+}
+

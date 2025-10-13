@@ -51,7 +51,7 @@ gh_releases = xpack_releases | {
             },
             "windows-aarch64": {
                 "name_pattern": "windows_arm64.zip",
-                "strip_prefix": "gh_$VERSION_windows_amd64",
+                "strip_prefix": "gh_$VERSION_windows_arm64",
             },
             "windows-x86_64": {
                 "name_pattern": "windows_amd64.zip",

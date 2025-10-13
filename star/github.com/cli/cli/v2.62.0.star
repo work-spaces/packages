@@ -37,7 +37,7 @@ platforms = {
     "add_prefix": "sysroot",
     "link": "Hard",
     "sha256": "650a27ca2475858cbaab3476b475ddaabc262aa3d4ff2242b6eb0498084e9f38",
-    "strip_prefix": "gh_2.62.0_windows_amd64",
+    "strip_prefix": "gh_2.62.0_windows_arm64",
     "url": "https://github.com/cli/cli/releases/download/v2.62.0/gh_2.62.0_windows_arm64.zip"
   },
   "windows-x86_64": {
@@ -48,4 +48,3 @@ platforms = {
     "url": "https://github.com/cli/cli/releases/download/v2.62.0/gh_2.62.0_windows_amd64.zip"
   }
 }
-
