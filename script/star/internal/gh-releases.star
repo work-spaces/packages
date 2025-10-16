@@ -549,4 +549,33 @@ gh_releases = xpack_releases | {
             },
         },
     },
+    "uutils_coreutils": {
+        "settings": {
+            "domain": "github.com",
+            "owner": "uutils",
+            "repo": "coreutils",
+        } | sysroot_bin,
+        "platforms": {
+            "macos-aarch64": {
+                "name_pattern": "aarch64-apple-darwin",
+                "strip_prefix": "coreutils-$VERSION-aarch64-apple-darwin",
+            },
+            "macos-x86_64": {
+                "name_pattern": "x86_64-apple-darwin",
+                "strip_prefix": "coreutils-$VERSION-x86_64-apple-darwin",
+            },
+            "linux-x86_64": {
+                "name_pattern": "x86_64-unknown-linux-gnu",
+                "strip_prefix": "coreutils-$VERSION-x86_64-unknown-linux-gnu",
+            },
+            "linux-aarch64": {
+                "name_pattern": "aarch64-unknown-linux-gnu",
+                "strip_prefix": "coreutils-$VERSION-aarch64-unknown-linux-gnu",
+            },
+            "windows-x86_64": {
+                "name_pattern": "x86_64-pc-windows-gnu",
+                "strip_prefix": "git-lfs-$VERSION",
+            }
+        },
+    }
 }
