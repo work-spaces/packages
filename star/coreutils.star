@@ -116,4 +116,5 @@ def coreutils_add(name, version):
             "coreutils_{}".format(func),
             source = "sysroot/bin/coreutils",
             destination = "sysroot/bin/{}".format(func),
+            deps = [name]
         )
