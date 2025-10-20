@@ -12,6 +12,15 @@ load("//@star/sdk/star/run.star", "run_add_exec_setup")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 
+
+
+def _get_url(platform, suffix = None):
+    _RUSTUP_VERSION = "1.28.1"
+    url = "https://static.rust-lang.org/rustup/archive/{}/{}/rustup-init".format(_RUSTUP_VERSION, platform)
+    if suffix != None:
+        url += suffix
+    return url
+
 def rust_add(name, version):
     """
     Add the Rust toolchain to your sysroot using rustup in the spaces store.
@@ -40,25 +49,25 @@ def rust_add(name, version):
     # more binaries https://forge.rust-lang.org/infra/other-installation-methods.html
 
     MACOS_X86_64 = {
-        "url": "https://static.rust-lang.org/rustup/dist/x86_64-apple-darwin/rustup-init",
-        "sha256": "f547d77c32d50d82b8228899b936bf2b3c72ce0a70fb3b364e7fba8891eba781",
+        "url": _get_url("x86_64-apple-darwin"),
+        "sha256": "e4b1f9ec613861232247e0cb6361c9bb1a86525d628ecd4b9feadc9ef9e0c228",
         "add_prefix": "sysroot/bin",
         "link": "Hard",
     }
 
     MACOS_AARCH64 = MACOS_X86_64 | {
-        "url": "https://static.rust-lang.org/rustup/dist/aarch64-apple-darwin/rustup-init",
+        "url": _get_url("aarch64-apple-darwin"),
         "sha256": "966892cda29f0152315f5b4add9b865944c97d5573ae33855b8fc2c0d592ca5a"
     }
 
     LINUX_X86_64 = MACOS_X86_64 | {
-        "url": "https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init",
+        "url": _get_url("x86_64-unknown-linux-gnu"),
         "sha256": "6aeece6993e902708983b209d04c0d1dbb14ebb405ddb87def578d41f920f56d",
     }
 
     WINDOWS_X86_64 = MACOS_X86_64 | {
-        "url": "https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe",
-        "sha256": "193d6c727e18734edbf7303180657e96e9d5a08432002b4e6c5bbe77c60cb3e8",
+        "url": _get_url("x86_64-pc-windows-msvc", suffix = ".exe"),
+        "sha256": "7b83039a1b9305b0c50f23b2e2f03319b8d7859b28106e49ba82c06d81289df6",
     }
 
     checkout_add_platform_archive(
@@ -123,7 +132,7 @@ def rust_add(name, version):
             "rust-analyzer.cargo.buildScripts.enable": True,
             "rust-analyzer.procMacro.attributes.enable": False,
             "rust-analyzer.cargo.extraEnv": {
-                "CARGO_HOME": CARGO_HOME, 
+                "CARGO_HOME": CARGO_HOME,
                 "RUSTUP_HOME": RUSTUP_HOME,
                 "PATH": "{}/sysroot/bin:{}:/usr/bin:/bin".format(workspace_get_absolute_path(), CARGO_PATH)
             },
