@@ -2,7 +2,7 @@
 Add Buildifier to your sysroot.
 """
 
-load("github.com/bazelbuild/bazelisk/packages.star", "packages")
+load("github.com/bazelbuild/buildtools/packages.star", "packages")
 
 load(
     "//@star/sdk/star/checkout.star",
