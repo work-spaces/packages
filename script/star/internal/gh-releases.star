@@ -285,6 +285,33 @@ gh_releases = xpack_releases | {
             },
         },
     },
+    "bazelbuild_buildtools": {
+        "settings": {
+            "domain": "github.com",
+            "owner": "bazelbuild",
+            "repo": "buildtools",
+        } | sysroot_bin,
+        "platforms": {
+            "macos-aarch64": {
+                "name_pattern": "darwin-arm64",
+            },
+            "macos-x86_64": {
+                "name_pattern": "darwin-amd64",
+            },
+            "windows-x86_64": {
+                "name_pattern": "windows-amd64.exe",
+            },
+            "windows-aarch64": {
+                "name_pattern": "windows-arm64.exe",
+            },
+            "linux-aarch64": {
+                "name_pattern": "linux-arm64",
+            },
+            "linux-x86_64": {
+                "name_pattern": "linux-amd64",
+            },
+        },
+    },
     "astral-sh_uv": {
         "settings": {
             "domain": "github.com",
