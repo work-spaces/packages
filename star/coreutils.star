@@ -118,3 +118,28 @@ def coreutils_add(name, version):
             destination = "sysroot/bin/{}".format(func),
             deps = [name]
         )
+
+
+def coreutils_add_rs_tools(name):
+    """
+    Adds a collection of rust developer tools to the workspace.
+
+    Args:
+        name: name of the rule to checkout the rust tools collection.
+    """
+
+    CARGO_BINS = [
+        {"crate": "xh", "version": "0.25.0", "bins": ["xh"]},
+        {"crate": "fd-find", "version": "10.3.0", "bins": ["fd"]},
+        {"crate": "ripgrep", "version": "15.1.0", "bins": ["rg"]},
+        {"crate": "eza", "version": "0.23.4", "bins": ["eza"]},
+        {"crate": "rm-improved", "version": "0.13.1", "bins": ["rip"]},
+    ]
+
+    for bin in CARGO_BINS:
+        checkout_add_cargo_bin(
+            "{}_{}".format(name, bin["crate"]),
+            crate = bin["crate"],
+            version = bin["version"],
+            bins = bin["bins"]
+        )
