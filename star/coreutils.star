@@ -4,7 +4,8 @@ Spaces starlark function for adding coreutils to the workspace.
 
 load("//@star/sdk/star/checkout.star",
     "checkout_add_platform_archive",
-    "checkout_add_hard_link_asset")
+    "checkout_add_hard_link_asset",
+    "checkout_add_cargo_bin")
 load("github.com/uutils/coreutils/packages.star", "packages")
 
 DEFAULT_FUNCTIONS = [
