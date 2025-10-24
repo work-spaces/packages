@@ -130,6 +130,7 @@ def coreutils_add_rs_tools(name):
     """
 
     CARGO_BINS = [
+        {"crate": "bat", "version": "0.26.0", "bins": ["bat"]},
         {"crate": "xh", "version": "0.25.0", "bins": ["xh"]},
         {"crate": "fd-find", "version": "10.3.0", "bins": ["fd"]},
         {"crate": "ripgrep", "version": "15.1.0", "bins": ["rg"]},
