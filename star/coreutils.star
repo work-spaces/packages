@@ -148,7 +148,7 @@ def coreutils_add_rs_tools(name):
         )
 
     checkout_update_env(
-        "{}_env".format(name)
+        "{}_env".format(name),
         vars = {
             "BAT_PAGING": "never",
         }
