@@ -18,6 +18,12 @@ load(
     "chmod",
 )
 
+load(
+"//@star/sdk/star/run.star",
+    "RUN_INPUTS_ONCE",
+)
+
+
 def shfmt_add(name, version):
     """
     Add `shfmt` to your sysroot.
@@ -52,10 +58,11 @@ def shfmt_add(name, version):
         destination = "sysroot/bin/shfmt",
         deps = [PLATFORM_RULE],
     )
-    
+
     chmod(
         "{}_chmod".format(name),
         type = "Setup",
         path = "sysroot/bin/shfmt",
         mode = "0755",
+        inputs = RUN_INPUTS_ONCE,
     )
