@@ -5,7 +5,8 @@ Spaces starlark function for adding coreutils to the workspace.
 load("//@star/sdk/star/checkout.star",
     "checkout_add_platform_archive",
     "checkout_add_hard_link_asset",
-    "checkout_add_cargo_bin")
+    "checkout_add_cargo_bin",
+    "checkout_update_env")
 load("github.com/uutils/coreutils/packages.star", "packages")
 
 DEFAULT_FUNCTIONS = [
@@ -145,3 +146,10 @@ def coreutils_add_rs_tools(name):
             version = bin["version"],
             bins = bin["bins"]
         )
+
+    checkout_update_env(
+        "{}_env".format(name)
+        env = {
+            "BAT_PAGING": "never",
+        }
+    )
