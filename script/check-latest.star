@@ -16,6 +16,16 @@ load("star/internal/http-releases.star", "http_releases")
 load("star/internal/add-http-platform-archive.star", "add_http_platform_archive")
 
 
+if fs.exists("tmp"):
+    script.print("Removing ./tmp directory")
+    rm_tmp = process.exec({
+        "command": "rm",
+        "args": [
+            "-rf",
+            "./tmp",
+        ],
+    })
+
 info.set_minimum_version("0.11.20")
 
 for release in gh_releases:
