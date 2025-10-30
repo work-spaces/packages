@@ -2,25 +2,26 @@
 Add Buildifier to your sysroot.
 """
 
-load("github.com/bazelbuild/buildtools/packages.star", "packages")
-
 load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_hard_link_asset",
     "checkout_add_platform_archive",
-    "checkout_update_env"
+    "checkout_update_env",
 )
-
 load(
     "//@star/sdk/star/info.star",
-    "info_get_platform_name",
     "info_get_path_to_store",
+    "info_get_platform_name",
 )
-
+load(
+    "//@star/sdk/star/run.star",
+    "RUN_INPUTS_ONCE",
+)
 load(
     "//@star/sdk/star/shell.star",
     "chmod",
 )
+load("github.com/bazelbuild/buildtools/packages.star", "packages")
 
 def buildifier_add(name, version):
     """
@@ -62,4 +63,5 @@ def buildifier_add(name, version):
         type = "Setup",
         path = "sysroot/bin/buildifier",
         mode = "0755",
+        inputs = RUN_INPUTS_ONCE,
     )

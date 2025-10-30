@@ -2,11 +2,13 @@
 Spaces starlark function for adding coreutils to the workspace.
 """
 
-load("//@star/sdk/star/checkout.star",
-    "checkout_add_platform_archive",
-    "checkout_add_hard_link_asset",
+load(
+    "//@star/sdk/star/checkout.star",
     "checkout_add_cargo_bin",
-    "checkout_update_env")
+    "checkout_add_hard_link_asset",
+    "checkout_add_platform_archive",
+    "checkout_update_env",
+)
 load("github.com/uutils/coreutils/packages.star", "packages")
 
 DEFAULT_FUNCTIONS = [
@@ -94,7 +96,8 @@ DEFAULT_FUNCTIONS = [
     "unlink",
     "vdir",
     "wc",
-    "yes"]
+    "yes",
+]
 
 def coreutils_add(name, version):
     """
@@ -118,9 +121,8 @@ def coreutils_add(name, version):
             "coreutils_{}".format(func),
             source = "sysroot/bin/coreutils",
             destination = "sysroot/bin/{}".format(func),
-            deps = [name]
+            deps = [name],
         )
-
 
 def coreutils_add_rs_tools(name):
     """
@@ -144,12 +146,12 @@ def coreutils_add_rs_tools(name):
             "{}_{}".format(name, bin["crate"]),
             crate = bin["crate"],
             version = bin["version"],
-            bins = bin["bins"]
+            bins = bin["bins"],
         )
 
     checkout_update_env(
         "{}_env".format(name),
         vars = {
             "BAT_PAGING": "never",
-        }
+        },
     )

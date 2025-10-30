@@ -2,12 +2,12 @@
 Add CMake to your sysroot.
 """
 
-load("github.com/Kitware/CMake/packages.star", "packages")
 load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_platform_archive",
     "checkout_update_asset",
 )
+load("github.com/Kitware/CMake/packages.star", "packages")
 
 def cmake_add(name, version):
     """

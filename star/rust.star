@@ -8,11 +8,9 @@ load(
     "checkout_update_asset",
     "checkout_update_env",
 )
+load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/run.star", "run_add_exec_setup")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
-load("//@star/sdk/star/info.star", "info_get_path_to_store")
-
-
 
 def _get_url(platform, suffix = None):
     _RUSTUP_VERSION = "1.28.1"
@@ -57,7 +55,7 @@ def rust_add(name, version):
 
     MACOS_AARCH64 = MACOS_X86_64 | {
         "url": _get_url("aarch64-apple-darwin"),
-        "sha256": "966892cda29f0152315f5b4add9b865944c97d5573ae33855b8fc2c0d592ca5a"
+        "sha256": "966892cda29f0152315f5b4add9b865944c97d5573ae33855b8fc2c0d592ca5a",
     }
 
     LINUX_X86_64 = MACOS_X86_64 | {
@@ -134,7 +132,7 @@ def rust_add(name, version):
             "rust-analyzer.cargo.extraEnv": {
                 "CARGO_HOME": CARGO_HOME,
                 "RUSTUP_HOME": RUSTUP_HOME,
-                "PATH": "{}/sysroot/bin:{}:/usr/bin:/bin".format(workspace_get_absolute_path(), CARGO_PATH)
+                "PATH": "{}/sysroot/bin:{}:/usr/bin:/bin".format(workspace_get_absolute_path(), CARGO_PATH),
             },
         },
     )

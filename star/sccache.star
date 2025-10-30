@@ -6,9 +6,8 @@ load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_cargo_bin",
     "checkout_update_asset",
-    "checkout_update_env"
+    "checkout_update_env",
 )
-
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 
 def sccache_add(name, version):
@@ -49,5 +48,5 @@ def sccache_add(name, version):
         "{}_update_env".format(name),
         vars = {
             "SCCACHE_DIR": "{}/sccache".format(info_get_path_to_store()),
-        }
+        },
     )
