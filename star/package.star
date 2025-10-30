@@ -2,9 +2,8 @@
 Add a package to the workspace.
 """
 
-load("packages.star", "packages")
 load("//@star/sdk/star/checkout.star", "checkout_add_platform_archive")
-
+load("packages.star", "packages")
 
 def package_add(domain, owner, repo, version):
     """
@@ -35,5 +34,3 @@ def package_add(domain, owner, repo, version):
         "{}_{}_{}_{}".format(domain, owner, repo, version),
         platforms = packages[domain][owner][repo][version],
     )
-
-

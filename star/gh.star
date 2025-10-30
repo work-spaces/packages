@@ -18,4 +18,3 @@ def gh_add(name, version):
         name = name,
         platforms = packages[version],
     )
-

@@ -2,7 +2,6 @@
 Add shfmt to your sysroot.
 """
 
-load("github.com/mvdan/sh/packages.star", "packages")
 load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_hard_link_asset",
@@ -12,17 +11,15 @@ load(
     "//@star/sdk/star/info.star",
     "info_get_platform_name",
 )
-
+load(
+    "//@star/sdk/star/run.star",
+    "RUN_INPUTS_ONCE",
+)
 load(
     "//@star/sdk/star/shell.star",
     "chmod",
 )
-
-load(
-"//@star/sdk/star/run.star",
-    "RUN_INPUTS_ONCE",
-)
-
+load("github.com/mvdan/sh/packages.star", "packages")
 
 def shfmt_add(name, version):
     """

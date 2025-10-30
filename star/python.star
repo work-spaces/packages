@@ -6,12 +6,12 @@ load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_platform_archive",
     "checkout_update_asset",
-    "checkout_update_env"
+    "checkout_update_env",
 )
-load("//@star/sdk/star/run.star", "run_add_exec_setup")
-load("github.com/astral-sh/packages.star", astral_packages = "packages")
-load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
+load("//@star/sdk/star/run.star", "run_add_exec_setup")
+load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
+load("github.com/astral-sh/packages.star", astral_packages = "packages")
 
 def python_add_uv(name, uv_version, ruff_version, python_version, packages = []):
     """
@@ -19,7 +19,7 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [])
 
     This sets up the workspace to use the spaces store to cache `uv` python
     installations. It sets `VIRTUAL_ENV` and `UV_PROJECT_ENVIRONMENT` to the workspace `venv` directory
-    which is created by a setup rule created with this function. 
+    which is created by a setup rule created with this function.
 
     Args:
         name: `str` The name of the rule.

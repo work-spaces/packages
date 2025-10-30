@@ -2,21 +2,21 @@
 Add LLVM to your sysroot.
 """
 
-load("github.com/llvm/llvm-project/packages.star", github_llvm_project_packages = "packages")
 load(
     "//@star/sdk/star/checkout.star",
+    "checkout_add_asset",
     "checkout_add_platform_archive",
     "checkout_update_env",
-    "checkout_add_asset",
 )
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
+load("github.com/llvm/llvm-project/packages.star", github_llvm_project_packages = "packages")
 
 def llvm_add(name, version, toolchain_name = "llvm-toolchain.cmake"):
     """
     Add LLVM to your sysroot.
 
     Sets `LLVM_SPACES_WORKSPACE` to the workspace root and adds a cmake toolchain file
-    with the specified name. The toolchain file needs `LLVM_SPACES_WORKSPACE` set to 
+    with the specified name. The toolchain file needs `LLVM_SPACES_WORKSPACE` set to
     work correctly.
 
     Args:
