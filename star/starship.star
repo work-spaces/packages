@@ -99,7 +99,7 @@ def starship_add_zsh(name, bin_path = "/bin/zsh", version = "1.24.0", preset = "
         destination = "shell.spaces.toml",
         value = {
             "path": bin_path,
-            "args": ["--init-file", "{}/.spaces/shell/bash_startup.sh".format(workspace_get_absolute_path())],
+            "args": [],
             "startup": {
                 "name": ".zshrc",
                 "env_name": "ZDOTDIR",
