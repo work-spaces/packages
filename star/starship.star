@@ -8,21 +8,22 @@ load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_cargo_bin",
     "checkout_update_asset",
+    "checkout_update_env",
 )
 load(
     "//@star/sdk/star/ws.star",
     "workspace_get_absolute_path",
 )
 
+def _get_starship_preset(preset):
+    return "starship preset {} -o $SPACES_WORKSPACE/.spaces/shell/starship.toml".format(preset)
+
+def _get_starship_prompt(prompt):
+    if prompt != None:
+        return "starship config format \"{} \\$all\" && echo 'Welcome to Spaces!'".format(prompt)
+    return "echo 'Welcome to Spaces!'"
+
 def _checkout_add_binary(name, version):
-    """
-    Adds a binary to the workspace.
-
-    Args:
-        name: name of the rule to checkout the rust tools collection.
-        version: version of the binary to checkout.
-    """
-
     checkout_add_cargo_bin(
         "{}_starship".format(name),
         crate = "starship",
@@ -30,7 +31,14 @@ def _checkout_add_binary(name, version):
         bins = ["starship"],
     )
 
-def starship_add_bash(name, bin_path = "/bin/bash", version = "1.24.0", preset = "plain-text-symbols"):
+    checkout_update_env(
+        "{}_starship_env".format(name),
+        vars = {
+            "STARSHIP_CONFIG": "{}/.spaces/shell/starship.toml".format(workspace_get_absolute_path()),
+        },
+    )
+
+def starship_add_bash(name, bin_path = "/bin/bash", version = "1.24.0", preset = "plain-text-symbols", prompt = "\\(s\\)"):
     """
     Adds starship and configures it to use bash with `spaces shell`
 
@@ -53,13 +61,14 @@ def starship_add_bash(name, bin_path = "/bin/bash", version = "1.24.0", preset =
                 "name": "bash_startup.sh",
                 "contents": """
 eval "$(starship init bash)"
-starship preset {} -o $SPACES_WORKSPACE/.spaces/shell/starship.toml
-""".format(preset),
+{}
+{}
+""".format(_get_starship_preset(preset), _get_starship_prompt(prompt)),
             },
         },
     )
 
-def starship_add_fish(name, bin_path = "/usr/local/bin/fish", version = "1.24.0", preset = "plain-text-symbols"):
+def starship_add_fish(name, bin_path = "/usr/local/bin/fish", version = "1.24.0", preset = "plain-text-symbols", prompt = "\\(s\\)"):
     """
     Adds starship and configures it to use fish with `spaces shell`
 
@@ -77,11 +86,11 @@ def starship_add_fish(name, bin_path = "/usr/local/bin/fish", version = "1.24.0"
         destination = "shell.spaces.toml",
         value = {
             "path": bin_path,
-            "args": ["--init-command", "starship init fish | source && starship preset {} -o $SPACES_WORKSPACE/.spaces/shell/starship.toml".format(preset)],
+            "args": ["--init-command", "starship init fish | source && {} && {}".format(_get_starship_preset(preset), _get_starship_prompt(prompt))],
         },
     )
 
-def starship_add_zsh(name, bin_path = "/bin/zsh", version = "1.24.0", preset = "plain-text-symbols"):
+def starship_add_zsh(name, bin_path = "/bin/zsh", version = "1.24.0", preset = "plain-text-symbols", prompt = "\\(s\\)"):
     """
     Adds starship and configures it to use fish with `spaces shell`
 
@@ -105,8 +114,9 @@ def starship_add_zsh(name, bin_path = "/bin/zsh", version = "1.24.0", preset = "
                 "env_name": "ZDOTDIR",
                 "contents": """
 eval "$(starship init zsh)"
-starship preset {} -o $SPACES_WORKSPACE/.spaces/shell/starship.toml
-""".format(preset),
+{}
+{}
+""".format(_get_starship_preset(preset), _get_starship_prompt(prompt)),
             },
         },
     )
