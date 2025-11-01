@@ -139,6 +139,7 @@ def coreutils_add_rs_tools(name):
         {"crate": "ripgrep", "version": "15.1.0", "bins": ["rg"]},
         {"crate": "eza", "version": "0.23.4", "bins": ["eza"]},
         {"crate": "rm-improved", "version": "0.13.1", "bins": ["rip"]},
+        {"crate": "gitoxide", "version": "0.46.0", "bins": ["gix", "ein"]},
     ]
 
     for bin in CARGO_BINS:
