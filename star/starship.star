@@ -44,6 +44,15 @@ def _checkout_add_binary(name, version):
         vars = {
             "STARSHIP_CONFIG": "{}/.spaces/shell/starship.toml".format(workspace_get_absolute_path()),
         },
+        optional_inherited_vars = [
+            "COLORFGBG",
+            "COLORTERM",
+            "COMMAND_MODE",
+            "LANG",
+            "TERM",
+            "TERMINFO_DIRS",
+            "TMPDIR",
+        ]
     )
 
 def _starhip_add_shell(
