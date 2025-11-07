@@ -60,7 +60,7 @@ def rust_add(name, version):
 
     LINUX_X86_64 = MACOS_X86_64 | {
         "url": _get_url("x86_64-unknown-linux-gnu"),
-        "sha256": "6aeece6993e902708983b209d04c0d1dbb14ebb405ddb87def578d41f920f56d",
+        "sha256": "a3339fb004c3d0bb9862ba0bce001861fe5cbde9c10d16591eb3f39ee6cd3e7f",
     }
 
     WINDOWS_X86_64 = MACOS_X86_64 | {
