@@ -604,5 +604,29 @@ gh_releases = xpack_releases | {
                 "strip_prefix": "git-lfs-$VERSION",
             }
         },
+    },
+    "docker_compose": {
+        "settings": {
+            "domain": "github.com",
+            "owner": "docker",
+            "repo": "compose",
+        } | sysroot_bin,
+        "platforms": {
+            "macos-aarch64": {
+                "name_pattern": "docker-compose-darwin-aarch64",
+            },
+            "macos-x86_64": {
+                "name_pattern": "docker-compose-darwin-x86_64",
+            },
+            "linux-x86_64": {
+                "name_pattern": "docker-compose-linux-x86_64",
+            },
+            "linux-aarch64": {
+                "name_pattern": "docker-compose-linux-aarch64",
+            },
+            "windows-x86_64": {
+                "name_pattern": "docker-compose-windows-x86_64.exe",
+            }
+        },
     }
 }

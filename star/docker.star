@@ -19,15 +19,15 @@ load(
     "//@star/sdk/star/shell.star",
     "chmod",
 )
-load("github.com/bazelbuild/buildtools/packages.star", "packages")
+load("github.com/docker/compose/packages.star", "packages")
 
-def buildifier_add(name, version):
+def docker_compose_add(name, version):
     """
-    Add buildifier to your sysroot.
+    Add docker compose to your sysroot.
 
     Args:
         name: `str` The name of the rule.
-        version: `str` Buildifier version from github.com/bazelbuild/buildtools/releases
+        version: `str` Docker Compose version from github.com/docker/compose/releases
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
@@ -38,12 +38,12 @@ def buildifier_add(name, version):
 
     PLATFORM = info_get_platform_name()
     SUFFIX_MAP = {
-        "macos-aarch64": "darwin-arm64",
-        "macos-x86_64": "darwin-amd64",
-        "windows-x86_64": "windows-amd64.exe",
+        "macos-aarch64": "darwin-aarch64",
+        "macos-x86_64": "darwin-x86_64",
+        "windows-x86_64": "windows-x86_64.exe",
         "windows-aarch64": "windows-arm64.exe",
-        "linux-aarch64": "linux-arm64",
-        "linux-x86_64": "linux-amd64",
+        "linux-aarch64": "linux-aarch64",
+        "linux-x86_64": "linux-x86_64",
     }
 
     BIN_SUFFIX = SUFFIX_MAP.get(PLATFORM)
@@ -51,15 +51,15 @@ def buildifier_add(name, version):
     HARD_LINK_RULE = "{}_hard_link_asset".format(name)
     checkout_add_hard_link_asset(
         HARD_LINK_RULE,
-        source = "sysroot/bin/buildifier-{}".format(BIN_SUFFIX),
-        destination = "sysroot/bin/buildifier",
+        source = "sysroot/bin/docker-compose-{}".format(BIN_SUFFIX),
+        destination = "sysroot/bin/docker-compose",
         deps = [PLATFORM_RULE],
     )
 
     chmod(
         "{}_chmod".format(name),
         type = "Setup",
-        path = "sysroot/bin/buildifier",
+        path = "sysroot/bin/docker-compose",
         mode = "0755",
         inputs = RUN_INPUTS_ONCE,
     )

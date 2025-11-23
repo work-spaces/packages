@@ -2,6 +2,7 @@
 
 load("git-lfs/packages.star", git_lfs = "packages")
 load("ccache/packages.star", ccache = "packages")
+load("docker/packages.star", docker = "packages")
 load("Kitware/packages.star", kitware = "packages")
 load("bazelbuild/packages.star", bazelbuild = "packages")
 load("astral-sh/packages.star", astral_sh = "packages")
@@ -25,6 +26,7 @@ load("protocolbuffers/packages.star", protocolbuffers = "packages")
 packages = {
     "git-lfs": git_lfs,
     "ccache": ccache,
+    "docker": docker,
     "Kitware": kitware,
     "bazelbuild": bazelbuild,
     "astral-sh": astral_sh,
