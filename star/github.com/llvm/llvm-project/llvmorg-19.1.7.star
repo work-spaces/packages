@@ -25,6 +25,13 @@ platforms = {
     "sha256": "49405e75fbe7ad6f8139a33f59ec8c5112b75b3027405c7b92d19f4c6f02c78a",
     "strip_prefix": "LLVM-19.1.7-macOS-X64",
     "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.7/LLVM-19.1.7-macOS-X64.tar.xz"
+  },
+  "windows-x86_64": {
+    "add_prefix": "sysroot",
+    "link": "Hard",
+    "sha256": "f19ae5bc4823ac69ec01dc2ded503ec80a04ad2208dda1595d1f0413c148ef90",
+    "strip_prefix": "LLVM-19.1.7-win64",
+    "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.7/LLVM-19.1.7-win64.exe"
   }
 }
 

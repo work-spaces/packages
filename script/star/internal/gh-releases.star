@@ -148,8 +148,8 @@ gh_releases = xpack_releases | {
                 "strip_prefix": "LLVM-$VERSION-macOS-X64",
             },
             "windows-x86_64": {
-                "name_pattern": "Windows-X64.tar.xz",
-                "strip_prefix": "LLVM-$VERSION-Windows-X64",
+                "name_pattern": "win64.exe",
+                "strip_prefix": "LLVM-$VERSION-win64",
             },
             "linux-x86_64": {
                 "name_pattern": "Linux-X64.tar.xz",
