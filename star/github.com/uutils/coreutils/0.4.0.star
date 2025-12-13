@@ -8,16 +8,16 @@ platforms = {
   "linux-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "021a0c1977ba1579d5e8132002215589b06b4a40fb0e1b62c9923a73bc72dee5",
-    "strip_prefix": "coreutils-0.4.0-aarch64-unknown-linux-gnu",
-    "url": "https://github.com/uutils/coreutils/releases/download/0.4.0/coreutils-0.4.0-aarch64-unknown-linux-gnu.tar.gz"
+    "sha256": "426eb4b18dd2ba9af6397211f7710f6474a8ec700d0f3249f147c544318d85a3",
+    "strip_prefix": "coreutils-0.4.0-aarch64-unknown-linux-musl",
+    "url": "https://github.com/uutils/coreutils/releases/download/0.4.0/coreutils-0.4.0-aarch64-unknown-linux-musl.tar.gz"
   },
   "linux-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "7268091c968c79289d8b081eda58e738d12f983aeb63cbf30609af629f822554",
-    "strip_prefix": "coreutils-0.4.0-x86_64-unknown-linux-gnu",
-    "url": "https://github.com/uutils/coreutils/releases/download/0.4.0/coreutils-0.4.0-x86_64-unknown-linux-gnu.tar.gz"
+    "sha256": "7658be348de0741308f59ddc0ceec0c84a879b5fad575226c4628a5ecd39c06d",
+    "strip_prefix": "coreutils-0.4.0-x86_64-unknown-linux-musl",
+    "url": "https://github.com/uutils/coreutils/releases/download/0.4.0/coreutils-0.4.0-x86_64-unknown-linux-musl.tar.gz"
   },
   "macos-aarch64": {
     "add_prefix": "sysroot/bin",

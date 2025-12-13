@@ -592,12 +592,12 @@ gh_releases = xpack_releases | {
                 "strip_prefix": "coreutils-$VERSION-x86_64-apple-darwin",
             },
             "linux-x86_64": {
-                "name_pattern": "x86_64-unknown-linux-gnu",
-                "strip_prefix": "coreutils-$VERSION-x86_64-unknown-linux-gnu",
+                "name_pattern": "x86_64-unknown-linux-musl",
+                "strip_prefix": "coreutils-$VERSION-x86_64-unknown-linux-musl",
             },
             "linux-aarch64": {
-                "name_pattern": "aarch64-unknown-linux-gnu",
-                "strip_prefix": "coreutils-$VERSION-aarch64-unknown-linux-gnu",
+                "name_pattern": "aarch64-unknown-linux-musl",
+                "strip_prefix": "coreutils-$VERSION-aarch64-unknown-linux-musl",
             },
             "windows-x86_64": {
                 "name_pattern": "x86_64-pc-windows-gnu",
