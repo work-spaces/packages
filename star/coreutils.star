@@ -2,10 +2,11 @@
 Spaces starlark function for adding coreutils to the workspace.
 """
 
+load("//@star/sdk/star/asset.star", "asset_hard_link")
 load(
     "//@star/sdk/star/checkout.star",
+    "checkout_add_any_assets",
     "checkout_add_cargo_bin",
-    "checkout_add_hard_link_asset",
     "checkout_add_platform_archive",
     "checkout_update_env",
 )
@@ -116,13 +117,14 @@ def coreutils_add(name, version):
     )
 
     # Create the hardlinks
-    for func in DEFAULT_FUNCTIONS:
-        checkout_add_hard_link_asset(
-            "coreutils_{}".format(func),
-            source = "sysroot/bin/coreutils",
-            destination = "sysroot/bin/{}".format(func),
-            deps = [name],
-        )
+    checkout_add_any_assets(
+        "{}_corutils_hard_links".format(name),
+        assets = [
+            asset_hard_link("sysroot/bin/coreutils", "sysroot/bin/{}".format(func))
+            for func in DEFAULT_FUNCTIONS
+        ],
+        deps = [name],
+    )
 
 def coreutils_add_rs_tools(name):
     """
