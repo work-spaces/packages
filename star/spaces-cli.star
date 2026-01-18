@@ -70,7 +70,6 @@ def spaces_isolate_workspace(name, version, system_paths = None):
     COREUTILS_RULE = "{}_coreutils".format(name)
     COREUTILS_RS_RULE = "{}_coreutils_rs".format(name)
     SPACES_RULE = "{}_spaces".format(name)
-    BUILDIFIER_RULE = "{}_buildifier".format(name)
 
     spaces_add(SPACES_RULE, version)
 

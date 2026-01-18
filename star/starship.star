@@ -7,7 +7,6 @@ Add starship cross shell prompt to the workspace and configure it
 load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_cargo_bin",
-    "checkout_update_asset",
     "checkout_update_env",
     "checkout_update_shell",
     "checkout_update_shell_shortcuts",
@@ -52,7 +51,7 @@ def _checkout_add_binary(name, version):
             "TERM",
             "TERMINFO_DIRS",
             "TMPDIR",
-        ]
+        ],
     )
 
 def _starhip_add_shell(
@@ -61,7 +60,6 @@ def _starhip_add_shell(
         shell_path,
         args,
         shortcuts,
-        startup_name = "startup.sh",
         startup_contents = None,
         startup_env = None):
     _checkout_add_binary(name, version)
@@ -96,8 +94,10 @@ def starship_add_bash(
     Args:
         name: name of the rules
         shell_path: path to the bash binary
-        version: version of the starship binary to checkout.
-        preset: preset to use for starship
+        version: `str` the starship version to use
+        prompt: prompt to pre-pend to the starship prompt
+        preset: preset to use for starship,
+        shortcuts: `dict` shortcuts to add the the shell
     """
 
     STARTUP_CONTENTS = """eval "$(starship init bash)"
@@ -133,7 +133,9 @@ def starship_add_fish(
         name: name of the rules
         shell_path: path to the fish binary
         version: version of the starship binary to checkout.
+        prompt: prompt to pre-pend to the starship prompt
         preset: preset to use for starship
+        shortcuts: `dict` shortcuts to add the the shell
     """
 
     ARGS = [
@@ -163,6 +165,8 @@ def starship_add_zsh(
         shell_path: path to the zsh binary
         version: version of the starship binary to checkout.
         preset: preset to use for starship
+        prompt: prompt to pre-pend to the starship prompt
+        shortcuts: `dict` shortcuts to add the the shell
     """
 
     STARTUP_CONTENTS = """eval "$(starship init zsh)"

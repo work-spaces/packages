@@ -11,8 +11,7 @@ load("package.star", "package_add")
 
 def node_add(name, version):
     """
-    Adds the specified version of node.js and configures the node
-    cache to point to the spaces store.
+    Adds the specified version of node.js and configures the node cache to point to the spaces store.
 
     Args:
         name (str): The name of the rule to add node
