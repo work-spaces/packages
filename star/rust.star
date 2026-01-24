@@ -19,7 +19,7 @@ def _get_url(platform, suffix = None):
         url += suffix
     return url
 
-def rust_add(name, version):
+def rust_add(name, version, configure_vscode = True, configure_zed = True):
     """
     Add the Rust toolchain to your sysroot using rustup in the spaces store.
 
@@ -40,8 +40,10 @@ def rust_add(name, version):
     ```
 
     Args:
-        name (str): The name of the rule to add the Rust toolchain to
-        version (str): The version of the Rust toolchain to install
+        name: `str` The name of the rule to add the Rust toolchain to
+        version: `str` The version of the Rust toolchain to install
+        configure_vscode: `bool` Whether to configure VS code settings for the workspace (default is `True`)
+        configure_zed: `bool` Whether to configure Zed settings for the workspace (default is `True`)
     """
 
     # more binaries https://forge.rust-lang.org/infra/other-installation-methods.html
@@ -92,6 +94,7 @@ def rust_add(name, version):
     INIT_PERMISSIONS = "{}_rustup-init-permissions".format(name)
     RUSTUP_INIT = "{}_rustup-init".format(name)
     VSCODE_SETTINGS = "{}_vscode_settings".format(name)
+    ZED_SETTINGS = "{}_zed_settings".format(name)
 
     run_add_exec_setup(
         "{}".format(INIT_PERMISSIONS),
@@ -106,33 +109,56 @@ def rust_add(name, version):
         args = ["--profile=default", "--no-modify-path", "-y"],
     )
 
-    checkout_update_asset(
-        VSCODE_SETTINGS,
-        destination = ".vscode/settings.json",
-        format = "json",
-        value = {
-            "rust-analyzer.cargo.buildScripts.invocationStrategy": "once",
-            "rust-analyzer.cargo.buildScripts.invocationLocation": "root",
-            "rust-analyzer.cargo.buildScripts.overrideCommand": [
-                "{}/cargo".format(CARGO_PATH),
-                "check",
-                "--quiet",
-                "--message-format=json",
-                "--all-targets",
-                "--keep-going",
-            ],
-            "rust-analyzer.cargo.targetDir": "target-rust-analyzer",
-            "rust-analyzer.check.noDefaultFeatures": True,
-            "rust-analyzer.cargo.noDefaultFeatures": True,
-            "rust-analyzer.showUnlinkedFileNotification": False,
-            "rust-analyzer.imports.granularity.enforce": True,
-            "rust-analyzer.imports.granularity.group": "module",
-            "rust-analyzer.cargo.buildScripts.enable": True,
-            "rust-analyzer.procMacro.attributes.enable": False,
-            "rust-analyzer.cargo.extraEnv": {
-                "CARGO_HOME": CARGO_HOME,
-                "RUSTUP_HOME": RUSTUP_HOME,
-                "PATH": "{}/sysroot/bin:{}:/usr/bin:/bin".format(workspace_get_absolute_path(), CARGO_PATH),
+    if configure_vscode:
+        checkout_update_asset(
+            VSCODE_SETTINGS,
+            destination = ".vscode/settings.json",
+            format = "json",
+            value = {
+                "rust-analyzer.cargo.buildScripts.invocationStrategy": "once",
+                "rust-analyzer.cargo.buildScripts.invocationLocation": "root",
+                "rust-analyzer.cargo.buildScripts.overrideCommand": [
+                    "{}/cargo".format(CARGO_PATH),
+                    "check",
+                    "--quiet",
+                    "--message-format=json",
+                    "--all-targets",
+                    "--keep-going",
+                ],
+                "rust-analyzer.cargo.targetDir": "target-rust-analyzer",
+                "rust-analyzer.check.noDefaultFeatures": True,
+                "rust-analyzer.cargo.noDefaultFeatures": True,
+                "rust-analyzer.showUnlinkedFileNotification": False,
+                "rust-analyzer.imports.granularity.enforce": True,
+                "rust-analyzer.imports.granularity.group": "module",
+                "rust-analyzer.cargo.buildScripts.enable": True,
+                "rust-analyzer.procMacro.attributes.enable": False,
+                "rust-analyzer.cargo.extraEnv": {
+                    "CARGO_HOME": CARGO_HOME,
+                    "RUSTUP_HOME": RUSTUP_HOME,
+                    "PATH": "{}/sysroot/bin:{}:/usr/bin:/bin".format(workspace_get_absolute_path(), CARGO_PATH),
+                },
             },
-        },
-    )
+        )
+
+    if configure_zed:
+        checkout_update_asset(
+            ZED_SETTINGS,
+            destination = ".zed/settings.json",
+            format = "json",
+            value = {
+                "lsp": {
+                    "rust-analyzer": {
+                        "binary": {
+                            "env": {
+                                "CARGO_HOME": "{}/cargo".format(STORE_PATH),
+                                "PATH": "{}/sysroot/bin:{}:/usr/bin:/bin".format(workspace_get_absolute_path(), CARGO_PATH),
+                                "RUSTUP_HOME": "{}/rustup".format(STORE_PATH),
+                            },
+                            "path": "{}/cargo/bin/rust-analyzer".format(STORE_PATH),
+                            "ignore_system_version": True,
+                        },
+                    },
+                },
+            },
+        )
