@@ -12,7 +12,7 @@ load(
 )
 load("github.com/uutils/coreutils/packages.star", "packages")
 
-DEFAULT_FUNCTIONS = [
+COREUTILS_DEFAULT_FUNCTIONS = [
     "b2sum",
     "b3sum",
     "base32",
@@ -100,15 +100,16 @@ DEFAULT_FUNCTIONS = [
     "yes",
 ]
 
-def coreutils_add(name, version):
+def coreutils_add(name, version, functions = COREUTILS_DEFAULT_FUNCTIONS):
     """
     Adds the coreutils executable to the sysroot.
 
     Hardlinks functions to the coreutils multifunction binary
 
     Args:
-        name: name of the rule to checkout coreutils
-        version: The version of the release found in @packages/star/github.com/uutils/coreutils
+        name: `str` name of the rule to checkout coreutils
+        version: `str` The version of the release found in @packages/star/github.com/uutils/coreutils
+        functions: `[str]` The list of coreutils functions to install (default is COREUTILS_DEFAULT_FUNCTIONS)
     """
 
     checkout_add_platform_archive(
@@ -121,7 +122,7 @@ def coreutils_add(name, version):
         "{}_corutils_hard_links".format(name),
         assets = [
             asset_hard_link("sysroot/bin/coreutils", "sysroot/bin/{}".format(func))
-            for func in DEFAULT_FUNCTIONS
+            for func in functions
         ],
         deps = [name],
     )
