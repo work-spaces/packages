@@ -52,7 +52,7 @@ def spaces_add(name, version, add_link_to_workspace_root = False):
             deps = [name],
         )
 
-def spaces_isolate_workspace(name, version, system_paths = None):
+def spaces_isolate_workspace(name, version, system_paths = None, coreutils_version = "0.5.0"):
     """
     Isolate the workspace by omitting all system paths from the environment.
 
@@ -82,7 +82,7 @@ def spaces_isolate_workspace(name, version, system_paths = None):
         system_paths = system_paths,
     )
 
-    coreutils_add(COREUTILS_RULE, "0.4.0")
+    coreutils_add(COREUTILS_RULE, coreutils_version)
     coreutils_add_rs_tools(COREUTILS_RS_RULE)
 
 def spaces_add_star_formatter(name, configure_zed = False):
