@@ -28,9 +28,15 @@ def package_add(domain, owner, repo, version):
         owner: `str` The owner of the package.
         repo: `str` The repository of the package.
         version: `str` The version of the package.
+
+    Returns:
+        `str` The name of the rule used to checkout the package.
     """
 
+    RULE_NAME = "{}_{}_{}_{}".format(domain, owner, repo, version)
     checkout_add_platform_archive(
-        "{}_{}_{}_{}".format(domain, owner, repo, version),
+        RULE_NAME,
         platforms = packages[domain][owner][repo][version],
     )
+
+    return RULE_NAME
