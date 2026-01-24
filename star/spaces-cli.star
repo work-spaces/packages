@@ -14,7 +14,7 @@ load(
     "workspace_get_absolute_path",
 )
 load("buildifier.star", "buildifier_add")
-load("coreutils.star", "coreutils_add", "coreutils_add_rs_tools")
+load("coreutils.star", "COREUTILS_DEFAULT_FUNCTIONS", "coreutils_add", "coreutils_add_rs_tools")
 load("github.com/work-spaces/spaces/packages.star", "packages")
 
 def spaces_add(name, version, add_link_to_workspace_root = False):
@@ -52,7 +52,7 @@ def spaces_add(name, version, add_link_to_workspace_root = False):
             deps = [name],
         )
 
-def spaces_isolate_workspace(name, version, system_paths = None, coreutils_version = "0.5.0"):
+def spaces_isolate_workspace(name, version, system_paths = None, coreutils_version = "0.5.0", coreutils_functions = COREUTILS_DEFAULT_FUNCTIONS):
     """
     Isolate the workspace by omitting all system paths from the environment.
 
@@ -64,6 +64,8 @@ def spaces_isolate_workspace(name, version, system_paths = None, coreutils_versi
         name: `str` The base name of the checkout rule
         version: `str` The version of spaces to use in the isolated workspace
         system_paths: `list` The list of system paths to add to the environment
+        coreutils_version: `str` The version of coreutils to use in the isolated workspace
+        coreutils_functions: `list` The list of coreutils functions to install (default is all)
     """
 
     UPDATE_ENV_NAME = "{}_update_env".format(name)
@@ -82,7 +84,7 @@ def spaces_isolate_workspace(name, version, system_paths = None, coreutils_versi
         system_paths = system_paths,
     )
 
-    coreutils_add(COREUTILS_RULE, coreutils_version)
+    coreutils_add(COREUTILS_RULE, coreutils_version, coreutils_functions)
     coreutils_add_rs_tools(COREUTILS_RS_RULE)
 
 def spaces_add_star_formatter(name, configure_zed = False):
