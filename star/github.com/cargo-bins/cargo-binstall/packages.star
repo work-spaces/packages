@@ -28,6 +28,7 @@ load("v1.10.18.star", platforms_v1_10_18_star = "platforms")
 load("v1.10.22.star", platforms_v1_10_22_star = "platforms")
 load("v1.10.19.star", platforms_v1_10_19_star = "platforms")
 load("v1.12.0.star", platforms_v1_12_0_star = "platforms")
+load("v1.17.3.star", platforms_v1_17_3_star = "platforms")
 
 
 packages = {
@@ -59,4 +60,5 @@ packages = {
     "v1.10.22": platforms_v1_10_22_star,
     "v1.10.19": platforms_v1_10_19_star,
     "v1.12.0": platforms_v1_12_0_star,
+    "v1.17.3": platforms_v1_17_3_star,
 }
