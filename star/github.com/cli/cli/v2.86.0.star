@@ -1,0 +1,51 @@
+
+"""
+Spaces starlark checkout for https://github.com/cli/cli:v2.86.0
+"""
+
+
+platforms = {
+  "linux-aarch64": {
+    "add_prefix": "sysroot",
+    "link": "Hard",
+    "sha256": "83cf7a7962ea9dfcc2c123666695792916a87af32cba5f1f6e585db08fa57547",
+    "strip_prefix": "gh_2.86.0_linux_arm64",
+    "url": "https://github.com/cli/cli/releases/download/v2.86.0/gh_2.86.0_linux_arm64.tar.gz"
+  },
+  "linux-x86_64": {
+    "add_prefix": "sysroot",
+    "link": "Hard",
+    "sha256": "f3b08bd6a28420cc2229b0a1a687fa25f2b838d3f04b297414c1041ca68103c7",
+    "strip_prefix": "gh_2.86.0_linux_amd64",
+    "url": "https://github.com/cli/cli/releases/download/v2.86.0/gh_2.86.0_linux_amd64.tar.gz"
+  },
+  "macos-aarch64": {
+    "add_prefix": "sysroot",
+    "link": "Hard",
+    "sha256": "bde753978a352c5ae6c4abec47334d516e82807af20c9dbbd45507a5a0aedaaa",
+    "strip_prefix": "gh_2.86.0_macOS_arm64",
+    "url": "https://github.com/cli/cli/releases/download/v2.86.0/gh_2.86.0_macOS_arm64.zip"
+  },
+  "macos-x86_64": {
+    "add_prefix": "sysroot",
+    "link": "Hard",
+    "sha256": "ced7094d05702eb54a63542abd8a1dc570b7e5ae94951844eb1626ba74bc2c60",
+    "strip_prefix": "gh_2.86.0_macOS_amd64",
+    "url": "https://github.com/cli/cli/releases/download/v2.86.0/gh_2.86.0_macOS_amd64.zip"
+  },
+  "windows-aarch64": {
+    "add_prefix": "sysroot",
+    "link": "Hard",
+    "sha256": "1cc4276108d4023bf0487f48401b69989222260a78910bb9f72dcb32680f725d",
+    "strip_prefix": "gh_2.86.0_windows_arm64",
+    "url": "https://github.com/cli/cli/releases/download/v2.86.0/gh_2.86.0_windows_arm64.zip"
+  },
+  "windows-x86_64": {
+    "add_prefix": "sysroot",
+    "link": "Hard",
+    "sha256": "983c74a8c594366b198485187cd6d4d07638f0bf9a9948d51a2a81a5164d8bfd",
+    "strip_prefix": "gh_2.86.0_windows_amd64",
+    "url": "https://github.com/cli/cli/releases/download/v2.86.0/gh_2.86.0_windows_amd64.zip"
+  }
+}
+
