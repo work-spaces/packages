@@ -85,7 +85,6 @@ def spaces_isolate_workspace(name, version, system_paths = None, coreutils_versi
     )
 
     coreutils_add(COREUTILS_RULE, coreutils_version, coreutils_functions)
-    coreutils_add_rs_tools(COREUTILS_RS_RULE)
 
 def spaces_add_star_formatter(name, configure_zed = False):
     """
