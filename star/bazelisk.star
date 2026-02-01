@@ -4,6 +4,7 @@ Add Bazelisk to your sysroot.
 
 load(
     "//@star/sdk/star/checkout.star",
+    "checkout_add_exec",
     "checkout_add_hard_link_asset",
     "checkout_add_platform_archive",
     "checkout_update_env",
@@ -12,14 +13,6 @@ load(
     "//@star/sdk/star/info.star",
     "info_get_path_to_store",
     "info_get_platform_name",
-)
-load(
-    "//@star/sdk/star/run.star",
-    "RUN_INPUTS_ONCE",
-)
-load(
-    "//@star/sdk/star/shell.star",
-    "chmod",
 )
 load("github.com/bazelbuild/bazelisk/packages.star", "packages")
 
@@ -67,10 +60,9 @@ def bazelisk_add(name, version):
         },
     )
 
-    chmod(
+    checkout_add_exec(
         "{}_chmod".format(name),
-        type = "Setup",
-        path = "sysroot/bin/bazelisk",
-        mode = "0755",
-        inputs = RUN_INPUTS_ONCE,
+        command = "chmod",
+        args = ["+x", "sysroot/bin/bazelisk"],
+        deps = [HARD_LINK_RULE],
     )

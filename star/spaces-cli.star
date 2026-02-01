@@ -14,7 +14,7 @@ load(
     "workspace_get_absolute_path",
 )
 load("buildifier.star", "buildifier_add")
-load("coreutils.star", "COREUTILS_DEFAULT_FUNCTIONS", "coreutils_add", "coreutils_add_rs_tools")
+load("coreutils.star", "COREUTILS_DEFAULT_FUNCTIONS", "coreutils_add")
 load("github.com/work-spaces/spaces/packages.star", "packages")
 
 def spaces_add(name, version, add_link_to_workspace_root = False):
@@ -70,7 +70,6 @@ def spaces_isolate_workspace(name, version, system_paths = None, coreutils_versi
 
     UPDATE_ENV_NAME = "{}_update_env".format(name)
     COREUTILS_RULE = "{}_coreutils".format(name)
-    COREUTILS_RS_RULE = "{}_coreutils_rs".format(name)
     SPACES_RULE = "{}_spaces".format(name)
 
     spaces_add(SPACES_RULE, version)

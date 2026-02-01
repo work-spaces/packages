@@ -4,12 +4,12 @@ Add Rust
 
 load(
     "//@star/sdk/star/checkout.star",
+    "checkout_add_exec",
     "checkout_add_platform_archive",
     "checkout_update_asset",
     "checkout_update_env",
 )
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
-load("//@star/sdk/star/run.star", "run_add_exec_setup")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 
 def _get_url(platform, suffix = None):
@@ -96,15 +96,15 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True):
     VSCODE_SETTINGS = "{}_vscode_settings".format(name)
     ZED_SETTINGS = "{}_zed_settings".format(name)
 
-    run_add_exec_setup(
-        "{}".format(INIT_PERMISSIONS),
+    checkout_add_exec(
+        INIT_PERMISSIONS,
         command = "chmod",
-        args = ["755", "sysroot/bin/rustup-init"],
+        args = ["+x", "sysroot/bin/rustup-init"],
     )
 
-    run_add_exec_setup(
-        "{}".format(RUSTUP_INIT),
-        deps = ["{}".format(INIT_PERMISSIONS)],
+    checkout_add_exec(
+        RUSTUP_INIT,
+        deps = [INIT_PERMISSIONS],
         command = "sysroot/bin/rustup-init",
         args = ["--profile=default", "--no-modify-path", "-y"],
     )
