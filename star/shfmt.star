@@ -4,20 +4,13 @@ Add shfmt to your sysroot.
 
 load(
     "//@star/sdk/star/checkout.star",
+    "checkout_add_exec",
     "checkout_add_hard_link_asset",
     "checkout_add_platform_archive",
 )
 load(
     "//@star/sdk/star/info.star",
     "info_get_platform_name",
-)
-load(
-    "//@star/sdk/star/run.star",
-    "RUN_INPUTS_ONCE",
-)
-load(
-    "//@star/sdk/star/shell.star",
-    "chmod",
 )
 load("github.com/mvdan/sh/packages.star", "packages")
 
@@ -56,10 +49,9 @@ def shfmt_add(name, version):
         deps = [PLATFORM_RULE],
     )
 
-    chmod(
+    checkout_add_exec(
         "{}_chmod".format(name),
-        type = "Setup",
-        path = "sysroot/bin/shfmt",
-        mode = "0755",
-        inputs = RUN_INPUTS_ONCE,
+        command = "chmod",
+        args = ["+x", "sysroot/bin/shfmt"],
+        deps = [HARD_LINK_RULE],
     )
