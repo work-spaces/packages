@@ -14,13 +14,14 @@ load(
 )
 load("github.com/mvdan/sh/packages.star", "packages")
 
-def shfmt_add(name, version):
+def shfmt_add(name, version, deps = []):
     """
     Add `shfmt` to your sysroot.
 
     Args:
         name: `str` The name of the rule.
         version: `str` shfmt version from github.com/mvdan/sh/packages
+        deps: `[str]` deps for using chmod
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
@@ -53,5 +54,5 @@ def shfmt_add(name, version):
         "{}_chmod".format(name),
         command = "chmod",
         args = ["+x", "sysroot/bin/shfmt"],
-        deps = [HARD_LINK_RULE],
+        deps = [HARD_LINK_RULE] + deps,
     )
