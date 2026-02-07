@@ -100,6 +100,7 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True):
         INIT_PERMISSIONS,
         command = "chmod",
         args = ["+x", "sysroot/bin/rustup-init"],
+        deps = ["rustup-init-archive"],
     )
 
     checkout_add_exec(
