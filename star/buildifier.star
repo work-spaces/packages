@@ -14,13 +14,14 @@ load(
 )
 load("github.com/bazelbuild/buildtools/packages.star", "packages")
 
-def buildifier_add(name, version):
+def buildifier_add(name, version, deps = []):
     """
     Add buildifier to your sysroot.
 
     Args:
         name: `str` The name of the rule.
         version: `str` Buildifier version from github.com/bazelbuild/buildtools/releases
+        deps: `[str]` deps for using chmod
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
@@ -53,5 +54,5 @@ def buildifier_add(name, version):
         "{}_chmod".format(name),
         command = "chmod",
         args = ["+x", "sysroot/bin/buildifier"],
-        deps = [HARD_LINK_RULE],
+        deps = [HARD_LINK_RULE] + deps,
     )

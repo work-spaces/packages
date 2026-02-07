@@ -14,13 +14,14 @@ load(
 )
 load("github.com/docker/compose/packages.star", "packages")
 
-def docker_compose_add(name, version):
+def docker_compose_add(name, version, deps = []):
     """
     Add docker compose to your sysroot.
 
     Args:
         name: `str` The name of the rule.
         version: `str` Docker Compose version from github.com/docker/compose/releases
+        deps: `[str]` deps for using chmod
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
@@ -53,5 +54,5 @@ def docker_compose_add(name, version):
         "{}_chmod".format(name),
         command = "chmod",
         args = ["+x", "sysroot/bin/docker-compose"],
-        deps = [HARD_LINK_RULE],
+        deps = [HARD_LINK_RULE] + deps,
     )

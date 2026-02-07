@@ -16,7 +16,7 @@ load(
 )
 load("github.com/bazelbuild/bazelisk/packages.star", "packages")
 
-def bazelisk_add(name, version):
+def bazelisk_add(name, version, deps = []):
     """
     Add Bazelisk to your sysroot.
 
@@ -25,6 +25,7 @@ def bazelisk_add(name, version):
     Args:
         name: `str` The name of the rule.
         version: `str` Bazelisk version from github.com/bazelbuild/bazelisk/releases
+        deps: `[str]` deps for using chmod
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
@@ -64,5 +65,5 @@ def bazelisk_add(name, version):
         "{}_chmod".format(name),
         command = "chmod",
         args = ["+x", "sysroot/bin/bazelisk"],
-        deps = [HARD_LINK_RULE],
+        deps = [HARD_LINK_RULE] + deps,
     )

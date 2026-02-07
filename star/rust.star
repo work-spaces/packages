@@ -19,7 +19,7 @@ def _get_url(platform, suffix = None):
         url += suffix
     return url
 
-def rust_add(name, version, configure_vscode = True, configure_zed = True):
+def rust_add(name, version, configure_vscode = True, configure_zed = True, deps = []):
     """
     Add the Rust toolchain to your sysroot using rustup in the spaces store.
 
@@ -44,6 +44,7 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True):
         version: `str` The version of the Rust toolchain to install
         configure_vscode: `bool` Whether to configure VS code settings for the workspace (default is `True`)
         configure_zed: `bool` Whether to configure Zed settings for the workspace (default is `True`)
+        deps: `[str]` deps for using chmod
     """
 
     # more binaries https://forge.rust-lang.org/infra/other-installation-methods.html
@@ -100,7 +101,7 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True):
         INIT_PERMISSIONS,
         command = "chmod",
         args = ["+x", "sysroot/bin/rustup-init"],
-        deps = ["rustup-init-archive"],
+        deps = ["rustup-init-archive"] + deps,
     )
 
     checkout_add_exec(
