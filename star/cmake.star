@@ -27,15 +27,18 @@ def cmake_add(name, version):
         name: `str` The name of the rule.
         version: `str` CMake version from github.com/Kitware/CMake
     """
+
+    PLATFORM_RULE = "{}_platform".format(name)
     checkout_add_platform_archive(
-        name,
+        PLATFORM_RULE,
         platforms = packages[version],
     )
 
     checkout_update_asset(
-        "{}_vscode_extensions".format(name),
+        name,
         destination = ".vscode/extensions.json",
         value = {
             "recommendations": ["twxs.cmake"],
         },
+        deps = [PLATFORM_RULE],
     )

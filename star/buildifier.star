@@ -51,7 +51,7 @@ def buildifier_add(name, version, deps = []):
     )
 
     checkout_add_exec(
-        "{}_chmod".format(name),
+        name,
         command = "chmod",
         args = ["+x", "sysroot/bin/buildifier"],
         deps = [HARD_LINK_RULE] + deps,

@@ -29,15 +29,17 @@ def sccache_add(name, version):
         version: `str` The version of sccache to add.
     """
 
+    CARGO_BIN_RULE = "{}_sccache_cargo_bin".format(name)
+    CARGO_CONFIG_RULE = "{}_cargo_config".format(name)
     checkout_add_cargo_bin(
-        "{}_sccache_cargo_bin".format(name),
+        CARGO_BIN_RULE,
         crate = "sccache",
         version = version,
         bins = ["sccache"],
     )
 
     checkout_update_asset(
-        "{}_cargo_config".format(name),
+        CARGO_CONFIG_RULE,
         destination = ".cargo/config.toml",
         value = {
             "build": {"rustc-wrapper": "sccache"},
@@ -45,8 +47,9 @@ def sccache_add(name, version):
     )
 
     checkout_update_env(
-        "{}_update_env".format(name),
+        name,
         vars = {
             "SCCACHE_DIR": "{}/sccache".format(info_get_path_to_store()),
         },
+        deps = [CARGO_BIN_RULE, CARGO_CONFIG_RULE],
     )

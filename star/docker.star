@@ -51,7 +51,7 @@ def docker_compose_add(name, version, deps = []):
     )
 
     checkout_add_exec(
-        "{}_chmod".format(name),
+        name,
         command = "chmod",
         args = ["+x", "sysroot/bin/docker-compose"],
         deps = [HARD_LINK_RULE] + deps,
