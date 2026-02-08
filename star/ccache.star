@@ -38,10 +38,11 @@ def ccache_add(name, version):
     )
 
     checkout_update_env(
-        "{}_update_env".format(name),
+        name,
         vars = {
             "CCACHE_DIR": "{}/ccache".format(info_get_path_to_store()),
             "CCACHE_BASEDIR": workspace_get_absolute_path(),
             "CCACHE_ABSSTDERR": "1",
         },
+        deps = [PLATFORM_RULE],
     )

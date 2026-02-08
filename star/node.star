@@ -18,11 +18,12 @@ def node_add(name, version):
         version (str): The version of node to add
     """
 
-    package_add("nodejs.org", "node", "nodejs", version)
+    PACKAGE_RULE_NAME = package_add("nodejs.org", "node", "nodejs", version)
 
     checkout_update_env(
-        "{}_update_env".format(name),
+        name,
         vars = {
             "npm_config_cache": "{}/nodejs".format(info_get_path_to_store()),
         },
+        deps = [PACKAGE_RULE_NAME],
     )

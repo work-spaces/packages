@@ -6,6 +6,7 @@ load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_exec",
     "checkout_add_platform_archive",
+    "checkout_add_target",
     "checkout_update_asset",
     "checkout_update_env",
 )
@@ -71,8 +72,10 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
         "sha256": "7b83039a1b9305b0c50f23b2e2f03319b8d7859b28106e49ba82c06d81289df6",
     }
 
+    PLATFORM_RULE = "{}_platform_rule".format(name)
+
     checkout_add_platform_archive(
-        "rustup-init-archive",
+        PLATFORM_RULE,
         platforms = {
             "macos-x86_64": MACOS_X86_64,
             "macos-aarch64": MACOS_AARCH64,
@@ -85,9 +88,10 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
     CARGO_PATH = "{}/cargo/bin".format(STORE_PATH)
     RUSTUP_HOME = "{}/rustup".format(STORE_PATH)
     CARGO_HOME = "{}/cargo".format(STORE_PATH)
+    UPDATE_ENV_RULE = "{}_update_env".format(name)
 
     checkout_update_env(
-        "{}_rust_env".format(name),
+        UPDATE_ENV_RULE,
         vars = {"RUSTUP_HOME": RUSTUP_HOME, "RUST_TOOLCHAIN": version, "CARGO_HOME": CARGO_HOME},
         paths = [CARGO_PATH],
     )
@@ -101,7 +105,7 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
         INIT_PERMISSIONS,
         command = "chmod",
         args = ["+x", "sysroot/bin/rustup-init"],
-        deps = ["rustup-init-archive"] + deps,
+        deps = [PLATFORM_RULE] + deps,
     )
 
     checkout_add_exec(
@@ -163,4 +167,9 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
                     },
                 },
             },
+        )
+
+        checkout_add_target(
+            name,
+            deps = [RUSTUP_INIT] + [VSCODE_SETTINGS] if configure_vscode else [] + [ZED_SETTINGS] if configure_zed else [],
         )

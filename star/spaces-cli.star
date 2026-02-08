@@ -6,6 +6,7 @@ load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_platform_archive",
     "checkout_add_soft_link_asset",
+    "checkout_add_target",
     "checkout_update_asset",
     "checkout_update_env",
 )
@@ -79,11 +80,17 @@ def spaces_isolate_workspace(name, version, system_paths = None, coreutils_versi
         vars = {
             "SPACES_WORKSPACE": workspace_get_absolute_path(),
         },
+        paths = ["{}/sysroot/bin".format(workspace_get_absolute_path())],
         inherited_vars = ["HOME", "USER"],
         system_paths = system_paths,
     )
 
     coreutils_add(COREUTILS_RULE, coreutils_version, coreutils_functions)
+
+    checkout_add_target(
+        name,
+        deps = [SPACES_RULE, COREUTILS_RULE],
+    )
 
 def spaces_add_star_formatter(name, configure_zed = False):
     """

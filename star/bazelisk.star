@@ -62,7 +62,7 @@ def bazelisk_add(name, version, deps = []):
     )
 
     checkout_add_exec(
-        "{}_chmod".format(name),
+        name,
         command = "chmod",
         args = ["+x", "sysroot/bin/bazelisk"],
         deps = [HARD_LINK_RULE] + deps,

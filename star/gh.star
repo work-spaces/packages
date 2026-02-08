@@ -15,6 +15,6 @@ def gh_add(name, version):
     """
 
     checkout_add_platform_archive(
-        name = name,
+        name,
         platforms = packages[version],
     )

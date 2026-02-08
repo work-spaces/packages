@@ -100,7 +100,7 @@ COREUTILS_DEFAULT_FUNCTIONS = [
     "yes",
 ]
 
-def coreutils_add(name, version, functions = COREUTILS_DEFAULT_FUNCTIONS):
+def coreutils_add(name, version, functions = COREUTILS_DEFAULT_FUNCTIONS, deps = []):
     """
     Adds the coreutils executable to the sysroot.
 
@@ -110,29 +110,34 @@ def coreutils_add(name, version, functions = COREUTILS_DEFAULT_FUNCTIONS):
         name: `str` name of the rule to checkout coreutils
         version: `str` The version of the release found in @packages/star/github.com/uutils/coreutils
         functions: `[str]` The list of coreutils functions to install (default is COREUTILS_DEFAULT_FUNCTIONS)
+        deps: `[str]` The list of dependencies to add to this rule
     """
 
+    PLATFORM_CHECKOUT_RULE = "{}_binary_checkout".format(name)
+
     checkout_add_platform_archive(
-        name = name,
+        PLATFORM_CHECKOUT_RULE,
         platforms = packages[version],
+        deps = deps,
     )
 
     # Create the hardlinks
     checkout_add_any_assets(
-        "{}_corutils_hard_links".format(name),
+        name,
         assets = [
             asset_hard_link("sysroot/bin/coreutils", "sysroot/bin/{}".format(func))
             for func in functions
         ],
-        deps = [name],
+        deps = [PLATFORM_CHECKOUT_RULE],
     )
 
-def coreutils_add_rs_tools(name):
+def coreutils_add_rs_tools(name, deps = []):
     """
     Adds a collection of rust developer tools to the workspace.
 
     Args:
         name: name of the rule to checkout the rust tools collection.
+        deps: list of dependencies to be added to the rule.
     """
 
     CARGO_BINS = [
@@ -147,17 +152,22 @@ def coreutils_add_rs_tools(name):
         {"crate": "cargo-audit", "version": "0.22.0", "bins": ["cargo-audit"]},
     ]
 
+    bin_deps = []
     for bin in CARGO_BINS:
+        BIN_RULE = "{}_{}".format(name, bin["crate"])
         checkout_add_cargo_bin(
-            "{}_{}".format(name, bin["crate"]),
+            BIN_RULE,
             crate = bin["crate"],
             version = bin["version"],
             bins = bin["bins"],
+            deps = deps,
         )
+        bin_deps.append(BIN_RULE)
 
     checkout_update_env(
-        "{}_env".format(name),
+        name,
         vars = {
             "BAT_PAGING": "never",
         },
+        deps = bin_deps,
     )
