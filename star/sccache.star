@@ -51,5 +51,5 @@ def sccache_add(name, version):
         vars = {
             "SCCACHE_DIR": "{}/sccache".format(info_get_path_to_store()),
         },
-        deps = [CARGO_BIN_RULE, CARGO_CONFIG_RULE],
+        deps = [CARGO_BIN_RULE],
     )
