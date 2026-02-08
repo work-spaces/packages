@@ -171,5 +171,5 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
 
         checkout_add_target(
             name,
-            deps = [RUSTUP_INIT] + [VSCODE_SETTINGS] if configure_vscode else [] + [ZED_SETTINGS] if configure_zed else [],
+            deps = [RUSTUP_INIT],
         )
