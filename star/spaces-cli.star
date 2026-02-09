@@ -92,18 +92,17 @@ def spaces_isolate_workspace(name, version, system_paths = None, coreutils_versi
         deps = [SPACES_RULE, COREUTILS_RULE],
     )
 
-def spaces_add_star_formatter(name, configure_zed = False):
+def spaces_add_star_formatter(name, configure_zed = False, deps = []):
     """
     Add a formatter to the workspace for spaces.star files.
 
     Args:
         name: `str` The rule base name
         configure_zed: `bool` Whether to configure zed to use the formatter
+        deps: `list` Dependencies for the rule (chmod needed by buildifier)
     """
 
-    BUILDIFIER_RULE = "{}_buildifier".format(name)
-
-    buildifier_add(BUILDIFIER_RULE, "v8.2.1")
+    buildifier_add(name, "v8.2.1", deps = deps)
 
     if configure_zed:
         UPDATE_ZED_RULE = "{}_update_zed".format(name)
