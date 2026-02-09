@@ -585,24 +585,24 @@ gh_releases = xpack_releases | {
         "platforms": {
             "macos-aarch64": {
                 "name_pattern": "aarch64-apple-darwin",
-                "strip_prefix": "coreutils-$VERSION-aarch64-apple-darwin",
+                "strip_prefix": "coreutils-aarch64-apple-darwin",
             },
             "macos-x86_64": {
                 "name_pattern": "x86_64-apple-darwin",
-                "strip_prefix": "coreutils-$VERSION-x86_64-apple-darwin",
+                "strip_prefix": "coreutils-x86_64-apple-darwin",
             },
             "linux-x86_64": {
                 "name_pattern": "x86_64-unknown-linux-musl",
-                "strip_prefix": "coreutils-$VERSION-x86_64-unknown-linux-musl",
+                "strip_prefix": "coreutils-x86_64-unknown-linux-musl",
             },
             "linux-aarch64": {
                 "name_pattern": "aarch64-unknown-linux-musl",
-                "strip_prefix": "coreutils-$VERSION-aarch64-unknown-linux-musl",
+                "strip_prefix": "coreutils-aarch64-unknown-linux-musl",
             },
             "windows-x86_64": {
                 "name_pattern": "x86_64-pc-windows-gnu",
                 "strip_prefix": "git-lfs-$VERSION",
-            }
+            },
         },
     },
     "docker_compose": {
@@ -626,7 +626,7 @@ gh_releases = xpack_releases | {
             },
             "windows-x86_64": {
                 "name_pattern": "docker-compose-windows-x86_64.exe",
-            }
+            },
         },
-    }
+    },
 }
