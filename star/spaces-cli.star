@@ -53,7 +53,7 @@ def spaces_add(name, version, add_link_to_workspace_root = False):
             deps = [name],
         )
 
-def spaces_isolate_workspace(name, version, system_paths = None, coreutils_version = "0.5.0", coreutils_functions = COREUTILS_DEFAULT_FUNCTIONS):
+def spaces_isolate_workspace(name, version, system_paths = None, coreutils_version = "0.6.0", coreutils_functions = COREUTILS_DEFAULT_FUNCTIONS):
     """
     Isolate the workspace by omitting all system paths from the environment.
 
