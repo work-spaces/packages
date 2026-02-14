@@ -112,7 +112,7 @@ def spaces_add_star_formatter(name, configure_zed = False, deps = []):
             value = {
                 "languages": {
                     "Starlark": {
-                        "language_servers": ["!buck2-lsp", "!starpls", "!tilt"],
+                        "language_servers": ["spaces-lsp"],
                         "tab_size": 4,
                         "formatter": {
                             "external": {
