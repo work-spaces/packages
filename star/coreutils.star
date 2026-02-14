@@ -10,6 +10,7 @@ load(
     "checkout_add_platform_archive",
     "checkout_update_env",
 )
+load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("github.com/uutils/coreutils/packages.star", "packages")
 
 COREUTILS_DEFAULT_FUNCTIONS = [
@@ -145,7 +146,7 @@ def coreutils_add(name, version, functions = COREUTILS_DEFAULT_FUNCTIONS, deps =
         deps = [PLATFORM_CHECKOUT_RULE],
     )
 
-def coreutils_add_rs_tools(name, deps = []):
+def coreutils_add_rs_tools(name, deps = [], bat_paging = "never"):
     """
     Adds a collection of rust developer tools to the workspace.
 
@@ -181,7 +182,8 @@ def coreutils_add_rs_tools(name, deps = []):
     checkout_update_env(
         name,
         vars = {
-            "BAT_PAGING": "never",
+            "BAT_PAGING": bat_paging,
+            "GRAVEYARD": "{}/graveyard".format(info_get_path_to_store()),
         },
         deps = bin_deps,
     )
