@@ -9,7 +9,7 @@ load(
     "checkout_update_env",
 )
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
-load("//@star/sdk/star/visibility.star", "visibility_private")
+load("//@star/sdk/star/visibility.star", "visibility_rules")
 
 def sccache_add(name, version, visibility = None):
     """
@@ -38,7 +38,7 @@ def sccache_add(name, version, visibility = None):
         crate = "sccache",
         version = version,
         bins = ["sccache"],
-        visibility = visibility_private(),
+        visibility = visibility_rules([name]),
     )
 
     checkout_update_asset(
@@ -47,7 +47,7 @@ def sccache_add(name, version, visibility = None):
         value = {
             "build": {"rustc-wrapper": "sccache"},
         },
-        visibility = visibility_private(),
+        visibility = visibility_rules([name]),
     )
 
     checkout_update_env(
@@ -55,6 +55,6 @@ def sccache_add(name, version, visibility = None):
         vars = {
             "SCCACHE_DIR": "{}/sccache".format(info_get_path_to_store()),
         },
-        deps = [CARGO_BIN_RULE],
+        deps = [CARGO_BIN_RULE, CARGO_CONFIG_RULE],
         visibility = visibility,
     )

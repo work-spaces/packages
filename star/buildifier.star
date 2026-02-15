@@ -12,7 +12,7 @@ load(
     "//@star/sdk/star/info.star",
     "info_get_platform_name",
 )
-load("//@star/sdk/star/visibility.star", "visibility_private")
+load("//@star/sdk/star/visibility.star", "visibility_rules")
 load("github.com/bazelbuild/buildtools/packages.star", "packages")
 
 def buildifier_add(name, version, deps = [], visibility = None):
@@ -27,10 +27,12 @@ def buildifier_add(name, version, deps = [], visibility = None):
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
+    HARD_LINK_RULE = "{}_hard_link_asset".format(name)
+
     checkout_add_platform_archive(
         PLATFORM_RULE,
         platforms = packages[version],
-        visibility = visibility_private(),
+        visibility = visibility_rules([HARD_LINK_RULE]),
     )
 
     PLATFORM = info_get_platform_name()
@@ -45,13 +47,12 @@ def buildifier_add(name, version, deps = [], visibility = None):
 
     BIN_SUFFIX = SUFFIX_MAP.get(PLATFORM)
 
-    HARD_LINK_RULE = "{}_hard_link_asset".format(name)
     checkout_add_hard_link_asset(
         HARD_LINK_RULE,
         source = "sysroot/bin/buildifier-{}".format(BIN_SUFFIX),
         destination = "sysroot/bin/buildifier",
         deps = [PLATFORM_RULE],
-        visibility = visibility_private(),
+        visibility = visibility_rules([name]),
     )
 
     checkout_add_exec(

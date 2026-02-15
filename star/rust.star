@@ -11,7 +11,7 @@ load(
     "checkout_update_env",
 )
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
-load("//@star/sdk/star/visibility.star", "visibility_private")
+load("//@star/sdk/star/visibility.star", "visibility_private", "visibility_rules")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 
 def _get_url(platform, suffix = None):
@@ -75,6 +75,8 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
     }
 
     PLATFORM_RULE = "{}_platform_rule".format(name)
+    INIT_PERMISSIONS = "{}_rustup-init-permissions".format(name)
+    RUSTUP_INIT = "{}_rustup-init".format(name)
 
     checkout_add_platform_archive(
         PLATFORM_RULE,
@@ -84,7 +86,7 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
             "linux-x86_64": LINUX_X86_64,
             "windows-x86_64": WINDOWS_X86_64,
         },
-        visibility = visibility_private(),
+        visibility = visibility_rules([INIT_PERMISSIONS]),
     )
 
     STORE_PATH = info_get_path_to_store()
@@ -97,11 +99,9 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
         UPDATE_ENV_RULE,
         vars = {"RUSTUP_HOME": RUSTUP_HOME, "RUST_TOOLCHAIN": version, "CARGO_HOME": CARGO_HOME},
         paths = [CARGO_PATH],
-        visibility = visibility_private(),
+        visibility = visibility_rules([]),
     )
 
-    INIT_PERMISSIONS = "{}_rustup-init-permissions".format(name)
-    RUSTUP_INIT = "{}_rustup-init".format(name)
     VSCODE_SETTINGS = "{}_vscode_settings".format(name)
     ZED_SETTINGS = "{}_zed_settings".format(name)
 
@@ -110,7 +110,7 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
         command = "chmod",
         args = ["+x", "sysroot/bin/rustup-init"],
         deps = [PLATFORM_RULE] + deps,
-        visibility = visibility_private(),
+        visibility = visibility_rules([RUSTUP_INIT]),
     )
 
     checkout_add_exec(
@@ -118,7 +118,7 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
         deps = [INIT_PERMISSIONS],
         command = "sysroot/bin/rustup-init",
         args = ["--profile=default", "--no-modify-path", "-y"],
-        visibility = visibility_private(),
+        visibility = visibility_rules([name]),
     )
 
     if configure_vscode:
