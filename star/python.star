@@ -10,10 +10,11 @@ load(
 )
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/run.star", "run_add_exec_setup")
+load("//@star/sdk/star/visibility.star", "visibility_private")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 load("github.com/astral-sh/packages.star", astral_packages = "packages")
 
-def python_add_uv(name, uv_version, ruff_version, python_version, packages = []):
+def python_add_uv(name, uv_version, ruff_version, python_version, packages = [], visibility = None):
     """
     Add Python to your sysroot.
 
@@ -27,6 +28,7 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [])
         ruff_version: `str` ruff version from //@packages/star/github.com/astral-sh/ruff
         python_version: `str` The version of Python to install
         packages: `[str]` The Python packages to install
+        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
     UV_PLATFORMS = astral_packages["uv"][uv_version]
     RUFF_PLATFORMS = astral_packages["ruff"][ruff_version]
@@ -34,11 +36,13 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [])
     checkout_add_platform_archive(
         "{}_checkout_uv".format(name),
         platforms = UV_PLATFORMS,
+        visibility = visibility_private(),
     )
 
     checkout_add_platform_archive(
         "{}_checkout_ruff".format(name),
         platforms = RUFF_PLATFORMS,
+        visibility = visibility_private(),
     )
 
     checkout_update_asset(
@@ -47,6 +51,7 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [])
         value = {
             "recommendations": ["ms-python.python", "charliermarsh.ruff"],
         },
+        visibility = visibility_private(),
     )
 
     WORKSPACE_PATH = workspace_get_absolute_path()
@@ -62,12 +67,14 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [])
             "UV_PROJECT_ENVIRONMENT": "venv",
             "UV_PYTHON_INSTALL_DIR": "{}/uv/python".format(STORE_PATH),
         },
+        visibility = visibility_private(),
     )
 
     run_add_exec_setup(
         "{}_install_python".format(name),
         command = "uv",
         args = ["python", "install", "{}".format(python_version)],
+        visibility = visibility_private(),
     )
 
     run_add_exec_setup(
@@ -75,6 +82,7 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [])
         deps = ["{}_install_python".format(name)],
         command = "uv",
         args = ["venv", "--python={}".format(python_version), "venv"],
+        visibility = visibility_private(),
     )
 
     run_add_exec_setup(
@@ -82,4 +90,5 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [])
         deps = ["{}_venv".format(name)],
         command = "uv",
         args = ["pip", "install"] + packages,
+        visibility = visibility,
     )

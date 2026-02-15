@@ -12,9 +12,10 @@ load(
     "//@star/sdk/star/info.star",
     "info_get_platform_name",
 )
+load("//@star/sdk/star/visibility.star", "visibility_private")
 load("github.com/docker/compose/packages.star", "packages")
 
-def docker_compose_add(name, version, deps = []):
+def docker_compose_add(name, version, deps = [], visibility = None):
     """
     Add docker compose to your sysroot.
 
@@ -22,12 +23,14 @@ def docker_compose_add(name, version, deps = []):
         name: `str` The name of the rule.
         version: `str` Docker Compose version from github.com/docker/compose/releases
         deps: `[str]` deps for using chmod
+        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
     checkout_add_platform_archive(
         PLATFORM_RULE,
         platforms = packages[version],
+        visibility = visibility_private(),
     )
 
     PLATFORM = info_get_platform_name()
@@ -48,6 +51,7 @@ def docker_compose_add(name, version, deps = []):
         source = "sysroot/bin/docker-compose-{}".format(BIN_SUFFIX),
         destination = "sysroot/bin/docker-compose",
         deps = [PLATFORM_RULE],
+        visibility = visibility_private(),
     )
 
     checkout_add_exec(
@@ -55,4 +59,5 @@ def docker_compose_add(name, version, deps = []):
         command = "chmod",
         args = ["+x", "sysroot/bin/docker-compose"],
         deps = [HARD_LINK_RULE] + deps,
+        visibility = visibility,
     )

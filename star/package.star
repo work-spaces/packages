@@ -5,7 +5,7 @@ Add a package to the workspace.
 load("//@star/sdk/star/checkout.star", "checkout_add_platform_archive")
 load("packages.star", "packages")
 
-def package_add(domain, owner, repo, version):
+def package_add(domain, owner, repo, version, visibility = None):
     """
     Add a package to the workspace.
 
@@ -28,6 +28,7 @@ def package_add(domain, owner, repo, version):
         owner: `str` The owner of the package.
         repo: `str` The repository of the package.
         version: `str` The version of the package.
+        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
 
     Returns:
         `str` The name of the rule used to checkout the package.
@@ -37,6 +38,7 @@ def package_add(domain, owner, repo, version):
     checkout_add_platform_archive(
         RULE_NAME,
         platforms = packages[domain][owner][repo][version],
+        visibility = visibility,
     )
 
     return RULE_NAME

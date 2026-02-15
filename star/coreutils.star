@@ -11,6 +11,7 @@ load(
     "checkout_update_env",
 )
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
+load("//@star/sdk/star/visibility.star", "visibility_private")
 load("github.com/uutils/coreutils/packages.star", "packages")
 
 COREUTILS_DEFAULT_FUNCTIONS = [
@@ -115,7 +116,7 @@ COREUTILS_DEFAULT_FUNCTIONS = [
     "yes",
 ]
 
-def coreutils_add(name, version, functions = COREUTILS_DEFAULT_FUNCTIONS, deps = []):
+def coreutils_add(name, version, functions = COREUTILS_DEFAULT_FUNCTIONS, deps = [], visibility = None):
     """
     Adds the coreutils executable to the sysroot.
 
@@ -126,6 +127,7 @@ def coreutils_add(name, version, functions = COREUTILS_DEFAULT_FUNCTIONS, deps =
         version: `str` The version of the release found in @packages/star/github.com/uutils/coreutils
         functions: `[str]` The list of coreutils functions to install (default is COREUTILS_DEFAULT_FUNCTIONS)
         deps: `[str]` The list of dependencies to add to this rule
+        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
     PLATFORM_CHECKOUT_RULE = "{}_binary_checkout".format(name)
@@ -134,6 +136,7 @@ def coreutils_add(name, version, functions = COREUTILS_DEFAULT_FUNCTIONS, deps =
         PLATFORM_CHECKOUT_RULE,
         platforms = packages[version],
         deps = deps,
+        visibility = visibility_private(),
     )
 
     # Create the hardlinks
@@ -144,15 +147,17 @@ def coreutils_add(name, version, functions = COREUTILS_DEFAULT_FUNCTIONS, deps =
             for func in functions
         ],
         deps = [PLATFORM_CHECKOUT_RULE],
+        visibility = visibility,
     )
 
-def coreutils_add_rs_tools(name, deps = [], bat_paging = "never"):
+def coreutils_add_rs_tools(name, deps = [], bat_paging = "never", visibility = None):
     """
     Adds a collection of rust developer tools to the workspace.
 
     Args:
         name: name of the rule to checkout the rust tools collection.
         deps: list of dependencies to be added to the rule.
+        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
     CARGO_BINS = [
@@ -176,6 +181,7 @@ def coreutils_add_rs_tools(name, deps = [], bat_paging = "never"):
             version = bin["version"],
             bins = bin["bins"],
             deps = deps,
+            visibility = visibility_private(),
         )
         bin_deps.append(BIN_RULE)
 
@@ -186,4 +192,5 @@ def coreutils_add_rs_tools(name, deps = [], bat_paging = "never"):
             "GRAVEYARD": "{}/graveyard".format(info_get_path_to_store()),
         },
         deps = bin_deps,
+        visibility = visibility,
     )

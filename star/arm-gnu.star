@@ -8,6 +8,7 @@ load(
     "checkout_add_platform_archive",
     "checkout_update_env",
 )
+load("//@star/sdk/star/visibility.star", "visibility_private")
 load("arm.developer.com/gnu/arm-none-eabi/packages.star", "packages")
 
 _TOOLCHAIN_CONTENTS = """
@@ -85,23 +86,26 @@ set(CMAKE_CXX_FLAGS_INIT "${LOCAL_C_FLAGS} -fno-exceptions -fno-unwind-tables -f
 set(CMAKE_C_FLAGS_INIT "${LOCAL_C_FLAGS}" CACHE STRING "CMAKE C FLAGS")
 """
 
-def arm_gnu_add_arm_none_eabi_add(name, version):
+def arm_gnu_add_arm_none_eabi_add(name, version, visibility = None):
     """
     Add arm-none-eabi to your sysroot.
 
     Args:
         name (str): The name of the rule.
         version (str): arm-none-eabi version from packages/arm.developer.com/gnu/arm-none-eabi
+        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
     checkout_add_platform_archive(
         name,
         platforms = packages[version],
+        visibility = visibility,
     )
 
     checkout_add_asset(
         "{}_toolchain-cmake".format(name),
         destination = "sysroot/cmake/arm-gnu-arm-none-eabi-toolchain.cmake",
         content = _TOOLCHAIN_CONTENTS,
+        visibility = visibility_private(),
     )
 
     checkout_update_env(
@@ -109,4 +113,5 @@ def arm_gnu_add_arm_none_eabi_add(name, version):
         vars = {
             "ARM_GNU_TOOLCHAIN_CMAKE": "sysroot/cmake/arm-gnu-arm-none-eabi-toolchain.cmake",
         },
+        visibility = visibility_private(),
     )

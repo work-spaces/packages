@@ -9,8 +9,9 @@ load(
     "checkout_update_env",
 )
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
+load("//@star/sdk/star/visibility.star", "visibility_private")
 
-def sccache_add(name, version):
+def sccache_add(name, version, visibility = None):
     """
     Add sccache to the workspace and to .cargo/config.toml.
 
@@ -27,6 +28,7 @@ def sccache_add(name, version):
     Args:
         name: `str` The name of the rule.
         version: `str` The version of sccache to add.
+        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
     CARGO_BIN_RULE = "{}_sccache_cargo_bin".format(name)
@@ -36,6 +38,7 @@ def sccache_add(name, version):
         crate = "sccache",
         version = version,
         bins = ["sccache"],
+        visibility = visibility_private(),
     )
 
     checkout_update_asset(
@@ -44,6 +47,7 @@ def sccache_add(name, version):
         value = {
             "build": {"rustc-wrapper": "sccache"},
         },
+        visibility = visibility_private(),
     )
 
     checkout_update_env(
@@ -52,4 +56,5 @@ def sccache_add(name, version):
             "SCCACHE_DIR": "{}/sccache".format(info_get_path_to_store()),
         },
         deps = [CARGO_BIN_RULE],
+        visibility = visibility,
     )
