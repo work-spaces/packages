@@ -71,7 +71,6 @@ def _starhip_add_shell(
     SHORTCUTS_RULE = "{}_shortcuts".format(name)
     STARTUP_RULE = "{}_startup".format(name)
     SHELL_RULE = "{}_shell".format(name)
-    deps = [SHORTCUTS_RULE, SHELL_RULE]
 
     checkout_update_shell_shortcuts(
         SHORTCUTS_RULE,
@@ -86,7 +85,6 @@ def _starhip_add_shell(
     )
 
     if startup_contents != None:
-        deps.append(STARTUP_RULE)
         checkout_update_shell_startup(
             STARTUP_RULE,
             script_name = "startup.sh",
@@ -95,9 +93,10 @@ def _starhip_add_shell(
             visibility = visibility_rules([name]),
         )
 
+    # above rules are post-checkout and can't have checkout dependencies
     checkout_add_target(
         name,
-        deps = deps,
+        deps = [],
         visibility = visibility,
     )
 
