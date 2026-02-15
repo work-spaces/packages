@@ -41,6 +41,7 @@ def sccache_add(name, version, visibility = None):
         visibility = visibility_rules([name]),
     )
 
+    # Post checkout rule
     checkout_update_asset(
         CARGO_CONFIG_RULE,
         destination = ".cargo/config.toml",
@@ -55,6 +56,6 @@ def sccache_add(name, version, visibility = None):
         vars = {
             "SCCACHE_DIR": "{}/sccache".format(info_get_path_to_store()),
         },
-        deps = [CARGO_BIN_RULE, CARGO_CONFIG_RULE],
+        deps = [CARGO_BIN_RULE],
         visibility = visibility,
     )
