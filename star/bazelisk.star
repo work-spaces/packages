@@ -14,9 +14,10 @@ load(
     "info_get_path_to_store",
     "info_get_platform_name",
 )
+load("//@star/sdk/star/visibility.star", "visibility_private")
 load("github.com/bazelbuild/bazelisk/packages.star", "packages")
 
-def bazelisk_add(name, version, deps = []):
+def bazelisk_add(name, version, deps = [], visibility = None):
     """
     Add Bazelisk to your sysroot.
 
@@ -26,12 +27,14 @@ def bazelisk_add(name, version, deps = []):
         name: `str` The name of the rule.
         version: `str` Bazelisk version from github.com/bazelbuild/bazelisk/releases
         deps: `[str]` deps for using chmod
+        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
     checkout_add_platform_archive(
         PLATFORM_RULE,
         platforms = packages[version],
+        visibility = visibility_private(),
     )
 
     PLATFORM = info_get_platform_name()
@@ -52,6 +55,7 @@ def bazelisk_add(name, version, deps = []):
         source = "sysroot/bin/bazelisk-{}".format(BIN_SUFFIX),
         destination = "sysroot/bin/bazelisk",
         deps = [PLATFORM_RULE],
+        visibility = visibility_private(),
     )
 
     checkout_update_env(
@@ -59,6 +63,7 @@ def bazelisk_add(name, version, deps = []):
         vars = {
             "BAZELISK_HOME": "{}/bazelisk".format(info_get_path_to_store()),
         },
+        visibility = visibility_private(),
     )
 
     checkout_add_exec(
@@ -66,4 +71,5 @@ def bazelisk_add(name, version, deps = []):
         command = "chmod",
         args = ["+x", "sysroot/bin/bazelisk"],
         deps = [HARD_LINK_RULE] + deps,
+        visibility = visibility,
     )

@@ -8,10 +8,11 @@ load(
     "checkout_update_env",
 )
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
+load("//@star/sdk/star/visibility.star", "visibility_private")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 load("github.com/ccache/ccache/packages.star", "packages")
 
-def ccache_add(name, version):
+def ccache_add(name, version, visibility = None):
     """
     Add ccache to the workspace.
 
@@ -29,12 +30,14 @@ def ccache_add(name, version):
     Args:
         name: `str` The name of the rule.
         version: `str` The version of ccache to add.
+        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
     checkout_add_platform_archive(
         PLATFORM_RULE,
         platforms = packages[version],
+        visibility = visibility_private(),
     )
 
     checkout_update_env(
@@ -45,4 +48,5 @@ def ccache_add(name, version):
             "CCACHE_ABSSTDERR": "1",
         },
         deps = [PLATFORM_RULE],
+        visibility = visibility,
     )

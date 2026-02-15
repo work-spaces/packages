@@ -11,6 +11,7 @@ load(
     "checkout_update_env",
 )
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
+load("//@star/sdk/star/visibility.star", "visibility_private")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 
 def _get_url(platform, suffix = None):
@@ -20,7 +21,7 @@ def _get_url(platform, suffix = None):
         url += suffix
     return url
 
-def rust_add(name, version, configure_vscode = True, configure_zed = True, deps = []):
+def rust_add(name, version, configure_vscode = True, configure_zed = True, deps = [], visibility = None):
     """
     Add the Rust toolchain to your sysroot using rustup in the spaces store.
 
@@ -46,6 +47,7 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
         configure_vscode: `bool` Whether to configure VS code settings for the workspace (default is `True`)
         configure_zed: `bool` Whether to configure Zed settings for the workspace (default is `True`)
         deps: `[str]` deps for using chmod
+        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
     # more binaries https://forge.rust-lang.org/infra/other-installation-methods.html
@@ -82,6 +84,7 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
             "linux-x86_64": LINUX_X86_64,
             "windows-x86_64": WINDOWS_X86_64,
         },
+        visibility = visibility_private(),
     )
 
     STORE_PATH = info_get_path_to_store()
@@ -94,6 +97,7 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
         UPDATE_ENV_RULE,
         vars = {"RUSTUP_HOME": RUSTUP_HOME, "RUST_TOOLCHAIN": version, "CARGO_HOME": CARGO_HOME},
         paths = [CARGO_PATH],
+        visibility = visibility_private(),
     )
 
     INIT_PERMISSIONS = "{}_rustup-init-permissions".format(name)
@@ -106,6 +110,7 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
         command = "chmod",
         args = ["+x", "sysroot/bin/rustup-init"],
         deps = [PLATFORM_RULE] + deps,
+        visibility = visibility_private(),
     )
 
     checkout_add_exec(
@@ -113,6 +118,7 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
         deps = [INIT_PERMISSIONS],
         command = "sysroot/bin/rustup-init",
         args = ["--profile=default", "--no-modify-path", "-y"],
+        visibility = visibility_private(),
     )
 
     if configure_vscode:
@@ -145,6 +151,7 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
                     "PATH": "{}/sysroot/bin:{}:/usr/bin:/bin".format(workspace_get_absolute_path(), CARGO_PATH),
                 },
             },
+            visibility = visibility_private(),
         )
 
     if configure_zed:
@@ -167,9 +174,11 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
                     },
                 },
             },
+            visibility = visibility_private(),
         )
 
         checkout_add_target(
             name,
             deps = [RUSTUP_INIT],
+            visibility = visibility,
         )

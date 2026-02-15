@@ -10,6 +10,7 @@ load(
     "checkout_update_asset",
     "checkout_update_env",
 )
+load("//@star/sdk/star/visibility.star", "visibility_private")
 load(
     "//@star/sdk/star/ws.star",
     "workspace_get_absolute_path",
@@ -18,7 +19,7 @@ load("buildifier.star", "buildifier_add")
 load("coreutils.star", "COREUTILS_DEFAULT_FUNCTIONS", "coreutils_add")
 load("github.com/work-spaces/spaces/packages.star", "packages")
 
-def spaces_add(name, version, add_link_to_workspace_root = False):
+def spaces_add(name, version, add_link_to_workspace_root = False, visibility = None):
     """
     Add the spaces binary to a workflow.
 
@@ -38,11 +39,13 @@ def spaces_add(name, version, add_link_to_workspace_root = False):
         name: `str` The name of the binary
         version: `str` The version of the binary
         add_link_to_workspace_root: `bool` Add a link to the binary in the workspace root
+        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
     checkout_add_platform_archive(
         name,
         platforms = packages[version],
+        visibility = visibility,
     )
 
     if add_link_to_workspace_root:
@@ -51,9 +54,10 @@ def spaces_add(name, version, add_link_to_workspace_root = False):
             source = "sysroot/bin/spaces",
             destination = "spaces",
             deps = [name],
+            visibility = visibility_private(),
         )
 
-def spaces_isolate_workspace(name, version, system_paths = None, coreutils_version = "0.6.0", coreutils_functions = COREUTILS_DEFAULT_FUNCTIONS):
+def spaces_isolate_workspace(name, version, system_paths = None, coreutils_version = "0.6.0", coreutils_functions = COREUTILS_DEFAULT_FUNCTIONS, visibility = None):
     """
     Isolate the workspace by omitting all system paths from the environment.
 
@@ -67,13 +71,14 @@ def spaces_isolate_workspace(name, version, system_paths = None, coreutils_versi
         system_paths: `list` The list of system paths to add to the environment
         coreutils_version: `str` The version of coreutils to use in the isolated workspace
         coreutils_functions: `list` The list of coreutils functions to install (default is all)
+        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
     UPDATE_ENV_NAME = "{}_update_env".format(name)
     COREUTILS_RULE = "{}_coreutils".format(name)
     SPACES_RULE = "{}_spaces".format(name)
 
-    spaces_add(SPACES_RULE, version)
+    spaces_add(SPACES_RULE, version, visibility = visibility_private())
 
     checkout_update_env(
         UPDATE_ENV_NAME,
@@ -83,16 +88,18 @@ def spaces_isolate_workspace(name, version, system_paths = None, coreutils_versi
         paths = ["{}/sysroot/bin".format(workspace_get_absolute_path())],
         inherited_vars = ["HOME", "USER"],
         system_paths = system_paths,
+        visibility = visibility_private(),
     )
 
-    coreutils_add(COREUTILS_RULE, coreutils_version, coreutils_functions)
+    coreutils_add(COREUTILS_RULE, coreutils_version, coreutils_functions, visibility = visibility_private())
 
     checkout_add_target(
         name,
         deps = [SPACES_RULE, COREUTILS_RULE],
+        visibility = visibility,
     )
 
-def spaces_add_star_formatter(name, configure_zed = False, deps = []):
+def spaces_add_star_formatter(name, configure_zed = False, deps = [], visibility = None):
     """
     Add a formatter to the workspace for spaces.star files.
 
@@ -100,9 +107,10 @@ def spaces_add_star_formatter(name, configure_zed = False, deps = []):
         name: `str` The rule base name
         configure_zed: `bool` Whether to configure zed to use the formatter
         deps: `list` Dependencies for the rule (chmod needed by buildifier)
+        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
-    buildifier_add(name, "v8.2.1", deps = deps)
+    buildifier_add(name, "v8.2.1", deps = deps, visibility = visibility)
 
     if configure_zed:
         UPDATE_ZED_RULE = "{}_update_zed".format(name)
@@ -122,4 +130,5 @@ def spaces_add_star_formatter(name, configure_zed = False, deps = []):
                     },
                 },
             },
+            visibility = visibility_private(),
         )

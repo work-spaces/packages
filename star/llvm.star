@@ -8,10 +8,11 @@ load(
     "checkout_add_platform_archive",
     "checkout_update_env",
 )
+load("//@star/sdk/star/visibility.star", "visibility_private")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 load("github.com/llvm/llvm-project/packages.star", github_llvm_project_packages = "packages")
 
-def llvm_add(name, version, toolchain_name = "llvm-toolchain.cmake"):
+def llvm_add(name, version, toolchain_name = "llvm-toolchain.cmake", visibility = None):
     """
     Add LLVM to your sysroot.
 
@@ -23,10 +24,12 @@ def llvm_add(name, version, toolchain_name = "llvm-toolchain.cmake"):
         name: `str` The name of the rule.
         version: `str` The LLVM version from //@packages/star/llvm.org/llvm
         toolchain_name: `str` The name of the toolchain file (default is "llvm-toolchain.cmake").
+        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
     checkout_add_platform_archive(
         name,
         platforms = github_llvm_project_packages[version],
+        visibility = visibility,
     )
 
     checkout_update_env(
@@ -34,6 +37,7 @@ def llvm_add(name, version, toolchain_name = "llvm-toolchain.cmake"):
         vars = {
             "LLVM_SPACES_WORKSPACE": workspace_get_absolute_path(),
         },
+        visibility = visibility_private(),
     )
 
     TOOLCHAIN_CONTENT = """
@@ -59,4 +63,5 @@ set(CMAKE_SHARED_LINKER_FLAGS_INIT "-fuse-ld=lld")
         "{}_toolchain".format(name),
         destination = toolchain_name,
         content = TOOLCHAIN_CONTENT,
+        visibility = visibility_private(),
     )
