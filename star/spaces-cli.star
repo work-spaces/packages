@@ -10,7 +10,7 @@ load(
     "checkout_update_asset",
     "checkout_update_env",
 )
-load("//@star/sdk/star/visibility.star", "visibility_private")
+load("//@star/sdk/star/visibility.star", "visibility_rules")
 load(
     "//@star/sdk/star/ws.star",
     "workspace_get_absolute_path",
@@ -54,7 +54,7 @@ def spaces_add(name, version, add_link_to_workspace_root = False, visibility = N
             source = "sysroot/bin/spaces",
             destination = "spaces",
             deps = [name],
-            visibility = visibility_private(),
+            visibility = visibility_rules([]),
         )
 
 def spaces_isolate_workspace(name, version, system_paths = None, coreutils_version = "0.6.0", coreutils_functions = COREUTILS_DEFAULT_FUNCTIONS, visibility = None):
@@ -78,7 +78,7 @@ def spaces_isolate_workspace(name, version, system_paths = None, coreutils_versi
     COREUTILS_RULE = "{}_coreutils".format(name)
     SPACES_RULE = "{}_spaces".format(name)
 
-    spaces_add(SPACES_RULE, version, visibility = visibility_private())
+    spaces_add(SPACES_RULE, version, visibility = visibility_rules([name]))
 
     checkout_update_env(
         UPDATE_ENV_NAME,
@@ -88,14 +88,19 @@ def spaces_isolate_workspace(name, version, system_paths = None, coreutils_versi
         paths = ["{}/sysroot/bin".format(workspace_get_absolute_path())],
         inherited_vars = ["HOME", "USER"],
         system_paths = system_paths,
-        visibility = visibility_private(),
+        visibility = visibility_rules([name]),
     )
 
-    coreutils_add(COREUTILS_RULE, coreutils_version, coreutils_functions, visibility = visibility_private())
+    coreutils_add(
+        COREUTILS_RULE,
+        coreutils_version,
+        coreutils_functions,
+        visibility = visibility_rules([name]),
+    )
 
     checkout_add_target(
         name,
-        deps = [SPACES_RULE, COREUTILS_RULE],
+        deps = [SPACES_RULE, COREUTILS_RULE, UPDATE_ENV_NAME],
         visibility = visibility,
     )
 
@@ -130,5 +135,5 @@ def spaces_add_star_formatter(name, configure_zed = False, deps = [], visibility
                     },
                 },
             },
-            visibility = visibility_private(),
+            visibility = visibility,
         )

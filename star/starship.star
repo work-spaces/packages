@@ -7,12 +7,13 @@ Add starship cross shell prompt to the workspace and configure it
 load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_cargo_bin",
+    "checkout_add_target",
     "checkout_update_env",
     "checkout_update_shell",
     "checkout_update_shell_shortcuts",
     "checkout_update_shell_startup",
 )
-load("//@star/sdk/star/visibility.star", "visibility_private")
+load("//@star/sdk/star/visibility.star", "visibility_rules")
 load(
     "//@star/sdk/star/ws.star",
     "workspace_get_absolute_path",
@@ -31,13 +32,13 @@ def _get_starship_prompt(prompt):
         return "starship config format \"{} \\$all\" && echo 'Welcome to Spaces!'".format(prompt)
     return "echo 'Welcome to Spaces!'"
 
-def _checkout_add_binary(name, version, visibility = None):
+def _checkout_add_binary(name, version):
     checkout_add_cargo_bin(
         "{}_starship".format(name),
         crate = "starship",
         version = version,
         bins = ["starship"],
-        visibility = visibility_private(),
+        visibility = visibility_rules([name]),
     )
 
     checkout_update_env(
@@ -54,7 +55,7 @@ def _checkout_add_binary(name, version, visibility = None):
             "TERMINFO_DIRS",
             "TMPDIR",
         ],
-        visibility = visibility_private(),
+        visibility = visibility_rules([name]),
     )
 
 def _starhip_add_shell(
@@ -66,24 +67,39 @@ def _starhip_add_shell(
         startup_contents = None,
         startup_env = None,
         visibility = None):
-    _checkout_add_binary(name, version, visibility = visibility)
+    _checkout_add_binary(name, version)
     SHORTCUTS_RULE = "{}_shortcuts".format(name)
     STARTUP_RULE = "{}_startup".format(name)
     SHELL_RULE = "{}_shell".format(name)
-    checkout_update_shell_shortcuts(SHORTCUTS_RULE, shortcuts)
+    deps = [SHORTCUTS_RULE, SHELL_RULE]
+
+    checkout_update_shell_shortcuts(
+        SHORTCUTS_RULE,
+        shortcuts,
+        visibility = visibility_rules([name]),
+    )
     checkout_update_shell(
         SHELL_RULE,
         shell_path = shell_path,
         args = args,
+        visibility = visibility_rules([name]),
     )
 
     if startup_contents != None:
+        deps.append(STARTUP_RULE)
         checkout_update_shell_startup(
             STARTUP_RULE,
             script_name = "startup.sh",
             contents = startup_contents,
             env_name = startup_env,
+            visibility = visibility_rules([name]),
         )
+
+    checkout_add_target(
+        name,
+        deps = deps,
+        visibility = visibility,
+    )
 
 def starship_add_bash(
         name,

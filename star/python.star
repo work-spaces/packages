@@ -9,8 +9,8 @@ load(
     "checkout_update_env",
 )
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
-load("//@star/sdk/star/run.star", "run_add_exec_setup")
-load("//@star/sdk/star/visibility.star", "visibility_private")
+load("//@star/sdk/star/run.star", "run_add_exec_setup", "run_add_target")
+load("//@star/sdk/star/visibility.star", "visibility_private", "visibility_rules")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 load("github.com/astral-sh/packages.star", astral_packages = "packages")
 
@@ -33,20 +33,25 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [],
     UV_PLATFORMS = astral_packages["uv"][uv_version]
     RUFF_PLATFORMS = astral_packages["ruff"][ruff_version]
 
+    CHECKOUT_UV_RULE = "{}_checkout_uv".format(name)
+    CHECKOUT_RUFF_RULE = "{}_checkout_ruff".format(name)
+    CHECKOUT_RUFF_VS_CODE_FORMATTER = "{}_ruff_formatter_vs_code".format(name)
+    CHECKOUT_UPDATE_ENV = "{}_update_uv_env".format(name)
+
     checkout_add_platform_archive(
-        "{}_checkout_uv".format(name),
+        CHECKOUT_UV_RULE,
         platforms = UV_PLATFORMS,
-        visibility = visibility_private(),
+        visibility = visibility,
     )
 
     checkout_add_platform_archive(
-        "{}_checkout_ruff".format(name),
+        CHECKOUT_RUFF_RULE,
         platforms = RUFF_PLATFORMS,
-        visibility = visibility_private(),
+        visibility = visibility,
     )
 
     checkout_update_asset(
-        "{}_ruff_formatter_vs_code".format(name),
+        CHECKOUT_RUFF_VS_CODE_FORMATTER,
         destination = ".vscode/extensions.json",
         value = {
             "recommendations": ["ms-python.python", "charliermarsh.ruff"],
@@ -58,7 +63,7 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [],
     STORE_PATH = info_get_path_to_store()
 
     checkout_update_env(
-        "{}_update_uv_env".format(name),
+        CHECKOUT_UPDATE_ENV,
         paths = ["{}/venv/bin".format(WORKSPACE_PATH)],
         vars = {
             "VIRTUAL_ENV": "{}/venv".format(WORKSPACE_PATH),
@@ -70,25 +75,36 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [],
         visibility = visibility_private(),
     )
 
+    RUN_INSTALL_PYTHON_RULE = "{}_install_python".format(name)
+    RUN_VENV_RULE = "{}_venv".format(name)
+    RUN_PACKAGES_RULE = "{}_packages".format(name)
+
     run_add_exec_setup(
-        "{}_install_python".format(name),
+        RUN_INSTALL_PYTHON_RULE,
         command = "uv",
         args = ["python", "install", "{}".format(python_version)],
-        visibility = visibility_private(),
+        visibility = visibility_rules([RUN_INSTALL_PYTHON_RULE]),
     )
 
     run_add_exec_setup(
-        "{}_venv".format(name),
-        deps = ["{}_install_python".format(name)],
+        RUN_VENV_RULE,
+        deps = [RUN_INSTALL_PYTHON_RULE],
         command = "uv",
         args = ["venv", "--python={}".format(python_version), "venv"],
-        visibility = visibility_private(),
+        visibility = visibility_rules([RUN_PACKAGES_RULE]),
     )
 
     run_add_exec_setup(
-        "{}_packages".format(name),
+        RUN_PACKAGES_RULE,
         deps = ["{}_venv".format(name)],
         command = "uv",
         args = ["pip", "install"] + packages,
+        # leave this public to support APIs already using it
         visibility = visibility,
+    )
+
+    run_add_target(
+        name,
+        deps = [RUN_PACKAGES_RULE],
+        visibility = visibility(),
     )

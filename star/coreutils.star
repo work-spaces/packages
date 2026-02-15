@@ -11,7 +11,7 @@ load(
     "checkout_update_env",
 )
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
-load("//@star/sdk/star/visibility.star", "visibility_private")
+load("//@star/sdk/star/visibility.star", "visibility_rules")
 load("github.com/uutils/coreutils/packages.star", "packages")
 
 COREUTILS_DEFAULT_FUNCTIONS = [
@@ -136,7 +136,7 @@ def coreutils_add(name, version, functions = COREUTILS_DEFAULT_FUNCTIONS, deps =
         PLATFORM_CHECKOUT_RULE,
         platforms = packages[version],
         deps = deps,
-        visibility = visibility_private(),
+        visibility = visibility_rules([name]),
     )
 
     # Create the hardlinks
@@ -157,6 +157,7 @@ def coreutils_add_rs_tools(name, deps = [], bat_paging = "never", visibility = N
     Args:
         name: name of the rule to checkout the rust tools collection.
         deps: list of dependencies to be added to the rule.
+        bat_paging: `str` Bat paging mode: `never|always|auto`.
         visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
@@ -181,7 +182,7 @@ def coreutils_add_rs_tools(name, deps = [], bat_paging = "never", visibility = N
             version = bin["version"],
             bins = bin["bins"],
             deps = deps,
-            visibility = visibility_private(),
+            visibility = visibility_rules([name]),
         )
         bin_deps.append(BIN_RULE)
 

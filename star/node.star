@@ -7,7 +7,7 @@ load(
     "checkout_update_env",
 )
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
-load("//@star/sdk/star/visibility.star", "visibility_private")
+load("//@star/sdk/star/visibility.star", "visibility_rules")
 load("package.star", "package_add")
 
 def node_add(name, version, visibility = None):
@@ -20,7 +20,13 @@ def node_add(name, version, visibility = None):
         visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
-    PACKAGE_RULE_NAME = package_add("nodejs.org", "node", "nodejs", version, visibility = visibility_private())
+    PACKAGE_RULE_NAME = package_add(
+        "nodejs.org",
+        "node",
+        "nodejs",
+        version,
+        visibility = visibility_rules([name]),
+    )
 
     checkout_update_env(
         name,
