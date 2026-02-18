@@ -83,7 +83,7 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [],
         RUN_INSTALL_PYTHON_RULE,
         command = "uv",
         args = ["python", "install", "{}".format(python_version)],
-        visibility = visibility_rules([RUN_INSTALL_PYTHON_RULE]),
+        visibility = visibility_rules([RUN_VENV_RULE]),
     )
 
     run_add_exec_setup(
@@ -106,5 +106,5 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [],
     run_add_target(
         name,
         deps = [RUN_PACKAGES_RULE],
-        visibility = visibility(),
+        visibility = visibility,
     )
