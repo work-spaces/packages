@@ -14,7 +14,14 @@ load("//@star/sdk/star/visibility.star", "visibility_private", "visibility_rules
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 load("github.com/astral-sh/packages.star", astral_packages = "packages")
 
-def python_add_uv(name, uv_version, ruff_version, python_version, packages = [], visibility = None):
+def python_add_uv(
+        name,
+        uv_version = "0.10.4",
+        ruff_version = "0.15.1",
+        python_version = "3.13",
+        venv_name = "venv",
+        packages = [],
+        visibility = None):
     """
     Add Python to your sysroot.
 
@@ -26,6 +33,7 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [],
         name: `str` The name of the rule.
         uv_version: `str` uv version from //@packages/star/github.com/astral-sh/uv
         ruff_version: `str` ruff version from //@packages/star/github.com/astral-sh/ruff
+        venv_name: `str` the folder name for where to store the virtual environment
         python_version: `str` The version of Python to install
         packages: `[str]` The Python packages to install
         visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
@@ -66,10 +74,10 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [],
         CHECKOUT_UPDATE_ENV,
         paths = ["{}/venv/bin".format(WORKSPACE_PATH)],
         vars = {
-            "VIRTUAL_ENV": "{}/venv".format(WORKSPACE_PATH),
+            "VIRTUAL_ENV": "{}/{}".format(WORKSPACE_PATH, venv_name),
             "UV_TOOL_DIR": "{}/uv".format(STORE_PATH),
             "UV_TOOL_BIN_DIR": "{}/uv/bin".format(STORE_PATH),
-            "UV_PROJECT_ENVIRONMENT": "venv",
+            "UV_PROJECT_ENVIRONMENT": venv_name,
             "UV_PYTHON_INSTALL_DIR": "{}/uv/python".format(STORE_PATH),
         },
         visibility = visibility_private(),
@@ -90,21 +98,22 @@ def python_add_uv(name, uv_version, ruff_version, python_version, packages = [],
         RUN_VENV_RULE,
         deps = [RUN_INSTALL_PYTHON_RULE],
         command = "uv",
-        args = ["venv", "--python={}".format(python_version), "venv"],
-        visibility = visibility_rules([RUN_PACKAGES_RULE, "//:setup"]),
+        args = ["venv", "--python={}".format(python_version), venv_name],
+        visibility = visibility_rules([RUN_PACKAGES_RULE, "//:setup", name]),
     )
 
-    run_add_exec_setup(
-        RUN_PACKAGES_RULE,
-        deps = ["{}_venv".format(name)],
-        command = "uv",
-        args = ["pip", "install"] + packages,
-        # leave this public to support APIs already using it
-        visibility = visibility,
-    )
+    if packages != []:
+        run_add_exec_setup(
+            RUN_PACKAGES_RULE,
+            deps = ["{}_venv".format(name)],
+            command = "uv",
+            args = ["pip", "install"] + packages,
+            # leave this public to support APIs already using it
+            visibility = visibility,
+        )
 
     run_add_target(
         name,
-        deps = [RUN_PACKAGES_RULE],
+        deps = [RUN_PACKAGES_RULE if packages != [] else RUN_VENV_RULE],
         visibility = visibility,
     )
