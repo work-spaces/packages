@@ -605,6 +605,35 @@ gh_releases = xpack_releases | {
             },
         },
     },
+    "uutils_diffutils": {
+        "settings": {
+            "domain": "github.com",
+            "owner": "uutils",
+            "repo": "diffutils",
+        } | sysroot_bin,
+        "platforms": {
+            "macos-aarch64": {
+                "name_pattern": "aarch64-apple-darwin",
+                "strip_prefix": "diffutils-aarch64-apple-darwin",
+            },
+            "macos-x86_64": {
+                "name_pattern": "x86_64-apple-darwin",
+                "strip_prefix": "diffutils-x86_64-apple-darwin",
+            },
+            "linux-x86_64": {
+                "name_pattern": "x86_64-unknown-linux-gnu",
+                "strip_prefix": "diffutils-x86_64-unknown-linux-gnu",
+            },
+            "linux-aarch64": {
+                "name_pattern": "aarch64-unknown-linux-gnu",
+                "strip_prefix": "diffutils-aarch64-unknown-linux-gnu",
+            },
+            "windows-x86_64": {
+                "name_pattern": "x86_64-pc-windows-msvc",
+                "strip_prefix": "diffutils-x86_64-pc-windows-msvc",
+            },
+        },
+    },
     "uutils_sed": {
         "settings": {
             "domain": "github.com",
