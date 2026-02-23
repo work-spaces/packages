@@ -177,8 +177,8 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
             visibility = visibility_private(),
         )
 
-        checkout_add_target(
-            name,
-            deps = [RUSTUP_INIT],
-            visibility = visibility,
-        )
+    checkout_add_target(
+        name,
+        deps = [RUSTUP_INIT],
+        visibility = visibility,
+    )
