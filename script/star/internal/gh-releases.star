@@ -600,8 +600,37 @@ gh_releases = xpack_releases | {
                 "strip_prefix": "coreutils-aarch64-unknown-linux-musl",
             },
             "windows-x86_64": {
-                "name_pattern": "x86_64-pc-windows-gnu",
-                "strip_prefix": "git-lfs-$VERSION",
+                "name_pattern": "x86_64-pc-windows-msvc",
+                "strip_prefix": "coreutils-x86_64-pc-windows-msvc",
+            },
+        },
+    },
+    "uutils_sed": {
+        "settings": {
+            "domain": "github.com",
+            "owner": "uutils",
+            "repo": "sed",
+        } | sysroot_bin,
+        "platforms": {
+            "macos-aarch64": {
+                "name_pattern": "aarch64-apple-darwin",
+                "strip_prefix": "sed-aarch64-apple-darwin",
+            },
+            "macos-x86_64": {
+                "name_pattern": "x86_64-apple-darwin",
+                "strip_prefix": "sed-x86_64-apple-darwin",
+            },
+            "linux-x86_64": {
+                "name_pattern": "x86_64-unknown-linux-musl",
+                "strip_prefix": "sed-x86_64-unknown-linux-musl",
+            },
+            "linux-aarch64": {
+                "name_pattern": "aarch64-unknown-linux-gnu",
+                "strip_prefix": "sed-aarch64-unknown-linux-gnu",
+            },
+            "windows-x86_64": {
+                "name_pattern": "x86_64-pc-windows-msvc",
+                "strip_prefix": "sed-x86_64-pc-windows-msvc",
             },
         },
     },
