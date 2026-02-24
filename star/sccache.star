@@ -5,9 +5,10 @@ Add sccache to the workspace
 load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_cargo_bin",
+    "checkout_add_env_vars",
     "checkout_update_asset",
-    "checkout_update_env",
 )
+load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 
@@ -51,11 +52,15 @@ def sccache_add(name, version, visibility = None):
         visibility = visibility_rules([name]),
     )
 
-    checkout_update_env(
+    checkout_add_env_vars(
         name,
-        vars = {
-            "SCCACHE_DIR": "{}/sccache".format(info_get_path_to_store()),
-        },
+        vars = [
+            env_assign(
+                "SCCACHE_DIR",
+                value = "{}/sccache".format(info_get_path_to_store()),
+                help = "The directory where sccache stores its cache files in the spaces store",
+            ),
+        ],
         deps = [CARGO_BIN_RULE],
         visibility = visibility,
     )

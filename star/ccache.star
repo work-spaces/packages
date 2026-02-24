@@ -4,9 +4,10 @@ Add ccache to the workspace
 
 load(
     "//@star/sdk/star/checkout.star",
+    "checkout_add_env_vars",
     "checkout_add_platform_archive",
-    "checkout_update_env",
 )
+load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
@@ -40,13 +41,25 @@ def ccache_add(name, version, visibility = None):
         visibility = visibility_rules([name]),
     )
 
-    checkout_update_env(
+    checkout_add_env_vars(
         name,
-        vars = {
-            "CCACHE_DIR": "{}/ccache".format(info_get_path_to_store()),
-            "CCACHE_BASEDIR": workspace_get_absolute_path(),
-            "CCACHE_ABSSTDERR": "1",
-        },
+        vars = [
+            env_assign(
+                "CCACHE_DIR",
+                value = "{}/ccache".format(info_get_path_to_store()),
+                help = "The directory where ccache stores cached compilations",
+            ),
+            env_assign(
+                "CCACHE_BASEDIR",
+                value = workspace_get_absolute_path(),
+                help = "The base directory for ccache relative path calculations",
+            ),
+            env_assign(
+                "CCACHE_ABSSTDERR",
+                value = "1",
+                help = "Enable absolute paths in stderr output from ccache",
+            ),
+        ],
         deps = [PLATFORM_RULE],
         visibility = visibility,
     )

@@ -4,11 +4,12 @@ Add Bazelisk to your sysroot.
 
 load(
     "//@star/sdk/star/checkout.star",
+    "checkout_add_env_vars",
     "checkout_add_exec",
     "checkout_add_hard_link_asset",
     "checkout_add_platform_archive",
-    "checkout_update_env",
 )
+load("//@star/sdk/star/env.star", "env_assign")
 load(
     "//@star/sdk/star/info.star",
     "info_get_path_to_store",
@@ -59,11 +60,15 @@ def bazelisk_add(name, version, deps = [], visibility = None):
         visibility = visibility_private(),
     )
 
-    checkout_update_env(
+    checkout_add_env_vars(
         "{}_update_env".format(name),
-        vars = {
-            "BAZELISK_HOME": "{}/bazelisk".format(info_get_path_to_store()),
-        },
+        vars = [
+            env_assign(
+                "BAZELISK_HOME",
+                value = "{}/bazelisk".format(info_get_path_to_store()),
+                help = "The path to the bazelisk cache in the spaces store",
+            ),
+        ],
         visibility = visibility_private(),
     )
 

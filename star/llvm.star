@@ -5,9 +5,10 @@ Add LLVM to your sysroot.
 load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_asset",
+    "checkout_add_env_vars",
     "checkout_add_platform_archive",
-    "checkout_update_env",
 )
+load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 load("github.com/llvm/llvm-project/packages.star", github_llvm_project_packages = "packages")
@@ -36,11 +37,15 @@ def llvm_add(name, version, toolchain_name = "llvm-toolchain.cmake", visibility 
         visibility = visibility_rules([name]),
     )
 
-    checkout_update_env(
+    checkout_add_env_vars(
         ENV_RULE,
-        vars = {
-            "LLVM_SPACES_WORKSPACE": workspace_get_absolute_path(),
-        },
+        vars = [
+            env_assign(
+                "LLVM_SPACES_WORKSPACE",
+                value = workspace_get_absolute_path(),
+                help = "The workspace root used by the LLVM cmake toolchain file",
+            ),
+        ],
         visibility = visibility_rules([name]),
     )
 

@@ -7,9 +7,10 @@ load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_any_assets",
     "checkout_add_cargo_bin",
+    "checkout_add_env_vars",
     "checkout_add_platform_archive",
-    "checkout_update_env",
 )
+load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 load("github.com/uutils/coreutils/packages.star", "packages")
@@ -186,12 +187,20 @@ def coreutils_add_rs_tools(name, deps = [], bat_paging = "never", visibility = N
         )
         bin_deps.append(BIN_RULE)
 
-    checkout_update_env(
+    checkout_add_env_vars(
         name,
-        vars = {
-            "BAT_PAGING": bat_paging,
-            "GRAVEYARD": "{}/graveyard".format(info_get_path_to_store()),
-        },
+        vars = [
+            env_assign(
+                "BAT_PAGING",
+                value = bat_paging,
+                help = "Bat paging mode",
+            ),
+            env_assign(
+                "GRAVEYARD",
+                value = "{}/graveyard".format(info_get_path_to_store()),
+                help = "Directory for rm-improved deleted files in the spaces store",
+            ),
+        ],
         deps = bin_deps,
         visibility = visibility,
     )
