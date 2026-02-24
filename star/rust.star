@@ -4,11 +4,16 @@ Add Rust
 
 load(
     "//@star/sdk/star/checkout.star",
+    "checkout_add_env_vars",
     "checkout_add_exec",
     "checkout_add_platform_archive",
     "checkout_add_target",
     "checkout_update_asset",
-    "checkout_update_env",
+)
+load(
+    "//@star/sdk/star/env.star",
+    "env_assign",
+    "env_prepend",
 )
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/visibility.star", "visibility_private", "visibility_rules")
@@ -101,10 +106,30 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
         "CARGO_HOME": CARGO_HOME,
     }
 
-    checkout_update_env(
+    checkout_add_env_vars(
         UPDATE_ENV_RULE,
-        vars = ENV_VARS,
-        paths = [CARGO_PATH],
+        vars = [
+            env_assign(
+                "RUSTUP_HOME",
+                value = RUSTUP_HOME,
+                help = "The path to the rustup home directory in the spaces store",
+            ),
+            env_assign(
+                "RUST_TOOLCHAIN",
+                value = version,
+                help = "The version of the rust toolchain to use",
+            ),
+            env_assign(
+                "CARGO_HOME",
+                value = CARGO_HOME,
+                help = "The path to the cargo home directory in the spaces store",
+            ),
+            env_prepend(
+                "PATH",
+                value = CARGO_PATH,
+                help = "The path to the cargo bin directory",
+            ),
+        ],
         visibility = visibility_rules([]),
     )
 

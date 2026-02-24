@@ -4,8 +4,9 @@ Add Node
 
 load(
     "//@star/sdk/star/checkout.star",
-    "checkout_update_env",
+    "checkout_add_env_vars",
 )
+load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 load("package.star", "package_add")
@@ -28,11 +29,15 @@ def node_add(name, version, visibility = None):
         visibility = visibility_rules([name]),
     )
 
-    checkout_update_env(
+    checkout_add_env_vars(
         name,
-        vars = {
-            "npm_config_cache": "{}/nodejs".format(info_get_path_to_store()),
-        },
+        vars = [
+            env_assign(
+                "npm_config_cache",
+                value = "{}/nodejs".format(info_get_path_to_store()),
+                help = "Uses a common node cache directory for all workspaces in the spaces store",
+            ),
+        ],
         deps = [PACKAGE_RULE_NAME],
         visibility = visibility,
     )

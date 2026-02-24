@@ -5,9 +5,10 @@ Add arm-none-eabi toolchain to your sysroot.
 load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_asset",
+    "checkout_add_env_vars",
     "checkout_add_platform_archive",
-    "checkout_update_env",
 )
+load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/visibility.star", "visibility_private")
 load("arm.developer.com/gnu/arm-none-eabi/packages.star", "packages")
 
@@ -108,10 +109,14 @@ def arm_gnu_add_arm_none_eabi_add(name, version, visibility = None):
         visibility = visibility_private(),
     )
 
-    checkout_update_env(
+    checkout_add_env_vars(
         "{}_toolchain-cmake-env".format(name),
-        vars = {
-            "ARM_GNU_TOOLCHAIN_CMAKE": "sysroot/cmake/arm-gnu-arm-none-eabi-toolchain.cmake",
-        },
+        vars = [
+            env_assign(
+                "ARM_GNU_TOOLCHAIN_CMAKE",
+                value = "sysroot/cmake/arm-gnu-arm-none-eabi-toolchain.cmake",
+                help = "Path to the ARM GNU arm-none-eabi CMake toolchain file",
+            ),
+        ],
         visibility = visibility_private(),
     )

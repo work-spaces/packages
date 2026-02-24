@@ -7,12 +7,13 @@ Add starship cross shell prompt to the workspace and configure it
 load(
     "//@star/sdk/star/checkout.star",
     "checkout_add_cargo_bin",
+    "checkout_add_env_vars",
     "checkout_add_target",
-    "checkout_update_env",
     "checkout_update_shell",
     "checkout_update_shell_shortcuts",
     "checkout_update_shell_startup",
 )
+load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 load(
     "//@star/sdk/star/ws.star",
@@ -41,19 +42,16 @@ def _checkout_add_binary(name, version):
         visibility = visibility_rules([name]),
     )
 
-    checkout_update_env(
+    WORKSPACE = workspace_get_absolute_path()
+
+    checkout_add_env_vars(
         "{}_starship_env".format(name),
-        vars = {
-            "STARSHIP_CONFIG": "{}/.spaces/shell/starship.toml".format(workspace_get_absolute_path()),
-        },
-        optional_inherited_vars = [
-            "COLORFGBG",
-            "COLORTERM",
-            "COMMAND_MODE",
-            "LANG",
-            "TERM",
-            "TERMINFO_DIRS",
-            "TMPDIR",
+        vars = [
+            env_assign(
+                "STARSHIP_CONFIG",
+                value = "{}/.spaces/shell/starship.toml".format(WORKSPACE),
+                help = "Location of the starsip configuration file",
+            ),
         ],
         visibility = visibility_rules([name]),
     )

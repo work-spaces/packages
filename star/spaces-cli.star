@@ -4,11 +4,18 @@ Add the spaces binary to a workflow
 
 load(
     "//@star/sdk/star/checkout.star",
+    "checkout_add_env_vars",
     "checkout_add_platform_archive",
     "checkout_add_soft_link_asset",
     "checkout_add_target",
     "checkout_update_asset",
-    "checkout_update_env",
+)
+load(
+    "//@star/sdk/star/env.star",
+    "env_append",
+    "env_assign",
+    "env_inherit",
+    "env_prepend",
 )
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 load(
@@ -74,20 +81,40 @@ def spaces_isolate_workspace(name, version, system_paths = None, coreutils_versi
         visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
+    WORKSPACE = workspace_get_absolute_path()
     UPDATE_ENV_NAME = "{}_update_env".format(name)
     COREUTILS_RULE = "{}_coreutils".format(name)
     SPACES_RULE = "{}_spaces".format(name)
 
     spaces_add(SPACES_RULE, version, visibility = visibility_rules([name]))
 
-    checkout_update_env(
+    append_system_paths = [
+        env_append("PATH", value = system_path_entry, help = "Append {} to path for access to system binaries".format(system_path_entry))
+        for system_path_entry in system_paths
+    ]
+
+    checkout_add_env_vars(
         UPDATE_ENV_NAME,
-        vars = {
-            "SPACES_WORKSPACE": workspace_get_absolute_path(),
-        },
-        paths = ["{}/sysroot/bin".format(workspace_get_absolute_path())],
-        inherited_vars = ["HOME", "USER"],
-        system_paths = system_paths,
+        vars = [
+            env_assign(
+                "SPACES_WORKSPACE",
+                value = WORKSPACE,
+                help = "The absolute path to the workspace",
+            ),
+            env_prepend(
+                "PATH",
+                value = "{}/sysroot/bin".format(WORKSPACE),
+                help = "The path to the sysroot bin directory",
+            ),
+            env_inherit(
+                "HOME",
+                help = "The user's home directory inherited from the checkout environment",
+            ),
+            env_inherit(
+                "USER",
+                help = "The user name inherited from the checkout environment",
+            ),
+        ] + append_system_paths,
         visibility = visibility_rules([name]),
     )
 

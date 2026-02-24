@@ -4,9 +4,14 @@ Add Python to your sysroot.
 
 load(
     "//@star/sdk/star/checkout.star",
+    "checkout_add_env_vars",
     "checkout_add_platform_archive",
     "checkout_update_asset",
-    "checkout_update_env",
+)
+load(
+    "//@star/sdk/star/env.star",
+    "env_assign",
+    "env_prepend",
 )
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/run.star", "run_add_exec_setup", "run_add_target")
@@ -70,16 +75,40 @@ def python_add_uv(
     WORKSPACE_PATH = workspace_get_absolute_path()
     STORE_PATH = info_get_path_to_store()
 
-    checkout_update_env(
+    checkout_add_env_vars(
         CHECKOUT_UPDATE_ENV,
-        paths = ["{}/venv/bin".format(WORKSPACE_PATH)],
-        vars = {
-            "VIRTUAL_ENV": "{}/{}".format(WORKSPACE_PATH, venv_name),
-            "UV_TOOL_DIR": "{}/uv".format(STORE_PATH),
-            "UV_TOOL_BIN_DIR": "{}/uv/bin".format(STORE_PATH),
-            "UV_PROJECT_ENVIRONMENT": venv_name,
-            "UV_PYTHON_INSTALL_DIR": "{}/uv/python".format(STORE_PATH),
-        },
+        vars = [
+            env_prepend(
+                "PATH",
+                value = "{}/venv/bin".format(WORKSPACE_PATH),
+                help = "The path to the Python virtual environment bin directory",
+            ),
+            env_assign(
+                "VIRTUAL_ENV",
+                value = "{}/{}".format(WORKSPACE_PATH, venv_name),
+                help = "The path to the Python virtual environment",
+            ),
+            env_assign(
+                "UV_TOOL_DIR",
+                value = "{}/uv".format(STORE_PATH),
+                help = "The path to the uv tool directory in the spaces store",
+            ),
+            env_assign(
+                "UV_TOOL_BIN_DIR",
+                value = "{}/uv/bin".format(STORE_PATH),
+                help = "The path to the uv tool bin directory in the spaces store",
+            ),
+            env_assign(
+                "UV_PROJECT_ENVIRONMENT",
+                value = venv_name,
+                help = "The name of the uv project environment directory",
+            ),
+            env_assign(
+                "UV_PYTHON_INSTALL_DIR",
+                value = "{}/uv/python".format(STORE_PATH),
+                help = "The path to uv Python installations in the spaces store",
+            ),
+        ],
         visibility = visibility_private(),
     )
 

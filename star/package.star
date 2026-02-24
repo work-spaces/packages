@@ -74,7 +74,6 @@ def package_is_platform_supported(domain, owner, repo, version, platform = None)
         `bool` True if the package is supported on the given platform, False otherwise.
     """
 
-    RULE_NAME = "{}_{}_{}_{}".format(domain, owner, repo, version)
     platform_packages = packages[domain][owner][repo][version]
 
     EFFECTIVE_PLATFORM = platform if platform != None else info_get_platform_name()
