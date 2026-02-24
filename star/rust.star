@@ -95,9 +95,15 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
     CARGO_HOME = "{}/cargo".format(STORE_PATH)
     UPDATE_ENV_RULE = "{}_update_env".format(name)
 
+    ENV_VARS = {
+        "RUSTUP_HOME": RUSTUP_HOME,
+        "RUST_TOOLCHAIN": version,
+        "CARGO_HOME": CARGO_HOME,
+    }
+
     checkout_update_env(
         UPDATE_ENV_RULE,
-        vars = {"RUSTUP_HOME": RUSTUP_HOME, "RUST_TOOLCHAIN": version, "CARGO_HOME": CARGO_HOME},
+        vars = ENV_VARS,
         paths = [CARGO_PATH],
         visibility = visibility_rules([]),
     )
@@ -119,6 +125,7 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
         command = "sysroot/bin/rustup-init",
         args = ["--profile=default", "--no-modify-path", "-y"],
         visibility = visibility_rules([name]),
+        env = ENV_VARS,
     )
 
     if configure_vscode:
@@ -177,8 +184,8 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
             visibility = visibility_private(),
         )
 
-        checkout_add_target(
-            name,
-            deps = [RUSTUP_INIT],
-            visibility = visibility,
-        )
+    checkout_add_target(
+        name,
+        deps = [RUSTUP_INIT],
+        visibility = visibility,
+    )
