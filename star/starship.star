@@ -13,7 +13,7 @@ load(
     "checkout_update_shell_shortcuts",
     "checkout_update_shell_startup",
 )
-load("//@star/sdk/star/env.star", "env_assign")
+load("//@star/sdk/star/env.star", "env_assign", "env_inherit")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 load(
     "//@star/sdk/star/ws.star",
@@ -51,6 +51,30 @@ def _checkout_add_binary(name, version):
                 "STARSHIP_CONFIG",
                 value = "{}/.spaces/shell/starship.toml".format(WORKSPACE),
                 help = "Location of the starsip configuration file",
+            ),
+            env_inherit(
+                "LANG",
+                help = "Inherit from calling env to support starship dev experience",
+            ),
+            env_inherit(
+                "TERMINFO_DIRS",
+                help = "Inherit from calling env to support starship dev experience",
+            ),
+            env_inherit(
+                "TERM",
+                help = "Inherit from calling env to support starship dev experience",
+            ),
+            env_inherit(
+                "COLORFGBG",
+                help = "Inherit from calling env to support color in starship",
+            ),
+            env_inherit(
+                "COLORTERM",
+                help = "Inherit from calling env to support color in starship",
+            ),
+            env_inherit(
+                "TMPDIR",
+                help = "Inherit from calling env to support color in starship",
             ),
         ],
         visibility = visibility_rules([name]),
