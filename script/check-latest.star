@@ -9,12 +9,11 @@ Usage Example:
 
 """
 
-load("star/internal/gh-releases.star", "gh_releases")
 load("star/internal/add-gh-platform-archive.star", "add_gh_platform_archive")
-load("star/internal/update-packages.star",  "update_packages")
-load("star/internal/http-releases.star", "http_releases")
 load("star/internal/add-http-platform-archive.star", "add_http_platform_archive")
-
+load("star/internal/gh-releases.star", "gh_releases")
+load("star/internal/http-releases.star", "http_releases")
+load("star/internal/update-packages.star", "update_packages")
 
 if fs.exists("tmp"):
     script.print("Removing ./tmp directory")
@@ -26,10 +25,7 @@ if fs.exists("tmp"):
         ],
     })
 
-info.set_minimum_version("0.11.20")
-
 for release in gh_releases:
-
     map = gh_releases[release]
     domain = map["settings"]["domain"]
     owner = map["settings"]["owner"]
@@ -59,14 +55,11 @@ for release in gh_releases:
     script.print("Latest tag for gh {} is {}.".format(release, latest_tag))
     add_gh_platform_archive(release, latest_tag)
 
-
 for release in http_releases:
-
     map = http_releases[release]
     versions = map["versions"]
 
     for version in versions:
         add_http_platform_archive(release, version)
-
 
 update_packages()
