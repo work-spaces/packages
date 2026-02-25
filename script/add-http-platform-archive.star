@@ -11,7 +11,6 @@ Usage Example:
 
 load("star/internal/add-http-platform-archive.star", "add_http_platform_archive")
 
-
 args = script.get_args()
 name = args["named"]["--name"]
 version = args["named"]["--version"]

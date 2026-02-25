@@ -13,7 +13,7 @@ mkdir_tmp_result = process.exec({
     "command": "mkdir",
     "args": [
         "-p",
-        "tmp"
+        "tmp",
     ],
 })
 
@@ -36,9 +36,8 @@ OWNER_WHITELIST = [
     "cli",
     "work-spaces",
     "oras-project",
-    "protocolbuffers"
+    "protocolbuffers",
 ]
-
 
 for domain, owners in packages.items():
     script.print("domain === {}".format(domain))

@@ -12,7 +12,7 @@ load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 
-def sccache_add(name, version, visibility = None):
+def sccache_add(name, version, visibility = None, deps = []):
     """
     Add sccache to the workspace and to .cargo/config.toml.
 
@@ -29,6 +29,7 @@ def sccache_add(name, version, visibility = None):
     Args:
         name: `str` The name of the rule.
         version: `str` The version of sccache to add.
+        deps: `[str]` List of deps (rust toolchain for cargobin)
         visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
@@ -39,6 +40,7 @@ def sccache_add(name, version, visibility = None):
         crate = "sccache",
         version = version,
         bins = ["sccache"],
+        deps = deps,
         visibility = visibility_rules([name]),
     )
 
