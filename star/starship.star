@@ -33,12 +33,13 @@ def _get_starship_prompt(prompt):
         return "starship config format \"{} \\$all\" && echo 'Welcome to Spaces!'".format(prompt)
     return "echo 'Welcome to Spaces!'"
 
-def _checkout_add_binary(name, version):
+def _checkout_add_binary(name, version, deps):
     checkout_add_cargo_bin(
         "{}_starship".format(name),
         crate = "starship",
         version = version,
         bins = ["starship"],
+        deps = deps,
         visibility = visibility_rules([name]),
     )
 
@@ -86,10 +87,11 @@ def _starhip_add_shell(
         shell_path,
         args,
         shortcuts,
+        deps,
         startup_contents = None,
         startup_env = None,
         visibility = None):
-    _checkout_add_binary(name, version)
+    _checkout_add_binary(name, version, deps)
     SHORTCUTS_RULE = "{}_shortcuts".format(name)
     STARTUP_RULE = "{}_startup".format(name)
     SHELL_RULE = "{}_shell".format(name)
@@ -129,6 +131,7 @@ def starship_add_bash(
         preset = "plain-text-symbols",
         prompt = "\\(s\\)",
         shortcuts = None,
+        deps = [],
         visibility = None):
     """
     Adds starship and configures it to use bash with `spaces shell`
@@ -139,6 +142,7 @@ def starship_add_bash(
         version: `str` the starship version to use
         prompt: prompt to pre-pend to the starship prompt
         preset: preset to use for starship,
+        deps: `[str]` List of deps (rust toolchain for cargobin)
         shortcuts: `dict` shortcuts to add the the shell
         visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
@@ -157,6 +161,7 @@ def starship_add_bash(
         name,
         version,
         shell_path,
+        deps = deps,
         args = ARGS,
         startup_contents = STARTUP_CONTENTS,
         shortcuts = shortcuts,
@@ -170,6 +175,7 @@ def starship_add_fish(
         preset = "plain-text-symbols",
         prompt = "\\(s\\)",
         shortcuts = None,
+        deps = [],
         visibility = None):
     """
     Adds starship and configures it to use fish with `spaces shell`
@@ -181,6 +187,7 @@ def starship_add_fish(
         prompt: prompt to pre-pend to the starship prompt
         preset: preset to use for starship
         shortcuts: `dict` shortcuts to add the the shell
+        deps: `[str]` List of deps (rust toolchain for cargobin)
         visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
@@ -193,6 +200,7 @@ def starship_add_fish(
         version,
         shell_path,
         args = ARGS,
+        deps = deps,
         shortcuts = shortcuts,
         visibility = visibility,
     )
@@ -204,6 +212,7 @@ def starship_add_zsh(
         preset = "plain-text-symbols",
         prompt = "\\(s\\)",
         shortcuts = None,
+        deps = [],
         visibility = None):
     """
     Adds starship and configures it to use fish with `spaces shell`
@@ -215,6 +224,7 @@ def starship_add_zsh(
         preset: preset to use for starship
         prompt: prompt to pre-pend to the starship prompt
         shortcuts: `dict` shortcuts to add the the shell
+        deps: `[str]` List of deps (rust toolchain for cargobin)
         visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
     """
 
@@ -229,6 +239,7 @@ def starship_add_zsh(
         version,
         shell_path,
         args = [],
+        deps = deps,
         startup_contents = STARTUP_CONTENTS,
         shortcuts = shortcuts,
         startup_env = "ZDOTDIR",
