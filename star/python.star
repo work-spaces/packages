@@ -94,6 +94,11 @@ def python_add_uv(
                 help = "The path to the uv tool directory in the spaces store",
             ),
             env_assign(
+                "UV_CACHE_DIR",
+                value = "{}/uv_cache".format(STORE_PATH),
+                help = "The path to the uv cache directory in the spaces store",
+            ),
+            env_assign(
                 "UV_TOOL_BIN_DIR",
                 value = "{}/uv/bin".format(STORE_PATH),
                 help = "The path to the uv tool bin directory in the spaces store",
