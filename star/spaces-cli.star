@@ -26,7 +26,7 @@ load("buildifier.star", "buildifier_add")
 load("coreutils.star", "COREUTILS_DEFAULT_FUNCTIONS", "coreutils_add")
 load("github.com/work-spaces/spaces/packages.star", "packages")
 
-def spaces_add(name, version, add_link_to_workspace_root = False, visibility = None):
+def spaces_add(name: str, version: str, add_link_to_workspace_root: bool = False, visibility: str | dict[str, list[str]] | None = None):
     """
     Add the spaces binary to a workflow.
 
@@ -43,10 +43,10 @@ def spaces_add(name, version, add_link_to_workspace_root = False, visibility = N
     ```
 
     Args:
-        name: `str` The name of the binary
-        version: `str` The version of the binary
-        add_link_to_workspace_root: `bool` Add a link to the binary in the workspace root
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        name: The name of the binary
+        version: The version of the binary
+        add_link_to_workspace_root: Add a link to the binary in the workspace root
+        visibility: Rule visibility. See visibility.star for more info.
     """
 
     checkout_add_platform_archive(
@@ -64,7 +64,7 @@ def spaces_add(name, version, add_link_to_workspace_root = False, visibility = N
             visibility = visibility_rules([]),
         )
 
-def spaces_isolate_workspace(name, version, system_paths = None, coreutils_version = "0.6.0", coreutils_functions = COREUTILS_DEFAULT_FUNCTIONS, visibility = None):
+def spaces_isolate_workspace(name: str, version: str, system_paths: list[str] | None = None, coreutils_version: str = "0.6.0", coreutils_functions: list[str] = COREUTILS_DEFAULT_FUNCTIONS, visibility: str | dict[str, list[str]] | None = None):
     """
     Isolate the workspace by omitting all system paths from the environment.
 
@@ -73,12 +73,12 @@ def spaces_isolate_workspace(name, version, system_paths = None, coreutils_versi
     By default no built-in system tools are available on the path.
 
     Args:
-        name: `str` The base name of the checkout rule
-        version: `str` The version of spaces to use in the isolated workspace
-        system_paths: `list` The list of system paths to add to the environment
-        coreutils_version: `str` The version of coreutils to use in the isolated workspace
-        coreutils_functions: `list` The list of coreutils functions to install (default is all)
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        name: The base name of the checkout rule
+        version: The version of spaces to use in the isolated workspace
+        system_paths: The list of system paths to add to the environment
+        coreutils_version: The version of coreutils to use in the isolated workspace
+        coreutils_functions: The list of coreutils functions to install (default is all)
+        visibility: Rule visibility. See visibility.star for more info.
     """
 
     WORKSPACE = workspace_get_absolute_path()
@@ -131,15 +131,15 @@ def spaces_isolate_workspace(name, version, system_paths = None, coreutils_versi
         visibility = visibility,
     )
 
-def spaces_add_star_formatter(name, configure_zed = False, deps = [], visibility = None):
+def spaces_add_star_formatter(name: str, configure_zed: bool = False, deps: list[str] = [], visibility: str | dict[str, list[str]] | None = None):
     """
     Add a formatter to the workspace for spaces.star files.
 
     Args:
-        name: `str` The rule base name
-        configure_zed: `bool` Whether to configure zed to use the formatter
-        deps: `list` Dependencies for the rule (chmod needed by buildifier)
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        name: The rule base name
+        configure_zed: Whether to configure zed to use the formatter
+        deps: Dependencies for the rule (chmod needed by buildifier)
+        visibility: Rule visibility. See visibility.star for more info.
     """
 
     buildifier_add(name, "v8.2.1", deps = deps, visibility = visibility)

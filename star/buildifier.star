@@ -15,15 +15,15 @@ load(
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 load("github.com/bazelbuild/buildtools/packages.star", "packages")
 
-def buildifier_add(name, version, deps = [], visibility = None):
+def buildifier_add(name: str, version: str, deps: list[str] = [], visibility: str | dict[str, list[str]] | None = None):
     """
     Add buildifier to your sysroot.
 
     Args:
-        name: `str` The name of the rule.
-        version: `str` Buildifier version from github.com/bazelbuild/buildtools/releases
-        deps: `[str]` deps for using chmod
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        name: The name of the rule.
+        version: Buildifier version from github.com/bazelbuild/buildtools/releases
+        deps: deps for using chmod
+        visibility: Rule visibility. See visibility.star for more info.
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)

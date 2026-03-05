@@ -6,7 +6,7 @@ load("//@star/sdk/star/checkout.star", "checkout_add_platform_archive")
 load("//@star/sdk/star/info.star", "info_get_platform_name")
 load("packages.star", "packages")
 
-def package_add(domain, owner, repo, version, visibility = None, add_prefix = None, globs = None):
+def package_add(domain: str, owner: str, repo: str, version: str, visibility: str | dict[str, list[str]] | None = None, add_prefix: str | None = None, globs: list[dict] | None = None) -> str:
     """
     Add a package to the workspace.
 
@@ -25,16 +25,16 @@ def package_add(domain, owner, repo, version, visibility = None, add_prefix = No
     ```
 
     Args:
-        domain: `str` The domain of the package.
-        owner: `str` The owner of the package.
-        repo: `str` The repository of the package.
-        version: `str` The version of the package.
-        add_prefix: `str` Changes the default prefix to the specified value
-        globs: `[dict]` Specify values to hardlink to the workspace
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        domain: The domain of the package.
+        owner: The owner of the package.
+        repo: The repository of the package.
+        version: The version of the package.
+        add_prefix: Changes the default prefix to the specified value
+        globs: Specify values to hardlink to the workspace
+        visibility: Rule visibility. See visibility.star for more info.
 
     Returns:
-        `str` The name of the rule used to checkout the package.
+        The name of the rule used to checkout the package.
     """
 
     RULE_NAME = "{}_{}_{}_{}".format(domain, owner, repo, version)
@@ -60,18 +60,18 @@ def package_add(domain, owner, repo, version, visibility = None, add_prefix = No
 
     return RULE_NAME
 
-def package_is_platform_supported(domain, owner, repo, version, platform = None):
+def package_is_platform_supported(domain: str, owner: str, repo: str, version: str, platform: str | None = None) -> bool:
     """Checks if a package is supported on a given platform.
 
     Args:
-        domain: `str` The domain of the package.
-        owner: `str` The owner of the package.
-        repo: `str` The repository of the package.
-        version: `str` The version of the package.
-        platform: `str` The platform to check for support (Default is current platform).
+        domain: The domain of the package.
+        owner: The owner of the package.
+        repo: The repository of the package.
+        version: The version of the package.
+        platform: The platform to check for support (Default is current platform).
 
     Returns:
-        `bool` True if the package is supported on the given platform, False otherwise.
+        True if the package is supported on the given platform, False otherwise.
     """
 
     platform_packages = packages[domain][owner][repo][version]

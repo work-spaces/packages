@@ -12,7 +12,7 @@ load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 
-def sccache_add(name, version, visibility = None, deps = []):
+def sccache_add(name: str, version: str, visibility: str | dict[str, list[str]] | None = None, deps: list[str] = []):
     """
     Add sccache to the workspace and to .cargo/config.toml.
 
@@ -27,10 +27,10 @@ def sccache_add(name, version, visibility = None, deps = []):
     ```
 
     Args:
-        name: `str` The name of the rule.
-        version: `str` The version of sccache to add.
-        deps: `[str]` List of deps (rust toolchain for cargobin)
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        name: The name of the rule.
+        version: The version of sccache to add.
+        deps: List of deps (rust toolchain for cargobin)
+        visibility: Rule visibility. See visibility.star for more info.
     """
 
     CARGO_BIN_RULE = "{}_sccache_cargo_bin".format(name)

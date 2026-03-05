@@ -18,17 +18,17 @@ load(
 load("//@star/sdk/star/visibility.star", "visibility_private", "visibility_rules")
 load("github.com/bazelbuild/bazelisk/packages.star", "packages")
 
-def bazelisk_add(name, version, deps = [], visibility = None):
+def bazelisk_add(name: str, version: str, deps: list[str] = [], visibility: str | dict[str, list[str]] | None = None):
     """
     Add Bazelisk to your sysroot.
 
     This also configures the bazel cache to live in the spaces store by setting `BAZELISK_HOME`.
 
     Args:
-        name: `str` The name of the rule.
-        version: `str` Bazelisk version from github.com/bazelbuild/bazelisk/releases
-        deps: `[str]` deps for using chmod
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        name: The name of the rule.
+        version: Bazelisk version from github.com/bazelbuild/bazelisk/releases
+        deps: deps for using chmod
+        visibility: Rule visibility. See visibility.star for more info.
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
