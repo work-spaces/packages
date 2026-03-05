@@ -15,15 +15,15 @@ load(
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 load("github.com/mvdan/sh/packages.star", "packages")
 
-def shfmt_add(name, version, deps = [], visibility = None):
+def shfmt_add(name: str, version: str, deps: list[str] = [], visibility: str | dict[str, list[str]] | None = None):
     """
     Add `shfmt` to your sysroot.
 
     Args:
-        name: `str` The name of the rule.
-        version: `str` shfmt version from github.com/mvdan/sh/packages
-        deps: `[str]` deps for using chmod
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        name: The name of the rule.
+        version: shfmt version from github.com/mvdan/sh/packages
+        deps: deps for using chmod
+        visibility: Rule visibility. See visibility.star for more info.
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)

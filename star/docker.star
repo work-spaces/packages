@@ -15,15 +15,15 @@ load(
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 load("github.com/docker/compose/packages.star", "packages")
 
-def docker_compose_add(name, version, deps = [], visibility = None):
+def docker_compose_add(name: str, version: str, deps: list[str] = [], visibility: str | dict[str, list[str]] | None = None):
     """
     Add docker compose to your sysroot.
 
     Args:
-        name: `str` The name of the rule.
-        version: `str` Docker Compose version from github.com/docker/compose/releases
-        deps: `[str]` deps for using chmod
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        name: The name of the rule.
+        version: Docker Compose version from github.com/docker/compose/releases
+        deps: deps for using chmod
+        visibility: Rule visibility. See visibility.star for more info.
     """
 
     PLATFORM_RULE = "{}_platform_archive".format(name)

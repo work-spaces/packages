@@ -26,7 +26,7 @@ def _get_url(platform, suffix = None):
         url += suffix
     return url
 
-def rust_add(name, version, configure_vscode = True, configure_zed = True, deps = [], visibility = None):
+def rust_add(name: str, version: str, configure_vscode: bool = True, configure_zed: bool = True, deps: list[str] = [], visibility: str | dict[str, list[str]] | None = None):
     """
     Add the Rust toolchain to your sysroot using rustup in the spaces store.
 
@@ -47,12 +47,12 @@ def rust_add(name, version, configure_vscode = True, configure_zed = True, deps 
     ```
 
     Args:
-        name: `str` The name of the rule to add the Rust toolchain to
-        version: `str` The version of the Rust toolchain to install
-        configure_vscode: `bool` Whether to configure VS code settings for the workspace (default is `True`)
-        configure_zed: `bool` Whether to configure Zed settings for the workspace (default is `True`)
-        deps: `[str]` deps for using chmod
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        name: The name of the rule to add the Rust toolchain to
+        version: The version of the Rust toolchain to install
+        configure_vscode: Whether to configure VS code settings for the workspace (default is True)
+        configure_zed: Whether to configure Zed settings for the workspace (default is True)
+        deps: deps for using chmod
+        visibility: Rule visibility. See visibility.star for more info.
     """
 
     # more binaries https://forge.rust-lang.org/infra/other-installation-methods.html

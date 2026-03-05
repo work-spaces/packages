@@ -20,13 +20,13 @@ load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 load("github.com/astral-sh/packages.star", astral_packages = "packages")
 
 def python_add_uv(
-        name,
-        uv_version = "0.10.4",
-        ruff_version = "0.15.1",
-        python_version = "3.13",
-        venv_name = "venv",
-        packages = [],
-        visibility = None):
+        name: str,
+        uv_version: str = "0.10.4",
+        ruff_version: str = "0.15.1",
+        python_version: str = "3.13",
+        venv_name: str = "venv",
+        packages: list[str] = [],
+        visibility: str | dict[str, list[str]] | None = None):
     """
     Add Python to your sysroot.
 
@@ -35,13 +35,13 @@ def python_add_uv(
     which is created by a setup rule created with this function.
 
     Args:
-        name: `str` The name of the rule.
-        uv_version: `str` uv version from //@packages/star/github.com/astral-sh/uv
-        ruff_version: `str` ruff version from //@packages/star/github.com/astral-sh/ruff
-        venv_name: `str` the folder name for where to store the virtual environment
-        python_version: `str` The version of Python to install
-        packages: `[str]` The Python packages to install
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        name: The name of the rule.
+        uv_version: uv version from //@packages/star/github.com/astral-sh/uv
+        ruff_version: ruff version from //@packages/star/github.com/astral-sh/ruff
+        venv_name: the folder name for where to store the virtual environment
+        python_version: The version of Python to install
+        packages: The Python packages to install
+        visibility: Rule visibility. See visibility.star for more info.
     """
     UV_PLATFORMS = astral_packages["uv"][uv_version]
     RUFF_PLATFORMS = astral_packages["ruff"][ruff_version]

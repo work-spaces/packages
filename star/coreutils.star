@@ -117,18 +117,18 @@ COREUTILS_DEFAULT_FUNCTIONS = [
     "yes",
 ]
 
-def coreutils_add(name, version, functions = COREUTILS_DEFAULT_FUNCTIONS, deps = [], visibility = None):
+def coreutils_add(name: str, version: str, functions: list[str] = COREUTILS_DEFAULT_FUNCTIONS, deps: list[str] = [], visibility: str | dict[str, list[str]] | None = None):
     """
     Adds the coreutils executable to the sysroot.
 
     Hardlinks functions to the coreutils multifunction binary
 
     Args:
-        name: `str` name of the rule to checkout coreutils
-        version: `str` The version of the release found in @packages/star/github.com/uutils/coreutils
-        functions: `[str]` The list of coreutils functions to install (default is COREUTILS_DEFAULT_FUNCTIONS)
-        deps: `[str]` The list of dependencies to add to this rule
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        name: name of the rule to checkout coreutils
+        version: The version of the release found in @packages/star/github.com/uutils/coreutils
+        functions: The list of coreutils functions to install (default is COREUTILS_DEFAULT_FUNCTIONS)
+        deps: The list of dependencies to add to this rule
+        visibility: Rule visibility. See visibility.star for more info.
     """
 
     PLATFORM_CHECKOUT_RULE = "{}_binary_checkout".format(name)
@@ -151,15 +151,15 @@ def coreutils_add(name, version, functions = COREUTILS_DEFAULT_FUNCTIONS, deps =
         visibility = visibility,
     )
 
-def coreutils_add_rs_tools(name, deps = [], bat_paging = "never", visibility = None):
+def coreutils_add_rs_tools(name: str, deps: list[str] = [], bat_paging: str = "never", visibility: str | dict[str, list[str]] | None = None):
     """
     Adds a collection of rust developer tools to the workspace.
 
     Args:
         name: name of the rule to checkout the rust tools collection.
         deps: list of dependencies to be added to the rule.
-        bat_paging: `str` Bat paging mode: `never|always|auto`.
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        bat_paging: Bat paging mode: `never|always|auto`.
+        visibility: Rule visibility. See visibility.star for more info.
     """
 
     CARGO_BINS = [

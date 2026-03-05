@@ -10,7 +10,7 @@ load(
 load("//@star/sdk/star/visibility.star", "visibility_private")
 load("github.com/Kitware/CMake/packages.star", "packages")
 
-def cmake_add(name, version, visibility = None):
+def cmake_add(name: str, version: str, visibility: str | dict[str, list[str]] | None = None):
     """
     Add CMake to your sysroot.
 
@@ -25,9 +25,9 @@ def cmake_add(name, version, visibility = None):
     ```
 
     Args:
-        name: `str` The name of the rule.
-        version: `str` CMake version from github.com/Kitware/CMake
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        name: The name of the rule.
+        version: CMake version from github.com/Kitware/CMake
+        visibility: Rule visibility. See visibility.star for more info.
     """
 
     PLATFORM_RULE = "{}_platform".format(name)

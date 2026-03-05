@@ -87,14 +87,14 @@ set(CMAKE_CXX_FLAGS_INIT "${LOCAL_C_FLAGS} -fno-exceptions -fno-unwind-tables -f
 set(CMAKE_C_FLAGS_INIT "${LOCAL_C_FLAGS}" CACHE STRING "CMAKE C FLAGS")
 """
 
-def arm_gnu_add_arm_none_eabi_add(name, version, visibility = None):
+def arm_gnu_add_arm_none_eabi_add(name: str, version: str, visibility: str | dict[str, list[str]] | None = None):
     """
     Add arm-none-eabi to your sysroot.
 
     Args:
-        name (str): The name of the rule.
-        version (str): arm-none-eabi version from packages/arm.developer.com/gnu/arm-none-eabi
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        name: The name of the rule.
+        version: arm-none-eabi version from packages/arm.developer.com/gnu/arm-none-eabi
+        visibility: Rule visibility. See visibility.star for more info.
     """
     checkout_add_platform_archive(
         name,

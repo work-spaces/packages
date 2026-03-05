@@ -13,7 +13,7 @@ load("//@star/sdk/star/visibility.star", "visibility_rules")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 load("github.com/llvm/llvm-project/packages.star", github_llvm_project_packages = "packages")
 
-def llvm_add(name, version, toolchain_name = "llvm-toolchain.cmake", visibility = None):
+def llvm_add(name: str, version: str, toolchain_name: str = "llvm-toolchain.cmake", visibility: str | dict[str, list[str]] | None = None):
     """
     Add LLVM to your sysroot.
 
@@ -22,10 +22,10 @@ def llvm_add(name, version, toolchain_name = "llvm-toolchain.cmake", visibility 
     work correctly.
 
     Args:
-        name: `str` The name of the rule.
-        version: `str` The LLVM version from //@packages/star/llvm.org/llvm
-        toolchain_name: `str` The name of the toolchain file (default is "llvm-toolchain.cmake").
-        visibility: `str|[str]` Rule visibility: `Public|Private|Rules[]`. See visbility.star for more info.
+        name: The name of the rule.
+        version: The LLVM version from //@packages/star/llvm/llvm
+        toolchain_name: The name of the toolchain file (default is "llvm-toolchain.cmake").
+        visibility: Rule visibility. See visibility.star for more info.
     """
 
     CHECKOUT_RULE = "{}_checkout".format(name)
