@@ -11,6 +11,7 @@ load(
 load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
+load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 
 def sccache_add(name: str, version: str, visibility: str | dict[str, list[str]] | None = None, deps: list[str] = []):
     """
@@ -61,6 +62,11 @@ def sccache_add(name: str, version: str, visibility: str | dict[str, list[str]] 
                 "SCCACHE_DIR",
                 value = "{}/sccache".format(info_get_path_to_store()),
                 help = "The directory where sccache stores its cache files in the spaces store",
+            ),
+            env_assign(
+                "SCCACHE_BASEDIRS",
+                value = workspace_get_absolute_path(),
+                help = "Add absolute workspace path to sccache basedirs to share cache across projects",
             ),
         ],
         deps = [CARGO_BIN_RULE],
