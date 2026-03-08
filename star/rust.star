@@ -16,6 +16,12 @@ load(
     "env_prepend",
 )
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
+load(
+    "//@star/sdk/star/rules.star",
+    "rules_as_dep",
+    "rules_as_rule",
+    "rules_new",
+)
 load("//@star/sdk/star/visibility.star", "visibility_private", "visibility_rules")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
 
@@ -26,7 +32,14 @@ def _get_url(platform, suffix = None):
         url += suffix
     return url
 
-def rust_add(name: str, version: str, configure_vscode: bool = True, configure_zed: bool = True, deps: list[str] = [], visibility: str | dict[str, list[str]] | None = None):
+def rust_add(
+        name: str,
+        version: str | None = None,
+        rust_toolchain_toml_dir: str | None = None,
+        configure_vscode: bool = True,
+        configure_zed: bool = True,
+        deps: list[str] = [],
+        visibility: str | dict[str, list[str]] | None = None) -> dict:
     """
     Add the Rust toolchain to your sysroot using rustup in the spaces store.
 
@@ -51,8 +64,12 @@ def rust_add(name: str, version: str, configure_vscode: bool = True, configure_z
         version: The version of the Rust toolchain to install
         configure_vscode: Whether to configure VS code settings for the workspace (default is True)
         configure_zed: Whether to configure Zed settings for the workspace (default is True)
+        rust_toolchain_toml_dir: path to the rust-toolchain.toml file. Runs `rustup show` in that directory during checkout
         deps: deps for using chmod
         visibility: Rule visibility. See visibility.star for more info.
+
+    Returns:
+        The rules added by this function (see `rules_new()`)
     """
 
     # more binaries https://forge.rust-lang.org/infra/other-installation-methods.html
@@ -79,35 +96,41 @@ def rust_add(name: str, version: str, configure_vscode: bool = True, configure_z
         "sha256": "7b83039a1b9305b0c50f23b2e2f03319b8d7859b28106e49ba82c06d81289df6",
     }
 
-    PLATFORM_RULE = "{}_platform_rule".format(name)
-    INIT_PERMISSIONS = "{}_rustup-init-permissions".format(name)
-    RUSTUP_INIT = "{}_rustup-init".format(name)
+    RULES = rules_new(name, [
+        "platform_rule",
+        "update_env",
+        "vscode_settings",
+        "zed_settings",
+        "init_permissions",
+        "rustup_init",
+        "rustup_show",
+    ])
 
     checkout_add_platform_archive(
-        PLATFORM_RULE,
+        rules_as_rule(RULES, "platform_rule"),
         platforms = {
             "macos-x86_64": MACOS_X86_64,
             "macos-aarch64": MACOS_AARCH64,
             "linux-x86_64": LINUX_X86_64,
             "windows-x86_64": WINDOWS_X86_64,
         },
-        visibility = visibility_rules([INIT_PERMISSIONS]),
+        visibility = visibility_rules([rules_as_rule(RULES, "init_permissions")]),
     )
 
     STORE_PATH = info_get_path_to_store()
     CARGO_PATH = "{}/cargo/bin".format(STORE_PATH)
     RUSTUP_HOME = "{}/rustup".format(STORE_PATH)
     CARGO_HOME = "{}/cargo".format(STORE_PATH)
-    UPDATE_ENV_RULE = "{}_update_env".format(name)
 
     ENV_VARS = {
         "RUSTUP_HOME": RUSTUP_HOME,
-        "RUST_TOOLCHAIN": version,
         "CARGO_HOME": CARGO_HOME,
-    }
+    } | {
+        "RUST_TOOLCHAIN": version,
+    } if version != None else {}
 
     checkout_add_env_vars(
-        UPDATE_ENV_RULE,
+        rules_as_rule(RULES, "update_env"),
         vars = [
             env_assign(
                 "RUSTUP_HOME",
@@ -130,32 +153,46 @@ def rust_add(name: str, version: str, configure_vscode: bool = True, configure_z
                 help = "The path to the cargo bin directory",
             ),
         ],
-        visibility = visibility_rules([]),
+        visibility = visibility_private(),
     )
 
-    VSCODE_SETTINGS = "{}_vscode_settings".format(name)
-    ZED_SETTINGS = "{}_zed_settings".format(name)
-
     checkout_add_exec(
-        INIT_PERMISSIONS,
+        rules_as_rule(RULES, "init_permissions"),
         command = "chmod",
         args = ["+x", "sysroot/bin/rustup-init"],
-        deps = [PLATFORM_RULE] + deps,
-        visibility = visibility_rules([RUSTUP_INIT]),
+        deps = [rules_as_dep(RULES, "platform_rule")] + deps,
+        visibility = visibility_private(),
     )
 
     checkout_add_exec(
-        RUSTUP_INIT,
-        deps = [INIT_PERMISSIONS],
+        rules_as_rule(RULES, "rustup_init"),
+        deps = [rules_as_dep(RULES, "init_permissions")],
         command = "sysroot/bin/rustup-init",
         args = ["--profile=default", "--no-modify-path", "-y"],
-        visibility = visibility_rules([name]),
+        visibility = visibility_private(),
         env = ENV_VARS,
     )
 
+    if rust_toolchain_toml_dir != None:
+        checkout_add_exec(
+            rules_as_rule(RULES, "rustup_show"),
+            deps = [rules_as_dep(RULES, "rustup_init")],
+            command = "rustup",
+            args = ["show"],
+            working_directory = rust_toolchain_toml_dir,
+            visibility = visibility_private(),
+            env = ENV_VARS | {"PATH": CARGO_PATH},
+        )
+    else:
+        checkout_add_target(
+            rules_as_rule(RULES, "rustup_show"),
+            deps = [rules_as_dep(RULES, "rustup_init")],
+            visibility = visibility_private(),
+        )
+
     if configure_vscode:
         checkout_update_asset(
-            VSCODE_SETTINGS,
+            rules_as_rule(RULES, "vscode_settings"),
             destination = ".vscode/settings.json",
             format = "json",
             value = {
@@ -188,7 +225,7 @@ def rust_add(name: str, version: str, configure_vscode: bool = True, configure_z
 
     if configure_zed:
         checkout_update_asset(
-            ZED_SETTINGS,
+            rules_as_rule(RULES, "zed_settings"),
             destination = ".zed/settings.json",
             format = "json",
             value = {
@@ -211,6 +248,8 @@ def rust_add(name: str, version: str, configure_vscode: bool = True, configure_z
 
     checkout_add_target(
         name,
-        deps = [RUSTUP_INIT],
+        deps = [rules_as_dep(RULES, "rustup_show")],
         visibility = visibility,
     )
+
+    return RULES
