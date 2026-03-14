@@ -239,7 +239,8 @@ gh_releases = xpack_releases | {
             "domain": "github.com",
             "owner": "work-spaces",
             "repo": "devutils",
-        } | sysroot_bin,
+            "add_prefix": "sysroot",
+        },
         "platforms": {
             "macos-aarch64": {
                 "name_pattern": "macos-aarch64.tar.xz",
@@ -734,6 +735,25 @@ gh_releases = xpack_releases | {
             },
             "windows-x86_64": {
                 "name_pattern": "docker-compose-windows-x86_64.exe",
+            },
+        },
+    },
+    "always-further_nono": {
+        "settings": {
+            "domain": "github.com",
+            "owner": "always-further",
+            "repo": "nono",
+            "add_prefix": "sysroot/bin",
+        },
+        "platforms": {
+            "macos-aarch64": {
+                "name_pattern": "aarch64-apple-darwin.tar.gz",
+            },
+            "macos-x86_64": {
+                "name_pattern": "x86_64-apple-darwin.tar.gz",
+            },
+            "linux-x86_64": {
+                "name_pattern": "x86_64-unknown-linux-gnu.tar.gz",
             },
         },
     },

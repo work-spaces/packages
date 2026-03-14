@@ -1,27 +1,27 @@
 """star/github.com packages"""
 
-load("git-lfs/packages.star", git_lfs = "packages")
-load("ccache/packages.star", ccache = "packages")
-load("docker/packages.star", docker = "packages")
-load("Kitware/packages.star", kitware = "packages")
-load("bazelbuild/packages.star", bazelbuild = "packages")
+load("always-further/packages.star", always_further = "packages")
 load("astral-sh/packages.star", astral_sh = "packages")
-load("google/packages.star", google = "packages")
-load("ninja-build/packages.star", ninja_build = "packages")
+load("bazelbuild/packages.star", bazelbuild = "packages")
 load("cargo-bins/packages.star", cargo_bins = "packages")
-load("llvm/packages.star", llvm = "packages")
-load("koalaman/packages.star", koalaman = "packages")
-load("xpack-dev-tools/packages.star", xpack_dev_tools = "packages")
+load("ccache/packages.star", ccache = "packages")
 load("cli/packages.star", cli = "packages")
-load("mvdan/packages.star", mvdan = "packages")
-load("gohugoio/packages.star", gohugoio = "packages")
+load("docker/packages.star", docker = "packages")
 load("facebook/packages.star", facebook = "packages")
-load("uutils/packages.star", uutils = "packages")
+load("git-lfs/packages.star", git_lfs = "packages")
+load("gohugoio/packages.star", gohugoio = "packages")
+load("google/packages.star", google = "packages")
 load("jqlang/packages.star", jqlang = "packages")
-load("work-spaces/packages.star", work_spaces = "packages")
+load("Kitware/packages.star", kitware = "packages")
+load("koalaman/packages.star", koalaman = "packages")
+load("llvm/packages.star", llvm = "packages")
+load("mvdan/packages.star", mvdan = "packages")
+load("ninja-build/packages.star", ninja_build = "packages")
 load("oras-project/packages.star", oras_project = "packages")
 load("protocolbuffers/packages.star", protocolbuffers = "packages")
-
+load("uutils/packages.star", uutils = "packages")
+load("work-spaces/packages.star", work_spaces = "packages")
+load("xpack-dev-tools/packages.star", xpack_dev_tools = "packages")
 
 packages = {
     "git-lfs": git_lfs,
@@ -30,6 +30,7 @@ packages = {
     "Kitware": kitware,
     "bazelbuild": bazelbuild,
     "astral-sh": astral_sh,
+    "always-further": always_further,
     "google": google,
     "ninja-build": ninja_build,
     "cargo-bins": cargo_bins,

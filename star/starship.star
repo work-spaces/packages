@@ -33,15 +33,16 @@ def _get_starship_prompt(prompt: str | None) -> str:
         return "starship config format \"{} \\$all\" && echo 'Welcome to Spaces!'".format(prompt)
     return "echo 'Welcome to Spaces!'"
 
-def _checkout_add_binary(name: str, version: str, deps: list[str]):
-    checkout_add_cargo_bin(
-        "{}_starship".format(name),
-        crate = "starship",
-        version = version,
-        bins = ["starship"],
-        deps = deps,
-        visibility = visibility_rules([name]),
-    )
+def _checkout_add_binary(name: str, version: str, deps: list[str], install_binary: bool = True):
+    if install_binary:
+        checkout_add_cargo_bin(
+            "{}_starship".format(name),
+            crate = "starship",
+            version = version,
+            bins = ["starship"],
+            deps = deps,
+            visibility = visibility_rules([name]),
+        )
 
     WORKSPACE = workspace_get_absolute_path()
 
@@ -90,8 +91,9 @@ def _starhip_add_shell(
         deps: list[str],
         startup_contents: str | None = None,
         startup_env: str | None = None,
+        install_binary: bool = True,
         visibility: str | dict[str, list[str]] | None = None):
-    _checkout_add_binary(name, version, deps)
+    _checkout_add_binary(name, version, deps, install_binary = install_binary)
     SHORTCUTS_RULE = "{}_shortcuts".format(name)
     STARTUP_RULE = "{}_startup".format(name)
     SHELL_RULE = "{}_shell".format(name)
@@ -132,6 +134,7 @@ def starship_add_bash(
         prompt: str | None = "\\(s\\)",
         shortcuts: dict | None = None,
         deps: list[str] = [],
+        install_binary: bool = True,
         visibility: str | dict[str, list[str]] | None = None):
     """
     Adds starship and configures it to use bash with `spaces shell`
@@ -144,6 +147,7 @@ def starship_add_bash(
         preset: preset to use for starship,
         deps: List of deps (rust toolchain for cargobin)
         shortcuts: shortcuts to add the the shell
+        install_binary: Whether to install the starship binary (default True). Set to False if the workspace already provides it.
         visibility: Rule visibility. See visibility.star for more info.
     """
 
@@ -165,6 +169,7 @@ def starship_add_bash(
         args = ARGS,
         startup_contents = STARTUP_CONTENTS,
         shortcuts = shortcuts,
+        install_binary = install_binary,
         visibility = visibility,
     )
 
@@ -176,6 +181,7 @@ def starship_add_fish(
         prompt: str | None = "\\(s\\)",
         shortcuts: dict | None = None,
         deps: list[str] = [],
+        install_binary: bool = True,
         visibility: str | dict[str, list[str]] | None = None):
     """
     Adds starship and configures it to use fish with `spaces shell`
@@ -188,6 +194,7 @@ def starship_add_fish(
         preset: preset to use for starship
         shortcuts: shortcuts to add the the shell
         deps: List of deps (rust toolchain for cargobin)
+        install_binary: Whether to install the starship binary (default True). Set to False if the workspace already provides it.
         visibility: Rule visibility. See visibility.star for more info.
     """
 
@@ -202,6 +209,7 @@ def starship_add_fish(
         args = ARGS,
         deps = deps,
         shortcuts = shortcuts,
+        install_binary = install_binary,
         visibility = visibility,
     )
 
@@ -213,6 +221,7 @@ def starship_add_zsh(
         prompt: str | None = "\\(s\\)",
         shortcuts: dict | None = None,
         deps: list[str] = [],
+        install_binary: bool = True,
         visibility: str | dict[str, list[str]] | None = None):
     """
     Adds starship and configures it to use fish with `spaces shell`
@@ -225,6 +234,7 @@ def starship_add_zsh(
         prompt: prompt to pre-pend to the starship prompt
         shortcuts: shortcuts to add the the shell
         deps: List of deps (rust toolchain for cargobin)
+        install_binary: Whether to install the starship binary (default True). Set to False if the workspace already provides it.
         visibility: Rule visibility. See visibility.star for more info.
     """
 
@@ -244,5 +254,6 @@ def starship_add_zsh(
         shortcuts = shortcuts,
         startup_env = "ZDOTDIR",
         startup_name = ".zshrc",
+        install_binary = install_binary,
         visibility = visibility,
     )
