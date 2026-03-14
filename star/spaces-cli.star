@@ -141,7 +141,7 @@ def spaces_isolate_workspace(name: str, version: str, system_paths: list[str] | 
 def spaces_add_devutils(
         name: str,
         spaces_version: str,
-        devutils_version: str,
+        devutils_version: str | None,
         system_paths: list[str] | None = None,
         coreutils_functions: list[str] = DEVUTILS_COREUTILS_FUNCTIONS,
         bat_paging: str = "never",
@@ -181,13 +181,20 @@ def spaces_add_devutils(
         visibility = visibility_private(),
     )
 
-    devutils_add(
-        rules_as_rule(RULES, "devutils"),
-        devutils_version,
-        coreutils_functions = coreutils_functions,
-        bat_paging = bat_paging,
-        visibility = visibility_private(),
-    )
+    if devutils_version != None:
+        devutils_add(
+            rules_as_rule(RULES, "devutils"),
+            devutils_version,
+            coreutils_functions = coreutils_functions,
+            bat_paging = bat_paging,
+            visibility = visibility_private(),
+        )
+    else:
+        checkout_add_target(
+            rules_as_rule(RULES, "devutils"),
+            deps = [],
+            visibility = visibility_private(),
+        )
 
     append_system_paths = [
         env_append("PATH", value = system_path_entry, help = "Append {} to path for access to system binaries".format(system_path_entry))
