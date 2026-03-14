@@ -14,6 +14,7 @@ load(
     "checkout_update_shell_startup",
 )
 load("//@star/sdk/star/env.star", "env_assign", "env_inherit")
+load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 load(
     "//@star/sdk/star/ws.star",
@@ -52,7 +53,12 @@ def _checkout_add_binary(name: str, version: str, deps: list[str], install_binar
             env_assign(
                 "STARSHIP_CONFIG",
                 value = "{}/.spaces/shell/starship.toml".format(WORKSPACE),
-                help = "Location of the starsip configuration file",
+                help = "Location of the starship configuration file",
+            ),
+            env_assign(
+                "STARSHIP_CACHE",
+                value = "{}/starship".format(info_get_path_to_store()),
+                help = "Location of the starship cache directory",
             ),
             env_inherit(
                 "LANG",
