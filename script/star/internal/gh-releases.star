@@ -234,6 +234,27 @@ gh_releases = xpack_releases | {
             },
         },
     },
+    "work-spaces_devutils": {
+        "settings": {
+            "domain": "github.com",
+            "owner": "work-spaces",
+            "repo": "devutils",
+        } | sysroot_bin,
+        "platforms": {
+            "macos-aarch64": {
+                "name_pattern": "macos-aarch64.tar.xz",
+            },
+            "macos-x86_64": {
+                "name_pattern": "macos-x86_64.tar.xz",
+            },
+            "windows-x86_64": {
+                "name_pattern": "windows-x86_64.tar.xz",
+            },
+            "linux-x86_64": {
+                "name_pattern": "linux-x86_64.tar.xz",
+            },
+        },
+    },
     "facebook_dotslash": {
         "settings": {
             "domain": "github.com",
