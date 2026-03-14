@@ -17,6 +17,7 @@ load("v32.0.star", platforms_v32_0_star = "platforms")
 load("v30.1.star", platforms_v30_1_star = "platforms")
 load("v33.3.star", platforms_v33_3_star = "platforms")
 load("v33.2.star", platforms_v33_2_star = "platforms")
+load("v34.0.star", platforms_v34_0_star = "platforms")
 
 
 packages = {
@@ -37,4 +38,5 @@ packages = {
     "v30.1": platforms_v30_1_star,
     "v33.3": platforms_v33_3_star,
     "v33.2": platforms_v33_2_star,
+    "v34.0": platforms_v34_0_star,
 }
