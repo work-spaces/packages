@@ -1,5 +1,6 @@
 """star/github.com/gohugoio/hugo packages"""
 
+load("v0.158.0.star", platforms_v0_158_0_star = "platforms")
 load("v0.144.1.star", platforms_v0_144_1_star = "platforms")
 load("v0.147.9.star", platforms_v0_147_9_star = "platforms")
 load("v0.156.0.star", platforms_v0_156_0_star = "platforms")
@@ -27,6 +28,7 @@ load("v0.148.2.star", platforms_v0_148_2_star = "platforms")
 
 
 packages = {
+    "v0.158.0": platforms_v0_158_0_star,
     "v0.144.1": platforms_v0_144_1_star,
     "v0.147.9": platforms_v0_147_9_star,
     "v0.156.0": platforms_v0_156_0_star,
