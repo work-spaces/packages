@@ -7,6 +7,7 @@ load("Kitware/packages.star", kitware = "packages")
 load("bazelbuild/packages.star", bazelbuild = "packages")
 load("astral-sh/packages.star", astral_sh = "packages")
 load("always-further/packages.star", always_further = "packages")
+load("mikefarah/packages.star", mikefarah = "packages")
 load("google/packages.star", google = "packages")
 load("ninja-build/packages.star", ninja_build = "packages")
 load("cargo-bins/packages.star", cargo_bins = "packages")
@@ -32,6 +33,7 @@ packages = {
     "bazelbuild": bazelbuild,
     "astral-sh": astral_sh,
     "always-further": always_further,
+    "mikefarah": mikefarah,
     "google": google,
     "ninja-build": ninja_build,
     "cargo-bins": cargo_bins,
