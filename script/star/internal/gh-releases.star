@@ -757,4 +757,31 @@ gh_releases = xpack_releases | {
             },
         },
     },
+    "mikefarah_yq": {
+        "settings": {
+            "domain": "github.com",
+            "owner": "mikefarah",
+            "repo": "yq",
+        } | sysroot_bin,
+        "platforms": {
+            "macos-aarch64": {
+                "name_pattern": "yq_darwin_arm64",
+            },
+            "macos-x86_64": {
+                "name_pattern": "yq_darwin_amd64",
+            },
+            "windows-x86_64": {
+                "name_pattern": "yq_windows_amd64.exe",
+            },
+            "windows-aarch64": {
+                "name_pattern": "yq_windows_arm64.exe",
+            },
+            "linux-aarch64": {
+                "name_pattern": "yq_linux_arm64",
+            },
+            "linux-x86_64": {
+                "name_pattern": "yq_linux_amd64",
+            },
+        },
+    },
 }
