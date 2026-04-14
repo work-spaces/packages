@@ -784,4 +784,64 @@ gh_releases = xpack_releases | {
             },
         },
     },
+    "helix-editor_helix": {
+        "settings": {
+            "domain": "github.com",
+            "owner": "helix-editor",
+            "repo": "helix",
+            "tag_prefix": "",
+        },
+        "platforms": {
+            "macos-aarch64": {
+                "name_pattern": "aarch64-macos.tar.xz",
+                "strip_prefix": "helix-$VERSION-aarch64-macos",
+            },
+            "macos-x86_64": {
+                "name_pattern": "x86_64-macos.tar.xz",
+                "strip_prefix": "helix-$VERSION-x86_64-macos",
+            },
+            "linux-aarch64": {
+                "name_pattern": "aarch64-linux.tar.xz",
+                "strip_prefix": "helix-$VERSION-aarch64-linux",
+            },
+            "linux-x86_64": {
+                "name_pattern": "x86_64-linux.tar.xz",
+                "strip_prefix": "helix-$VERSION-x86_64-linux",
+            },
+            "windows-x86_64": {
+                "name_pattern": "x86_64-windows.zip",
+                "strip_prefix": "helix-$VERSION-x86_64-windows",
+            },
+        },
+    },
+    "jj-vcs_jj": {
+        "settings": {
+            "domain": "github.com",
+            "owner": "jj-vcs",
+            "repo": "jj",
+            "tag_prefix": "v",
+        } | sysroot_bin,
+        "platforms": {
+            "macos-aarch64": {
+                "name_pattern": "aarch64-apple-darwin.tar.gz",
+                "strip_prefix": "jj-v$VERSION-aarch64-apple-darwin",
+            },
+            "macos-x86_64": {
+                "name_pattern": "x86_64-apple-darwin.tar.gz",
+                "strip_prefix": "jj-v$VERSION-x86_64-apple-darwin",
+            },
+            "linux-aarch64": {
+                "name_pattern": "aarch64-unknown-linux-musl.tar.gz",
+                "strip_prefix": "jj-v$VERSION-aarch64-unknown-linux-musl",
+            },
+            "linux-x86_64": {
+                "name_pattern": "x86_64-unknown-linux-musl.tar.gz",
+                "strip_prefix": "jj-v$VERSION-x86_64-unknown-linux-musl",
+            },
+            "windows-x86_64": {
+                "name_pattern": "x86_64-pc-windows-msvc.zip",
+                "strip_prefix": "jj-v$VERSION-x86_64-pc-windows-msvc",
+            },
+        },
+    },
 }
