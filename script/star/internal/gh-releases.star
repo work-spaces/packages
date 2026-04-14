@@ -151,6 +151,10 @@ gh_releases = xpack_releases | {
                 "name_pattern": "win64.exe",
                 "strip_prefix": "LLVM-$VERSION-win64",
             },
+            "linux-aarch64": {
+                "name_pattern": "Linux-ARM64.tar.xz",
+                "strip_prefix": "LLVM-$VERSION-Linux-ARM64",
+            },
             "linux-x86_64": {
                 "name_pattern": "Linux-X64.tar.xz",
                 "strip_prefix": "LLVM-$VERSION-Linux-X64",
@@ -228,6 +232,9 @@ gh_releases = xpack_releases | {
             },
             "windows-x86_64": {
                 "name_pattern": "windows-x86_64",
+            },
+            "linux-aarch64": {
+                "name_pattern": "linux-aarch64",
             },
             "linux-x86_64": {
                 "name_pattern": "linux-x86_64",
@@ -531,6 +538,10 @@ gh_releases = xpack_releases | {
                 "name_pattern": "darwin",
                 "strip_prefix": "ccache-$VERSION-darwin",
             },
+            "linux-aarch64": {
+                "name_pattern": "linux-aarch64",
+                "strip_prefix": "ccache-$VERSION-linux-aarch64",
+            },
             "linux-x86_64": {
                 "name_pattern": "linux-x86_64",
                 "strip_prefix": "ccache-$VERSION-linux-x86_64",
@@ -553,6 +564,9 @@ gh_releases = xpack_releases | {
             },
             "macos-x86_64": {
                 "name_pattern": "darwin-universal",
+            },
+            "linux-aarch64": {
+                "name_pattern": "linux-arm64.tar.gz",
             },
             "linux-x86_64": {
                 "name_pattern": "linux-amd64.tar.gz",
@@ -751,6 +765,9 @@ gh_releases = xpack_releases | {
             },
             "macos-x86_64": {
                 "name_pattern": "x86_64-apple-darwin.tar.gz",
+            },
+            "linux-aarch64": {
+                "name_pattern": "aarch64-unknown-linux-gnu.tar.gz",
             },
             "linux-x86_64": {
                 "name_pattern": "x86_64-unknown-linux-gnu.tar.gz",
