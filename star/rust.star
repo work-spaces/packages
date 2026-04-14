@@ -91,6 +91,11 @@ def rust_add(
         "sha256": "a3339fb004c3d0bb9862ba0bce001861fe5cbde9c10d16591eb3f39ee6cd3e7f",
     }
 
+    LINUX_AARCH64 = MACOS_X86_64 | {
+        "url": _get_url("aarch64-unknown-linux-gnu"),
+        "sha256": "c64b33db2c6b9385817ec0e49a84bcfe018ed6e328fe755c3c809580cc70ce7a",
+    }
+
     WINDOWS_X86_64 = MACOS_X86_64 | {
         "url": _get_url("x86_64-pc-windows-msvc", suffix = ".exe"),
         "sha256": "7b83039a1b9305b0c50f23b2e2f03319b8d7859b28106e49ba82c06d81289df6",
@@ -112,6 +117,7 @@ def rust_add(
             "macos-x86_64": MACOS_X86_64,
             "macos-aarch64": MACOS_AARCH64,
             "linux-x86_64": LINUX_X86_64,
+            "linux-aarch64": LINUX_AARCH64,
             "windows-x86_64": WINDOWS_X86_64,
         },
         visibility = visibility_rules([rules_as_rule(RULES, "init_permissions")]),
