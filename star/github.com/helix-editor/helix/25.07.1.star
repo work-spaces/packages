@@ -1,0 +1,44 @@
+
+"""
+Spaces starlark checkout for https://github.com/helix-editor/helix:25.07.1
+"""
+
+
+platforms = {
+  "linux-aarch64": {
+    "add_prefix": "sysroot",
+    "link": "Hard",
+    "sha256": "ce23fa8d395e633e3e54c052012f11965d91d8d5c2bfa659685f50430b4f8175",
+    "strip_prefix": "helix-25.07.1-aarch64-linux",
+    "url": "https://github.com/helix-editor/helix/releases/download/25.07.1/helix-25.07.1-aarch64-linux.tar.xz"
+  },
+  "linux-x86_64": {
+    "add_prefix": "sysroot",
+    "link": "Hard",
+    "sha256": "3f08e63ecd388fff657ad39722f88bb03dcf326f1f2da2700d99e1dc40ab2e8b",
+    "strip_prefix": "helix-25.07.1-x86_64-linux",
+    "url": "https://github.com/helix-editor/helix/releases/download/25.07.1/helix-25.07.1-x86_64-linux.tar.xz"
+  },
+  "macos-aarch64": {
+    "add_prefix": "sysroot",
+    "link": "Hard",
+    "sha256": "00b1651b4fdbbe0a2ae981c8e76b858bd26a7c33f5b3583f3b6bb9137d54f1ff",
+    "strip_prefix": "helix-25.07.1-aarch64-macos",
+    "url": "https://github.com/helix-editor/helix/releases/download/25.07.1/helix-25.07.1-aarch64-macos.tar.xz"
+  },
+  "macos-x86_64": {
+    "add_prefix": "sysroot",
+    "link": "Hard",
+    "sha256": "84dc32d617d28d32f4aa21e3aafac47bd715d1154aeb977697d4d60b887b7103",
+    "strip_prefix": "helix-25.07.1-x86_64-macos",
+    "url": "https://github.com/helix-editor/helix/releases/download/25.07.1/helix-25.07.1-x86_64-macos.tar.xz"
+  },
+  "windows-x86_64": {
+    "add_prefix": "sysroot",
+    "link": "Hard",
+    "sha256": "5c8325ced8bacd8418d62706f669e96d9c3578a9237526e34d546900cbc049b6",
+    "strip_prefix": "helix-25.07.1-x86_64-windows",
+    "url": "https://github.com/helix-editor/helix/releases/download/25.07.1/helix-25.07.1-x86_64-windows.zip"
+  }
+}
+
