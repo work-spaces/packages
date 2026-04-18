@@ -135,10 +135,8 @@ set(CMAKE_OBJDUMP ${{MUSL_BIN_PATH}}/{target}-objdump CACHE STRING "MUSL GCC TOO
 set(CMAKE_STRIP ${{MUSL_BIN_PATH}}/{target}-strip CACHE STRING "MUSL GCC TOOLCHAIN STRIP")
 set(CMAKE_LD ${{MUSL_BIN_PATH}}/{target}-ld CACHE STRING "MUSL GCC TOOLCHAIN LD")
 
-# Static linking flags for musl
+# Static linking flags for musl - only for executables, not shared libraries
 set(CMAKE_EXE_LINKER_FLAGS_INIT "-static")
-set(CMAKE_C_FLAGS_INIT "-static")
-set(CMAKE_CXX_FLAGS_INIT "-static")
 """.format(arch = arch, target = target)
 
 def musl_gcc_add_toolchain_file(name: str, destination: str) -> str:
