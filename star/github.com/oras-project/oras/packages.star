@@ -5,6 +5,7 @@ load("v1.3.0.star", platforms_v1_3_0_star = "platforms")
 load("v1.2.3.star", platforms_v1_2_3_star = "platforms")
 load("v1.2.2.star", platforms_v1_2_2_star = "platforms")
 load("v1.2.1.star", platforms_v1_2_1_star = "platforms")
+load("v1.3.2.star", platforms_v1_3_2_star = "platforms")
 
 
 packages = {
@@ -13,4 +14,5 @@ packages = {
     "v1.2.3": platforms_v1_2_3_star,
     "v1.2.2": platforms_v1_2_2_star,
     "v1.2.1": platforms_v1_2_1_star,
+    "v1.3.2": platforms_v1_3_2_star,
 }

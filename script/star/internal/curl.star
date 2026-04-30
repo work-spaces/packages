@@ -2,6 +2,9 @@
 Download a file use curl
 """
 
+load("//@star/sdk/star/std/log.star", "log_fatal", "log_info")
+load("//@star/sdk/star/std/process.star", "process_options", "process_run")
+
 def download_file(asset_url, output_path):
     """
     Download a file using curl.
@@ -13,16 +16,16 @@ def download_file(asset_url, output_path):
     Returns:
         None
     """
-    curl_download = process.exec({
-        "command": "curl",
-        "args": [
+    curl_download = process_run(process_options(
+        command = "curl",
+        args = [
             "-fsSL",
             "-o",
             output_path,
-            asset_url
+            asset_url,
         ],
-    })
+    ))
 
-    if curl_download["status"] != 0:
-        script.print(curl_download["stderr"])
-        script.abort("Failed to download asset URL using curl: {}".format(asset_url))
+    if curl_download.get("status") != 0:
+        log_info(curl_download.get("stderr"))
+        log_fatal("Failed to download asset URL using curl: {}".format(asset_url))
