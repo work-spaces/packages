@@ -752,6 +752,33 @@ gh_releases = xpack_releases | {
             },
         },
     },
+    "docker_buildx": {
+        "settings": {
+            "domain": "github.com",
+            "owner": "docker",
+            "repo": "buildx",
+        } | sysroot_bin,
+        "platforms": {
+            "macos-aarch64": {
+                "name_pattern": "buildx-v$VERSION.darwin-arm64",
+            },
+            "macos-x86_64": {
+                "name_pattern": "buildx-v$VERSION.darwin-amd64",
+            },
+            "linux-x86_64": {
+                "name_pattern": "buildx-v$VERSION.linux-amd64",
+            },
+            "linux-aarch64": {
+                "name_pattern": "buildx-v$VERSION.linux-arm64",
+            },
+            "windows-x86_64": {
+                "name_pattern": "buildx-v$VERSION.windows-amd64.exe",
+            },
+            "windows-aarch64": {
+                "name_pattern": "buildx-v$VERSION.windows-arm64.exe",
+            },
+        },
+    },
     "always-further_nono": {
         "settings": {
             "domain": "github.com",
