@@ -1,5 +1,6 @@
 """star/github.com/cli/cli packages"""
 
+load("v2.92.0.star", platforms_v2_92_0_star = "platforms")
 load("v2.82.1.star", platforms_v2_82_1_star = "platforms")
 load("v2.73.0.star", platforms_v2_73_0_star = "platforms")
 load("v2.74.2.star", platforms_v2_74_2_star = "platforms")
@@ -28,6 +29,7 @@ load("v2.89.0.star", platforms_v2_89_0_star = "platforms")
 
 
 packages = {
+    "v2.92.0": platforms_v2_92_0_star,
     "v2.82.1": platforms_v2_82_1_star,
     "v2.73.0": platforms_v2_73_0_star,
     "v2.74.2": platforms_v2_74_2_star,
