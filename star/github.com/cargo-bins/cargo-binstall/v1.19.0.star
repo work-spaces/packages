@@ -1,0 +1,45 @@
+
+"""
+Spaces starlark checkout for https://github.com/cargo-bins/cargo-binstall:v1.19.0
+"""
+
+
+platforms = {
+  "linux-aarch64": {
+    "add_prefix": "sysroot/bin",
+    "link": "Hard",
+    "sha256": "d3d1cdebf47274b8bab6ea5734ab8537880d3986603f87ca5cfaca7670d27b9b",
+    "url": "https://github.com/cargo-bins/cargo-binstall/releases/download/v1.19.0/cargo-binstall-aarch64-unknown-linux-gnu.tgz"
+  },
+  "linux-x86_64": {
+    "add_prefix": "sysroot/bin",
+    "link": "Hard",
+    "sha256": "200d2492344a114b7b36392428cbc24889755f113162d880a6dbdf697411ecfd",
+    "url": "https://github.com/cargo-bins/cargo-binstall/releases/download/v1.19.0/cargo-binstall-x86_64-unknown-linux-gnu.tgz"
+  },
+  "macos-aarch64": {
+    "add_prefix": "sysroot/bin",
+    "link": "Hard",
+    "sha256": "1208282e0719ae33fc1db20fe533a50827673d017fb85ed5dec0cb9b0c7ca569",
+    "url": "https://github.com/cargo-bins/cargo-binstall/releases/download/v1.19.0/cargo-binstall-aarch64-apple-darwin.zip"
+  },
+  "macos-x86_64": {
+    "add_prefix": "sysroot/bin",
+    "link": "Hard",
+    "sha256": "289007dce39f181188b620c19783d3a0e8f37fb9e5d7c3ff1da9cfb9a2d8ecc3",
+    "url": "https://github.com/cargo-bins/cargo-binstall/releases/download/v1.19.0/cargo-binstall-x86_64-apple-darwin.zip"
+  },
+  "windows-aarch64": {
+    "add_prefix": "sysroot/bin",
+    "link": "Hard",
+    "sha256": "7ac3f11af34e014145999a970a32fb8b204c593f0b339d05015baa98cd9fb4ea",
+    "url": "https://github.com/cargo-bins/cargo-binstall/releases/download/v1.19.0/cargo-binstall-aarch64-pc-windows-msvc.zip"
+  },
+  "windows-x86_64": {
+    "add_prefix": "sysroot/bin",
+    "link": "Hard",
+    "sha256": "1113c92eb53160c4e0c12dc803f582a266d26b26ca529520e104806cce8d0204",
+    "url": "https://github.com/cargo-bins/cargo-binstall/releases/download/v1.19.0/cargo-binstall-x86_64-pc-windows-msvc.zip"
+  }
+}
+
