@@ -51,7 +51,8 @@ for release in gh_releases:
     latest_tag = json_decode(gh_latest.get("stdout")).get("tagName")
 
     log_info("Latest tag for gh {} is {}.".format(release, latest_tag))
-    add_gh_platform_archive(release, latest_tag)
+    if latest_tag:
+        add_gh_platform_archive(release, latest_tag)
 
 for release in http_releases:
     map = http_releases[release]
