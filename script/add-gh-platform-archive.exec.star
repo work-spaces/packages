@@ -22,7 +22,7 @@ spec = args_parser(
 )
 
 parsed = args_parse(spec)
-name = parsed.get("name")
-tag = parsed.get("tag")
+name = parsed.get("name", "cli_cli")
+tag = parsed.get("tag", "v2.60.1")
 
 add_gh_platform_archive(name, tag)
