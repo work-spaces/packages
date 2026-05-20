@@ -5,6 +5,12 @@ Spaces starlark checkout for https://github.com/work-spaces/devutils:devutils-v0
 
 
 platforms = {
+  "linux-aarch64": {
+    "add_prefix": "sysroot",
+    "link": "Hard",
+    "sha256": "a2751884ca4f065d840cf0a5f242f8f2bcee46d00fbac01691d2b349a8d72c99",
+    "url": "https://github.com/work-spaces/devutils/releases/download/devutils-v0.1.14/devutils-v0.1.14-linux-aarch64.tar.xz"
+  },
   "linux-x86_64": {
     "add_prefix": "sysroot",
     "link": "Hard",

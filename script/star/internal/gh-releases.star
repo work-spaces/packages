@@ -261,6 +261,9 @@ gh_releases = xpack_releases | {
             "linux-x86_64": {
                 "name_pattern": "linux-x86_64.tar.xz",
             },
+            "linux-aarch64": {
+                "name_pattern": "linux-aarch64.tar.xz",
+            },
         },
     },
     "facebook_dotslash": {
