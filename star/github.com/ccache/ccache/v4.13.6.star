@@ -8,16 +8,16 @@ platforms = {
   "linux-aarch64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "fae67fb810e1f0d390409af6603355483572229e19183e68574cd0f851a6fb98",
-    "strip_prefix": "ccache-4.13.6-linux-aarch64",
-    "url": "https://github.com/ccache/ccache/releases/download/v4.13.6/ccache-4.13.6-linux-aarch64-glibc.tar.gz"
+    "sha256": "bff0e0c19165db8627c85c36b0885b3b180659eda67a028298d26565aad52f56",
+    "strip_prefix": "ccache-4.13.6-linux-aarch64-musl-static",
+    "url": "https://github.com/ccache/ccache/releases/download/v4.13.6/ccache-4.13.6-linux-aarch64-musl-static.tar.gz"
   },
   "linux-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "567b1b648411819590f918f045218c92da14418bdec3b30db94a3b4f5d77cf13",
-    "strip_prefix": "ccache-4.13.6-linux-x86_64",
-    "url": "https://github.com/ccache/ccache/releases/download/v4.13.6/ccache-4.13.6-linux-x86_64-glibc.tar.gz"
+    "sha256": "09e0547a0c3b250a76675c33130366f1399f3580842fb360c052520d56214ead",
+    "strip_prefix": "ccache-4.13.6-linux-x86_64-musl-static",
+    "url": "https://github.com/ccache/ccache/releases/download/v4.13.6/ccache-4.13.6-linux-x86_64-musl-static.tar.gz"
   },
   "macos-aarch64": {
     "add_prefix": "sysroot/bin",

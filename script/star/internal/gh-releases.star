@@ -542,12 +542,12 @@ gh_releases = xpack_releases | {
                 "strip_prefix": "ccache-$VERSION-darwin",
             },
             "linux-aarch64": {
-                "name_pattern": "linux-aarch64",
-                "strip_prefix": "ccache-$VERSION-linux-aarch64",
+                "name_pattern": "linux-aarch64-musl-static",
+                "strip_prefix": "ccache-$VERSION-linux-aarch64-musl-static",
             },
             "linux-x86_64": {
-                "name_pattern": "linux-x86_64",
-                "strip_prefix": "ccache-$VERSION-linux-x86_64",
+                "name_pattern": "linux-x86_64-musl-static",
+                "strip_prefix": "ccache-$VERSION-linux-x86_64-musl-static",
             },
             "windows-x86_64": {
                 "name_pattern": "windows-x86_64",
