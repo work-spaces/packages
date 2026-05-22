@@ -5,12 +5,19 @@ Spaces starlark checkout for https://github.com/ccache/ccache:v4.13.1
 
 
 platforms = {
+  "linux-aarch64": {
+    "add_prefix": "sysroot/bin",
+    "link": "Hard",
+    "sha256": "99e6fb2d59d051d387c33d3826995a318d2d631f585515f1686a4df1bb74e6f0",
+    "strip_prefix": "ccache-4.13.1-linux-aarch64-musl-static",
+    "url": "https://github.com/ccache/ccache/releases/download/v4.13.1/ccache-4.13.1-linux-aarch64-musl-static.tar.xz"
+  },
   "linux-x86_64": {
     "add_prefix": "sysroot/bin",
     "link": "Hard",
-    "sha256": "dd9fc188e738add3c12509063bb082b05e77a9a71fa85a20e01230044aa410f1",
-    "strip_prefix": "ccache-4.13.1-linux-x86_64",
-    "url": "https://github.com/ccache/ccache/releases/download/v4.13.1/ccache-4.13.1-linux-x86_64-glibc.tar.xz"
+    "sha256": "fabe99dd1207c8946348dc3e5539c9e0dde47d1113e3353ba9866ff2fcf405f2",
+    "strip_prefix": "ccache-4.13.1-linux-x86_64-musl-static",
+    "url": "https://github.com/ccache/ccache/releases/download/v4.13.1/ccache-4.13.1-linux-x86_64-musl-static.tar.xz"
   },
   "macos-aarch64": {
     "add_prefix": "sysroot/bin",
