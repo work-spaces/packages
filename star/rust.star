@@ -199,7 +199,7 @@ def rust_add(
     if configure_vscode:
         checkout_update_asset(
             rules_as_rule(RULES, "vscode_settings"),
-            destination = ".vscode/settings.json",
+            destination = "//.vscode/settings.json",
             format = "json",
             value = {
                 "rust-analyzer.cargo.buildScripts.invocationStrategy": "once",
@@ -232,7 +232,7 @@ def rust_add(
     if configure_zed:
         checkout_update_asset(
             rules_as_rule(RULES, "zed_settings"),
-            destination = ".zed/settings.json",
+            destination = "//.zed/settings.json",
             format = "json",
             value = {
                 "lsp": {

@@ -170,7 +170,7 @@ def devutils_add(
     checkout_add_any_assets(
         rules_as_rule(RULES, "coreutils_hardlinks"),
         assets = [
-            asset_hard_link("sysroot/bin/coreutils", "sysroot/bin/{}".format(func))
+            asset_hard_link("//sysroot/bin/coreutils", "//sysroot/bin/{}".format(func))
             for func in coreutils_functions
         ],
         deps = deps + [PACKAGE_RULE_NAME],
