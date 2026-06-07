@@ -255,7 +255,7 @@ def spaces_add_star_formatter(name: str, configure_zed: bool = False, deps: list
         UPDATE_ZED_RULE = "{}_update_zed".format(name)
         checkout_update_asset(
             UPDATE_ZED_RULE,
-            destination = ".zed/settings.json",
+            destination = "//.zed/settings.json",
             value = {
                 "languages": {
                     "Starlark": {

@@ -3,9 +3,13 @@ Add shfmt to your sysroot.
 """
 
 load(
+    "//@star/sdk/star/asset.star",
+    "asset_hard_link",
+)
+load(
     "//@star/sdk/star/checkout.star",
+    "checkout_add_any_assets",
     "checkout_add_exec",
-    "checkout_add_hard_link_asset",
     "checkout_add_platform_archive",
 )
 load(
@@ -47,10 +51,14 @@ def shfmt_add(name: str, version: str, deps: list[str] = [], visibility: str | d
 
     BIN_SUFFIX = SUFFIX_MAP.get(PLATFORM)
 
-    checkout_add_hard_link_asset(
+    checkout_add_any_assets(
         HARD_LINK_RULE,
-        source = "sysroot/bin/shfmt_{}_{}".format(version, BIN_SUFFIX),
-        destination = "sysroot/bin/shfmt",
+        assets = [
+            asset_hard_link(
+                source = "//sysroot/bin/shfmt_{}_{}".format(version, BIN_SUFFIX),
+                destination = "//sysroot/bin/shfmt",
+            ),
+        ],
         deps = [PLATFORM_RULE],
         visibility = visibility_rules([name]),
     )

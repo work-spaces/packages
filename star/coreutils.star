@@ -144,7 +144,7 @@ def coreutils_add(name: str, version: str, functions: list[str] = COREUTILS_DEFA
     checkout_add_any_assets(
         name,
         assets = [
-            asset_hard_link("sysroot/bin/coreutils", "sysroot/bin/{}".format(func))
+            asset_hard_link("//sysroot/bin/coreutils", "//sysroot/bin/{}".format(func))
             for func in functions
         ],
         deps = [PLATFORM_CHECKOUT_RULE],

@@ -3,10 +3,14 @@ Add Bazelisk to your sysroot.
 """
 
 load(
+    "//@star/sdk/star/asset.star",
+    "asset_hard_link",
+)
+load(
     "//@star/sdk/star/checkout.star",
+    "checkout_add_any_assets",
     "checkout_add_env_vars",
     "checkout_add_exec",
-    "checkout_add_hard_link_asset",
     "checkout_add_platform_archive",
 )
 load("//@star/sdk/star/env.star", "env_assign")
@@ -52,10 +56,14 @@ def bazelisk_add(name: str, version: str, deps: list[str] = [], visibility: str 
 
     BIN_SUFFIX = SUFFIX_MAP.get(PLATFORM)
 
-    checkout_add_hard_link_asset(
+    checkout_add_any_assets(
         HARD_LINK_RULE,
-        source = "sysroot/bin/bazelisk-{}".format(BIN_SUFFIX),
-        destination = "sysroot/bin/bazelisk",
+        assets = [
+            asset_hard_link(
+                source = "//sysroot/bin/bazelisk-{}".format(BIN_SUFFIX),
+                destination = "//sysroot/bin/bazelisk",
+            ),
+        ],
         deps = [PLATFORM_RULE],
         visibility = visibility_private(),
     )

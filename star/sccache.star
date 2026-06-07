@@ -48,7 +48,7 @@ def sccache_add(name: str, version: str, visibility: str | dict[str, list[str]] 
     # Post checkout rule
     checkout_update_asset(
         CARGO_CONFIG_RULE,
-        destination = ".cargo/config.toml",
+        destination = "//.cargo/config.toml",
         value = {
             "build": {"rustc-wrapper": "sccache"},
         },
