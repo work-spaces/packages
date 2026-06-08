@@ -2,6 +2,7 @@
 
 load("v0.35.0.star", platforms_v0_35_0_star = "platforms")
 load("v0.44.0.star", platforms_v0_44_0_star = "platforms")
+load("v0.62.0.star", platforms_v0_62_0_star = "platforms")
 load("v0.46.0.star", platforms_v0_46_0_star = "platforms")
 load("v0.54.0.star", platforms_v0_54_0_star = "platforms")
 load("v0.17.1.star", platforms_v0_17_1_star = "platforms")
@@ -16,6 +17,7 @@ load("v0.30.0.star", platforms_v0_30_0_star = "platforms")
 packages = {
     "v0.35.0": platforms_v0_35_0_star,
     "v0.44.0": platforms_v0_44_0_star,
+    "v0.62.0": platforms_v0_62_0_star,
     "v0.46.0": platforms_v0_46_0_star,
     "v0.54.0": platforms_v0_54_0_star,
     "v0.17.1": platforms_v0_17_1_star,
