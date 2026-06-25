@@ -10,6 +10,7 @@ load("v0.147.5.star", platforms_v0_147_5_star = "platforms")
 load("v0.146.1.star", platforms_v0_146_1_star = "platforms")
 load("v0.151.2.star", platforms_v0_151_2_star = "platforms")
 load("v0.146.6.star", platforms_v0_146_6_star = "platforms")
+load("v0.163.3.star", platforms_v0_163_3_star = "platforms")
 load("v0.146.7.star", platforms_v0_146_7_star = "platforms")
 load("v0.155.3.star", platforms_v0_155_3_star = "platforms")
 load("v0.163.0.star", platforms_v0_163_0_star = "platforms")
@@ -42,6 +43,7 @@ packages = {
     "v0.146.1": platforms_v0_146_1_star,
     "v0.151.2": platforms_v0_151_2_star,
     "v0.146.6": platforms_v0_146_6_star,
+    "v0.163.3": platforms_v0_163_3_star,
     "v0.146.7": platforms_v0_146_7_star,
     "v0.155.3": platforms_v0_155_3_star,
     "v0.163.0": platforms_v0_163_0_star,
