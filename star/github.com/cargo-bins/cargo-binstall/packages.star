@@ -1,6 +1,7 @@
 """star/github.com/cargo-bins/cargo-binstall packages"""
 
 load("v1.10.16.star", platforms_v1_10_16_star = "platforms")
+load("v1.21.0.star", platforms_v1_21_0_star = "platforms")
 load("v1.19.1.star", platforms_v1_19_1_star = "platforms")
 load("v1.10.20.star", platforms_v1_10_20_star = "platforms")
 load("v1.15.1.star", platforms_v1_15_1_star = "platforms")
@@ -43,6 +44,7 @@ load("v1.17.3.star", platforms_v1_17_3_star = "platforms")
 
 packages = {
     "v1.10.16": platforms_v1_10_16_star,
+    "v1.21.0": platforms_v1_21_0_star,
     "v1.19.1": platforms_v1_19_1_star,
     "v1.10.20": platforms_v1_10_20_star,
     "v1.15.1": platforms_v1_15_1_star,
