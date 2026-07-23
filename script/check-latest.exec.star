@@ -9,10 +9,10 @@ Usage Example:
 
 """
 
-load("//@star/sdk/star/std/fs.star", "fs_exists", "fs_remove")
-load("//@star/sdk/star/std/json.star", "json_decode")
-load("//@star/sdk/star/std/log.star", "log_fatal", "log_info")
-load("//@star/sdk/star/std/process.star", "process_run")
+load("//@star/prelude/exec/fs.star", "fs_exists", "fs_remove")
+load("//@star/prelude/exec/json.star", "json_decode")
+load("//@star/prelude/exec/log.star", "log_fatal", "log_info")
+load("//@star/prelude/exec/process.star", "process_run")
 load("star/internal/add-gh-platform-archive.star", "add_gh_platform_archive")
 load("star/internal/add-http-platform-archive.star", "add_http_platform_archive")
 load("star/internal/gh-releases.star", "gh_releases")

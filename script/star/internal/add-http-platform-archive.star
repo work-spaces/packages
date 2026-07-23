@@ -2,11 +2,11 @@
 Adds a platform using HTTP download information.
 """
 
-load("//@star/sdk/star/std/fs.star", "fs_exists", "fs_mkdir", "fs_write_text")
-load("//@star/sdk/star/std/hash.star", "hash_sha256_file")
-load("//@star/sdk/star/std/json.star", "json_encode_pretty")
-load("//@star/sdk/star/std/log.star", "log_info")
-load("//@star/sdk/star/std/process.star", "process_run")
+load("//@star/prelude/exec/fs.star", "fs_exists", "fs_mkdir", "fs_write_text")
+load("//@star/prelude/exec/hash.star", "hash_sha256_file")
+load("//@star/prelude/exec/json.star", "json_encode_pretty")
+load("//@star/prelude/exec/log.star", "log_info")
+load("//@star/prelude/exec/process.star", "process_run")
 load("http-releases.star", "http_releases")
 
 def add_http_platform_archive(name, version):

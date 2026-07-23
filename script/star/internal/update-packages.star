@@ -2,8 +2,8 @@
 Creates the packages.star files in the packages folder
 """
 
-load("//@star/sdk/star/std/fs.star", "fs_is_directory", "fs_read_directory", "fs_write_text")
-load("//@star/sdk/star/std/log.star", "log_info")
+load("//@star/prelude/exec/fs.star", "fs_is_directory", "fs_read_directory", "fs_write_text")
+load("//@star/prelude/exec/log.star", "log_info")
 
 def _path_to_variable_name(path):
     return path.replace("/", "_").replace("-", "_").replace(".", "_").lower()

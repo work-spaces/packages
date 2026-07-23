@@ -831,4 +831,31 @@ gh_releases = xpack_releases | {
             },
         },
     },
+    "google-antigravity_antigravity-cli": {
+        "settings": {
+            "domain": "github.com",
+            "owner": "google-antigravity",
+            "repo": "antigravity-cli",
+        } | sysroot_bin,
+        "platforms": {
+            "macos-aarch64": {
+                "name_pattern": "agy_cli_mac_arm64.tar.gz",
+            },
+            "macos-x86_64": {
+                "name_pattern": "agy_cli_mac_x64.tar.gz",
+            },
+            "windows-aarch64": {
+                "name_pattern": "agy_cli_windows_arm64.zip",
+            },
+            "windows-x86_64": {
+                "name_pattern": "agy_cli_windows_x64.zip",
+            },
+            "linux-aarch64": {
+                "name_pattern": "agy_cli_linux_arm64.tar.gz",
+            },
+            "linux-x86_64": {
+                "name_pattern": "agy_cli_linux_x64.tar.gz",
+            },
+        },
+    },
 }
