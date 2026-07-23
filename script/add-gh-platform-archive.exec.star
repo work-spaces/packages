@@ -9,7 +9,7 @@ Usage Example:
 
 """
 
-load("//@star/sdk/star/std/args.star", "args_opt", "args_parse", "args_parser")
+load("//@star/prelude/exec/args.star", "args_opt", "args_parse", "args_parser")
 load("star/internal/add-gh-platform-archive.star", "add_gh_platform_archive")
 
 spec = args_parser(

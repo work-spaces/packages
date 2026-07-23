@@ -6,9 +6,9 @@ Spaces executable script to validate the checksums for each package.
 This script downloads each artifact and validates the stored checksum matches the downloaded file.
 """
 
-load("//@star/sdk/star/std/fs.star", "fs_mkdir")
-load("//@star/sdk/star/std/hash.star", "hash_sha256_file")
-load("//@star/sdk/star/std/log.star", "log_fatal", "log_info")
+load("//@star/prelude/exec/fs.star", "fs_mkdir")
+load("//@star/prelude/exec/hash.star", "hash_sha256_file")
+load("//@star/prelude/exec/log.star", "log_fatal", "log_info")
 load("../star/packages.star", "packages")
 load("star/internal/curl.star", "download_file")
 

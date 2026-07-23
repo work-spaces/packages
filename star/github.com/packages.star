@@ -22,6 +22,7 @@ load("uutils/packages.star", uutils = "packages")
 load("jqlang/packages.star", jqlang = "packages")
 load("work-spaces/packages.star", work_spaces = "packages")
 load("oras-project/packages.star", oras_project = "packages")
+load("google-antigravity/packages.star", google_antigravity = "packages")
 load("protocolbuffers/packages.star", protocolbuffers = "packages")
 
 
@@ -48,5 +49,6 @@ packages = {
     "jqlang": jqlang,
     "work-spaces": work_spaces,
     "oras-project": oras_project,
+    "google-antigravity": google_antigravity,
     "protocolbuffers": protocolbuffers,
 }

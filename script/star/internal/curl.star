@@ -2,8 +2,8 @@
 Download a file use curl
 """
 
-load("//@star/sdk/star/std/log.star", "log_fatal", "log_info")
-load("//@star/sdk/star/std/process.star", "process_options", "process_run")
+load("//@star/prelude/exec/log.star", "log_fatal", "log_info")
+load("//@star/prelude/exec/process.star", "process_options", "process_run")
 
 def download_file(asset_url, output_path):
     """
