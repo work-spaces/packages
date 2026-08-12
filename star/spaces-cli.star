@@ -2,30 +2,35 @@
 Add the spaces binary to a workflow
 """
 
+load("//@star/prelude/info.star", "info_get_path_to_store")
 load(
-    "//@star/sdk/star/checkout.star",
+    "//@star/prelude/rules/asset.star",
+    "asset_soft_link",
+)
+load(
+    "//@star/prelude/rules/checkout.star",
+    "checkout_add",
+    "checkout_add_any_assets",
     "checkout_add_env_vars",
     "checkout_add_platform_archive",
-    "checkout_add_soft_link_asset",
-    "checkout_add_target",
     "checkout_update_asset",
 )
 load(
-    "//@star/sdk/star/env.star",
+    "//@star/prelude/rules/env.star",
     "env_append",
     "env_assign",
     "env_inherit",
     "env_prepend",
 )
 load(
-    "//@star/sdk/star/rules.star",
+    "//@star/prelude/rules/rules.star",
     "rules_as_dep",
     "rules_as_rule",
     "rules_new",
 )
-load("//@star/sdk/star/visibility.star", "visibility_private", "visibility_rules")
+load("//@star/prelude/rules/visibility.star", "visibility_private", "visibility_rules")
 load(
-    "//@star/sdk/star/ws.star",
+    "//@star/prelude/rules/ws.star",
     "workspace_get_absolute_path",
 )
 load("buildifier.star", "buildifier_add")
@@ -63,12 +68,14 @@ def spaces_add(name: str, version: str, add_link_to_workspace_root: bool = False
     )
 
     if add_link_to_workspace_root:
-        checkout_add_soft_link_asset(
+        checkout_add_any_assets(
             "{}_workspace_root_link".format(name),
-            source = "sysroot/bin/spaces",
-            destination = "spaces",
-            deps = [name],
-            visibility = visibility_rules([]),
+            assets = [
+                asset_soft_link(
+                    source = "sysroot/bin/spaces",
+                    destination = "spaces",
+                ),
+            ],
         )
 
 def spaces_isolate_workspace(name: str, version: str, system_paths: list[str] | None = None, coreutils_version: str = "0.6.0", coreutils_functions: list[str] = COREUTILS_DEFAULT_FUNCTIONS, visibility: str | dict[str, list[str]] | None = None):
@@ -132,7 +139,7 @@ def spaces_isolate_workspace(name: str, version: str, system_paths: list[str] | 
         visibility = visibility_rules([name]),
     )
 
-    checkout_add_target(
+    checkout_add(
         name,
         deps = [SPACES_RULE, COREUTILS_RULE, UPDATE_ENV_NAME],
         visibility = visibility,
@@ -145,7 +152,8 @@ def spaces_add_devutils(
         system_paths: list[str] | None = None,
         coreutils_functions: list[str] = DEVUTILS_COREUTILS_FUNCTIONS,
         bat_paging: str = "never",
-        visibility: str | dict[str, list[str]] | None = None) -> dict:
+        visibility: str | dict[str, list[str]] | None = None,
+        is_activate_sccache: bool = False) -> dict:
     """
     Create a spaces devutils based workspace.
 
@@ -171,6 +179,8 @@ def spaces_add_devutils(
         "spaces",
         "devutils",
         "update_env",
+        "sccache_env",
+        "sccache_config",
     ])
 
     WORKSPACE = workspace_get_absolute_path()
@@ -190,7 +200,7 @@ def spaces_add_devutils(
             visibility = visibility_private(),
         )
     else:
-        checkout_add_target(
+        checkout_add(
             rules_as_rule(RULES, "devutils"),
             deps = [],
             visibility = visibility_private(),
@@ -226,7 +236,33 @@ def spaces_add_devutils(
         visibility = visibility_private(),
     )
 
-    checkout_add_target(
+    if is_activate_sccache:
+        checkout_add_env_vars(
+            rules_as_rule(RULES, "sccache_env"),
+            vars = [
+                env_assign(
+                    "SCCACHE_DIR",
+                    value = "{}/sccache".format(info_get_path_to_store()),
+                    help = "The directory where sccache stores its cache files in the spaces store",
+                ),
+                env_assign(
+                    "SCCACHE_BASEDIRS",
+                    value = workspace_get_absolute_path(),
+                    help = "Add absolute workspace path to sccache basedirs to share cache across projects",
+                ),
+            ],
+            visibility = visibility_private(),
+        )
+        checkout_update_asset(
+            rules_as_rule(RULES, "sccache_config"),
+            destination = "//.cargo/config.toml",
+            value = {
+                "build": {"rustc-wrapper": "sccache"},
+            },
+            visibility = visibility_private(),
+        )
+
+    checkout_add(
         name,
         deps = [
             rules_as_dep(RULES, "spaces"),
