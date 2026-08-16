@@ -26,11 +26,11 @@ _PACKAGES = {
             "link": "Hard",
         },
         "linux-aarch64": {
-            "url": "https://github.com/cross-tools/musl-cross/releases/download/20250929/aarch64-unknown-linux-musl.tar.xz",
-            "sha256": "28a1d26f14f8ddc3aed31f20705fe696777400eb5952d90470a7e6e2dd1175bb",
+            "link": "Hard",
+            "sha256": "45391baada5bd0b78fd888ae7ee45e4970aebee98f64dd9eb7717ecedcbfb0d6",
+            "url": "https://github.com/work-spaces/devutils/releases/download/devutils-v0.1.9/aarch64-unknown-linux-musl.tar.xz",
             "strip_prefix": "aarch64-unknown-linux-musl",
             "add_prefix": "sysroot/musl-cross/aarch64-unknown-linux-musl",
-            "link": "Hard",
         },
     },
 }
