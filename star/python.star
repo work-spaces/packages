@@ -2,27 +2,29 @@
 Add Python to your sysroot.
 """
 
+load("//@star/prelude/info.star", "info_get_path_to_store")
 load(
-    "//@star/sdk/star/checkout.star",
+    "//@star/prelude/rules/checkout.star",
+    "checkout_add",
     "checkout_add_env_vars",
+    "checkout_add_exec",
     "checkout_add_platform_archive",
     "checkout_update_asset",
 )
 load(
-    "//@star/sdk/star/env.star",
+    "//@star/prelude/rules/env.star",
     "env_assign",
     "env_prepend",
 )
-load("//@star/sdk/star/info.star", "info_get_path_to_store")
-load("//@star/sdk/star/run.star", "run_add_exec_setup", "run_add_target")
-load("//@star/sdk/star/visibility.star", "visibility_private", "visibility_rules")
-load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
+load("//@star/prelude/rules/rules.star", "rules_as_dep", "rules_as_rule", "rules_new")
+load("//@star/prelude/rules/visibility.star", "visibility_private", "visibility_rules")
+load("//@star/prelude/rules/ws.star", "workspace_get_absolute_path")
 load("github.com/astral-sh/packages.star", astral_packages = "packages")
 
 def python_add_uv(
         name: str,
-        uv_version: str = "0.10.4",
-        ruff_version: str = "0.15.1",
+        uv_version: str = "0.12.5",
+        ruff_version: str = "0.16.3",
         python_version: str = "3.13",
         venv_name: str = "venv",
         packages: list[str] = [],
@@ -43,28 +45,33 @@ def python_add_uv(
         packages: The Python packages to install
         visibility: Rule visibility. See visibility.star for more info.
     """
-    UV_PLATFORMS = astral_packages["uv"][uv_version]
-    RUFF_PLATFORMS = astral_packages["ruff"][ruff_version]
+    uv_platforms = astral_packages["uv"][uv_version]
+    ruff_platforms = astral_packages["ruff"][ruff_version]
 
-    CHECKOUT_UV_RULE = "{}_checkout_uv".format(name)
-    CHECKOUT_RUFF_RULE = "{}_checkout_ruff".format(name)
-    CHECKOUT_RUFF_VS_CODE_FORMATTER = "{}_ruff_formatter_vs_code".format(name)
-    CHECKOUT_UPDATE_ENV = "{}_update_uv_env".format(name)
+    rules = rules_new(name, [
+        "checkout_uv",
+        "checkout_ruff",
+        "ruff_formatter_vs_code",
+        "update_uv_env",
+        "install_python",
+        "venv",
+        "packages",
+    ])
 
     checkout_add_platform_archive(
-        CHECKOUT_UV_RULE,
-        platforms = UV_PLATFORMS,
-        visibility = visibility,
+        rules_as_rule(rules, "checkout_uv"),
+        platforms = uv_platforms,
+        visibility = visibility_private(),
     )
 
     checkout_add_platform_archive(
-        CHECKOUT_RUFF_RULE,
-        platforms = RUFF_PLATFORMS,
-        visibility = visibility,
+        rules_as_rule(rules, "checkout_ruff"),
+        platforms = ruff_platforms,
+        visibility = visibility_private(),
     )
 
     checkout_update_asset(
-        CHECKOUT_RUFF_VS_CODE_FORMATTER,
+        rules_as_rule(rules, "ruff_formatter_vs_code"),
         destination = ".vscode/extensions.json",
         value = {
             "recommendations": ["ms-python.python", "charliermarsh.ruff"],
@@ -76,7 +83,7 @@ def python_add_uv(
     STORE_PATH = info_get_path_to_store()
 
     checkout_add_env_vars(
-        CHECKOUT_UPDATE_ENV,
+        rules_as_rule(rules, "update_uv_env"),
         vars = [
             env_prepend(
                 "PATH",
@@ -121,33 +128,41 @@ def python_add_uv(
     RUN_VENV_RULE = "{}_venv".format(name)
     RUN_PACKAGES_RULE = "{}_packages".format(name)
 
-    run_add_exec_setup(
-        RUN_INSTALL_PYTHON_RULE,
+    checkout_add_exec(
+        rules_as_rule(rules, "install_python"),
         command = "uv",
         args = ["python", "install", "{}".format(python_version)],
-        visibility = visibility_rules([RUN_VENV_RULE, "//:setup"]),
+        visibility = visibility_private(),
+        deps = [rules_as_dep(rules, "checkout_uv")],
     )
 
-    run_add_exec_setup(
-        RUN_VENV_RULE,
-        deps = [RUN_INSTALL_PYTHON_RULE],
+    checkout_add_exec(
+        rules_as_rule(rules, "venv"),
+        deps = [rules_as_dep(rules, "install_python")],
         command = "uv",
-        args = ["venv", "--python={}".format(python_version), venv_name],
-        visibility = visibility_rules([RUN_PACKAGES_RULE, "//:setup", name]),
+        args = [
+            "venv",
+            "--clear",
+            "--python={}".format(python_version),
+            venv_name,
+        ],
+        visibility = visibility_private(),
     )
 
+    name_deps = [rules_as_dep(rules, "venv")]
     if packages != []:
-        run_add_exec_setup(
-            RUN_PACKAGES_RULE,
-            deps = ["{}_venv".format(name)],
+        checkout_add_exec(
+            rules_as_rule(rules, "packages"),
+            deps = [rules_as_dep(rules, "venv")],
             command = "uv",
             args = ["pip", "install"] + packages,
             # leave this public to support APIs already using it
             visibility = visibility,
         )
+        top_deps = [rules_as_dep(rules, "packages")]
 
-    run_add_target(
+    checkout_add(
         name,
-        deps = [RUN_PACKAGES_RULE if packages != [] else RUN_VENV_RULE],
+        deps = name_deps,
         visibility = visibility,
     )
