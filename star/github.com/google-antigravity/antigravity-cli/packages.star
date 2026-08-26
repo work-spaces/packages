@@ -1,6 +1,7 @@
 """star/github.com/google-antigravity/antigravity-cli packages"""
 
 load("1.1.16.star", platforms_1_1_16_star = "platforms")
+load("1.1.20.star", platforms_1_1_20_star = "platforms")
 load("1.1.10.star", platforms_1_1_10_star = "platforms")
 load("1.1.11.star", platforms_1_1_11_star = "platforms")
 load("1.1.12.star", platforms_1_1_12_star = "platforms")
@@ -12,6 +13,7 @@ load("1.1.8.star", platforms_1_1_8_star = "platforms")
 
 packages = {
     "1.1.16": platforms_1_1_16_star,
+    "1.1.20": platforms_1_1_20_star,
     "1.1.10": platforms_1_1_10_star,
     "1.1.11": platforms_1_1_11_star,
     "1.1.12": platforms_1_1_12_star,
