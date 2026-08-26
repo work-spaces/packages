@@ -1,5 +1,6 @@
 """star/github.com/mikefarah/yq packages"""
 
+load("v4.53.6.star", platforms_v4_53_6_star = "platforms")
 load("v4.43.1.star", platforms_v4_43_1_star = "platforms")
 load("v4.52.5.star", platforms_v4_52_5_star = "platforms")
 load("v4.48.2.star", platforms_v4_48_2_star = "platforms")
@@ -16,6 +17,7 @@ load("v4.44.6.star", platforms_v4_44_6_star = "platforms")
 
 
 packages = {
+    "v4.53.6": platforms_v4_53_6_star,
     "v4.43.1": platforms_v4_43_1_star,
     "v4.52.5": platforms_v4_52_5_star,
     "v4.48.2": platforms_v4_48_2_star,
