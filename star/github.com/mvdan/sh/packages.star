@@ -1,5 +1,6 @@
 """star/github.com/mvdan/sh packages"""
 
+load("v3.14.0.star", platforms_v3_14_0_star = "platforms")
 load("v3.8.0.star", platforms_v3_8_0_star = "platforms")
 load("v3.10.0.star", platforms_v3_10_0_star = "platforms")
 load("v3.12.0.star", platforms_v3_12_0_star = "platforms")
@@ -12,6 +13,7 @@ load("v3.13.0.star", platforms_v3_13_0_star = "platforms")
 
 
 packages = {
+    "v3.14.0": platforms_v3_14_0_star,
     "v3.8.0": platforms_v3_8_0_star,
     "v3.10.0": platforms_v3_10_0_star,
     "v3.12.0": platforms_v3_12_0_star,
