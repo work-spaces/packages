@@ -1,6 +1,7 @@
 """star/github.com/protocolbuffers/protobuf packages"""
 
 load("v33.1.star", platforms_v33_1_star = "platforms")
+load("v36.2.star", platforms_v36_2_star = "platforms")
 load("v31.0.star", platforms_v31_0_star = "platforms")
 load("v31.1.star", platforms_v31_1_star = "platforms")
 load("v28.3.star", platforms_v28_3_star = "platforms")
@@ -27,6 +28,7 @@ load("v34.0.star", platforms_v34_0_star = "platforms")
 
 packages = {
     "v33.1": platforms_v33_1_star,
+    "v36.2": platforms_v36_2_star,
     "v31.0": platforms_v31_0_star,
     "v31.1": platforms_v31_1_star,
     "v28.3": platforms_v28_3_star,
