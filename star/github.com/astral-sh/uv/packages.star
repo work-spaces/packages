@@ -1,6 +1,7 @@
 """star/github.com/astral-sh/uv packages"""
 
 load("0.11.31.star", platforms_0_11_31_star = "platforms")
+load("0.12.21.star", platforms_0_12_21_star = "platforms")
 load("0.7.19.star", platforms_0_7_19_star = "platforms")
 load("0.5.24.star", platforms_0_5_24_star = "platforms")
 load("0.4.29.star", platforms_0_4_29_star = "platforms")
@@ -69,6 +70,7 @@ load("0.11.24.star", platforms_0_11_24_star = "platforms")
 
 packages = {
     "0.11.31": platforms_0_11_31_star,
+    "0.12.21": platforms_0_12_21_star,
     "0.7.19": platforms_0_7_19_star,
     "0.5.24": platforms_0_5_24_star,
     "0.4.29": platforms_0_4_29_star,

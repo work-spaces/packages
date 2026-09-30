@@ -3,6 +3,7 @@
 load("devutils-v0.1.16.star", platforms_devutils_v0_1_16_star = "platforms")
 load("devutils-v0.1.14.star", platforms_devutils_v0_1_14_star = "platforms")
 load("devutils-v0.1.4.star", platforms_devutils_v0_1_4_star = "platforms")
+load("devutils-v0.2.0.star", platforms_devutils_v0_2_0_star = "platforms")
 load("devutils-v0.1.5.star", platforms_devutils_v0_1_5_star = "platforms")
 load("devutils-v0.1.15.star", platforms_devutils_v0_1_15_star = "platforms")
 load("devutils-v0.1.2.star", platforms_devutils_v0_1_2_star = "platforms")
@@ -13,6 +14,7 @@ packages = {
     "devutils-v0.1.16": platforms_devutils_v0_1_16_star,
     "devutils-v0.1.14": platforms_devutils_v0_1_14_star,
     "devutils-v0.1.4": platforms_devutils_v0_1_4_star,
+    "devutils-v0.2.0": platforms_devutils_v0_2_0_star,
     "devutils-v0.1.5": platforms_devutils_v0_1_5_star,
     "devutils-v0.1.15": platforms_devutils_v0_1_15_star,
     "devutils-v0.1.2": platforms_devutils_v0_1_2_star,
