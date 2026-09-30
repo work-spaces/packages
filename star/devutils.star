@@ -1,8 +1,8 @@
 """
 Spaces starlark function for adding devutils to the workspace.
 
-Devutils consolidates coreutils and rust developer tools into a single
-pre-built package. All binaries are provided by the package archive.
+Devutils consolidates coreutils, diffutils, and rust developer tools into a
+single pre-built package. All binaries are provided by the package archive.
 """
 
 load("//@star/sdk/star/asset.star", "asset_hard_link")
@@ -23,14 +23,20 @@ load(
 load("//@star/sdk/star/visibility.star", "visibility_private", "visibility_rules")
 load("package.star", "package_add")
 
+DIFFUTILS_DEFAULT_FUNCTIONS = [
+    "cmp",
+    "diff",
+]
+
 COREUTILS_DEFAULT_FUNCTIONS = [
+    "arch",
     "b2sum",
-    "b3sum",
     "base32",
     "base64",
     "basename",
     "basenc",
     "cat",
+    "chgrp",
     "chmod",
     "chown",
     "chroot",
@@ -55,7 +61,6 @@ COREUTILS_DEFAULT_FUNCTIONS = [
     "fmt",
     "fold",
     "groups",
-    "hashsum",
     "head",
     "hostid",
     "hostname",
@@ -69,6 +74,7 @@ COREUTILS_DEFAULT_FUNCTIONS = [
     "ls",
     "md5sum",
     "mkdir",
+    "mkfifo",
     "mktemp",
     "more",
     "mv",
@@ -100,7 +106,9 @@ COREUTILS_DEFAULT_FUNCTIONS = [
     "sort",
     "split",
     "stat",
+    "stty",
     "sum",
+    "sync",
     "tac",
     "tail",
     "tee",
@@ -131,19 +139,21 @@ def devutils_add(
         coreutils_functions: list[str] = COREUTILS_DEFAULT_FUNCTIONS,
         bat_paging: str = "never",
         deps: list[str] = [],
-        visibility: str | dict[str, list[str]] | None = None) -> dict:
+        visibility: str | dict[str, list[str]] | None = None,
+        diffutils_functions: list[str] = DIFFUTILS_DEFAULT_FUNCTIONS) -> dict:
     """
     Adds devutils to the workspace.
 
     This contains a full suite of developer tools for working on the command line.
 
-    Hardlinks coreutils functions to the coreutils multifunction binary and
-    sets environment variables for bat and rm-improved.
+    Hardlinks coreutils and diffutils functions to their multifunction binaries
+    and sets environment variables for bat and rm-improved.
 
     Args:
         name: name of the rule to checkout devutils
         version: The version of the devutils release (e.g. "devutils-v0.1.2")
         coreutils_functions: The list of coreutils functions to install (default is COREUTILS_DEFAULT_FUNCTIONS)
+        diffutils_functions: The list of diffutils functions to install (default is DIFFUTILS_DEFAULT_FUNCTIONS)
         bat_paging: Bat paging mode: `never|always|auto`.
         deps: The list of dependencies to add to this rule
         visibility: Rule visibility. See visibility.star for more info.
@@ -155,6 +165,7 @@ def devutils_add(
     RULES = rules_new(name, [
         "package",
         "coreutils_hardlinks",
+        "diffutils_hardlinks",
         "env_vars",
     ])
 
@@ -163,7 +174,10 @@ def devutils_add(
         "work-spaces",
         "devutils",
         version,
-        visibility = visibility_rules([rules_as_rule(RULES, "coreutils_hardlinks")]),
+        visibility = visibility_rules([
+            rules_as_rule(RULES, "coreutils_hardlinks"),
+            rules_as_rule(RULES, "diffutils_hardlinks"),
+        ]),
     )
 
     # Create hardlinks for coreutils functions
@@ -172,6 +186,17 @@ def devutils_add(
         assets = [
             asset_hard_link("//sysroot/bin/coreutils", "//sysroot/bin/{}".format(func))
             for func in coreutils_functions
+        ],
+        deps = deps + [PACKAGE_RULE_NAME],
+        visibility = visibility_private(),
+    )
+
+    # Create hardlinks for diffutils functions
+    checkout_add_any_assets(
+        rules_as_rule(RULES, "diffutils_hardlinks"),
+        assets = [
+            asset_hard_link("//sysroot/bin/diffutils", "//sysroot/bin/{}".format(func))
+            for func in diffutils_functions
         ],
         deps = deps + [PACKAGE_RULE_NAME],
         visibility = visibility_private(),
@@ -192,7 +217,10 @@ def devutils_add(
                 help = "Directory for rm-improved deleted files in the spaces store",
             ),
         ],
-        deps = [rules_as_dep(RULES, "coreutils_hardlinks")],
+        deps = [
+            rules_as_dep(RULES, "coreutils_hardlinks"),
+            rules_as_dep(RULES, "diffutils_hardlinks"),
+        ],
         visibility = visibility_private(),
     )
 
