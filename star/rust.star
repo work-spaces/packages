@@ -144,7 +144,7 @@ def rust_add(
                 help = "The path to the rustup home directory in the spaces store",
             ),
             env_assign(
-                "RUST_TOOLCHAIN",
+                "RUSTUP_TOOLCHAIN",
                 value = version,
                 help = "The version of the rust toolchain to use",
             ),
