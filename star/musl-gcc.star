@@ -14,7 +14,7 @@ load(
     "info_is_platform_x86_64",
 )
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
-load("./internal/tracker.star", "tracker_is_skip_add")
+load("./internal/tracker.star", "tracker_add_packages_visibility", "tracker_is_skip_add")
 
 # musl-cross toolchain packages from https://github.com/cross-tools/musl-cross/releases
 _PACKAGES = {
@@ -51,8 +51,9 @@ def musl_gcc_add(
         version: The musl-cross release version (e.g., "20250929").
         visibility: Rule visibility. See visibility.star for more info.
     """
-    if tracker_is_skip_add("musl_gcc_add"):
+    if tracker_is_skip_add("musl_gcc_add", name):
         return
+    visibility = tracker_add_packages_visibility(visibility)
 
     checkout_add_platform_archive(
         name,
@@ -156,7 +157,7 @@ def musl_gcc_add_toolchain_file(name: str, destination: str) -> str | None:
     Returns:
         The destination path of the toolchain file.
     """
-    if tracker_is_skip_add("musl_gcc_add_toolchain_file"):
+    if tracker_is_skip_add("musl_gcc_add_toolchain_file", name):
         return None
 
     if info_is_platform_x86_64():

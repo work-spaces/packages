@@ -32,8 +32,9 @@ load("//@star/prelude/rules/visibility.star", "visibility_private", "visibility_
 load(
     "//@star/prelude/rules/ws.star",
     "workspace_get_absolute_path",
+    "workspace_get_path_to_checkout",
 )
-load("./internal/tracker.star", "tracker_is_skip_add")
+load("./internal/tracker.star", "tracker_add_packages_visibility", "tracker_is_skip_add")
 load("buildifier.star", "buildifier_add")
 load("coreutils.star", "COREUTILS_DEFAULT_FUNCTIONS", "coreutils_add")
 load("devutils.star", "devutils_add", DEVUTILS_COREUTILS_FUNCTIONS = "COREUTILS_DEFAULT_FUNCTIONS")
@@ -62,8 +63,9 @@ def spaces_add(name: str, version: str, add_link_to_workspace_root: bool = False
         visibility: Rule visibility. See visibility.star for more info.
     """
 
-    if tracker_is_skip_add("spaces_add"):
+    if tracker_is_skip_add("spaces_add", name):
         return
+    visibility = tracker_add_packages_visibility(visibility)
 
     checkout_add_platform_archive(
         name,
@@ -99,8 +101,9 @@ def spaces_isolate_workspace(name: str, version: str, system_paths: list[str] | 
         visibility: Rule visibility. See visibility.star for more info.
     """
 
-    if tracker_is_skip_add("spaces_isolate_workspace"):
+    if tracker_is_skip_add("spaces_isolate_workspace", name):
         return
+    visibility = tracker_add_packages_visibility(visibility)
 
     WORKSPACE = workspace_get_absolute_path()
     UPDATE_ENV_NAME = "{}_update_env".format(name)
@@ -191,15 +194,18 @@ def spaces_add_devutils(
         "sccache_config",
     ])
 
-    if tracker_is_skip_add("spaces_add_devutils"):
+    if tracker_is_skip_add("spaces_add_devutils", name):
         return None
+    visibility = tracker_add_packages_visibility(visibility)
 
     WORKSPACE = workspace_get_absolute_path()
+
+    private_visibility = visibility_rules(["//" + workspace_get_path_to_checkout(), "//@star/packages"])
 
     spaces_add(
         rules_as_rule(RULES, "spaces"),
         spaces_version,
-        visibility = visibility_private(),
+        visibility = private_visibility,
     )
 
     if devutils_version != None:
@@ -208,7 +214,7 @@ def spaces_add_devutils(
             devutils_version,
             coreutils_functions = coreutils_functions,
             bat_paging = bat_paging,
-            visibility = visibility_private(),
+            visibility = private_visibility,
         )
     else:
         checkout_add(
@@ -273,6 +279,9 @@ def spaces_add_devutils(
             visibility = visibility_private(),
         )
 
+    if visibility == visibility_private():
+        visibility = private_visibility
+
     checkout_add(
         name,
         deps = [
@@ -296,8 +305,9 @@ def spaces_add_star_formatter(name: str, configure_zed: bool = False, deps: list
         visibility: Rule visibility. See visibility.star for more info.
     """
 
-    if tracker_is_skip_add("spaces_add_star_formatter"):
+    if tracker_is_skip_add("spaces_add_star_formatter", name):
         return
+    visibility = tracker_add_packages_visibility(visibility)
 
     buildifier_add(name, "v8.2.1", deps = deps, visibility = visibility)
 

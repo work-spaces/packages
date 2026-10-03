@@ -3,11 +3,11 @@ Add Rust
 """
 
 load(
-    "//@star/sdk/star/checkout.star",
+    "//@star/prelude/rules/checkout.star",
+    "checkout_add",
     "checkout_add_env_vars",
     "checkout_add_exec",
     "checkout_add_platform_archive",
-    "checkout_add_target",
     "checkout_update_asset",
 )
 load(
@@ -24,7 +24,7 @@ load(
 )
 load("//@star/sdk/star/visibility.star", "visibility_private", "visibility_rules")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
-load("./internal/tracker.star", "tracker_is_skip_add")
+load("./internal/tracker.star", "tracker_add_packages_visibility", "tracker_is_skip_add")
 
 def _get_url(platform, suffix = None):
     _RUSTUP_VERSION = "1.28.1"
@@ -112,8 +112,9 @@ def rust_add(
         "rustup_show",
     ])
 
-    if tracker_is_skip_add("rust_add"):
+    if tracker_is_skip_add("rust_add", name):
         return None
+    visibility = tracker_add_packages_visibility(visibility)
 
     checkout_add_platform_archive(
         rules_as_rule(RULES, "platform_rule"),
@@ -194,7 +195,7 @@ def rust_add(
             env = ENV_VARS | {"PATH": CARGO_PATH},
         )
     else:
-        checkout_add_target(
+        checkout_add(
             rules_as_rule(RULES, "rustup_show"),
             deps = [rules_as_dep(RULES, "rustup_init")],
             visibility = visibility_private(),
@@ -256,7 +257,7 @@ def rust_add(
             visibility = visibility_private(),
         )
 
-    checkout_add_target(
+    checkout_add(
         name,
         deps = [rules_as_dep(RULES, "rustup_show")],
         visibility = visibility,

@@ -24,7 +24,7 @@ load(
     "env_assign",
     "env_prepend",
 )
-load("./internal/tracker.star", "tracker_is_skip_add")
+load("./internal/tracker.star", "tracker_add_packages_visibility", "tracker_is_skip_add")
 load("github.com/astral-sh/packages.star", astral_packages = "packages")
 
 def python_add_uv(
@@ -65,8 +65,9 @@ def python_add_uv(
         "packages",
     ])
 
-    if tracker_is_skip_add("python_add_uv"):
+    if tracker_is_skip_add("python_add_uv", name):
         return None
+    visibility = tracker_add_packages_visibility(visibility)
 
     UV_PLATFORMS = astral_packages["uv"][uv_version]
     RUFF_PLATFORMS = astral_packages["ruff"][ruff_version]

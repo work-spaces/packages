@@ -3,7 +3,7 @@ Spaces starlark function for archiving and publishing to github using GH
 """
 
 load("//@star/sdk/star/checkout.star", "checkout_add_platform_archive")
-load("./internal/tracker.star", "tracker_is_skip_add")
+load("./internal/tracker.star", "tracker_add_packages_visibility", "tracker_is_skip_add")
 load("github.com/cli/cli/packages.star", "packages")
 
 def gh_add(name: str, version: str, visibility: str | dict[str, list[str]] | None = None):
@@ -16,8 +16,9 @@ def gh_add(name: str, version: str, visibility: str | dict[str, list[str]] | Non
         visibility: Rule visibility. See visibility.star for more info.
     """
 
-    if tracker_is_skip_add("gh_add"):
+    if tracker_is_skip_add("gh_add", name):
         return
+    visibility = tracker_add_packages_visibility(visibility)
 
     checkout_add_platform_archive(
         name,

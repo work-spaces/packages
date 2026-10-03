@@ -21,7 +21,7 @@ load(
     "rules_new",
 )
 load("//@star/sdk/star/visibility.star", "visibility_private", "visibility_rules")
-load("./internal/tracker.star", "tracker_is_skip_add")
+load("./internal/tracker.star", "tracker_add_packages_visibility", "tracker_is_skip_add")
 load("package.star", "package_add")
 
 DIFFUTILS_DEFAULT_FUNCTIONS = [
@@ -170,8 +170,9 @@ def devutils_add(
         "env_vars",
     ])
 
-    if tracker_is_skip_add("devutils_add"):
+    if tracker_is_skip_add("devutils_add", name):
         return None
+    visibility = tracker_add_packages_visibility(visibility)
 
     PACKAGE_RULE_NAME = package_add(
         "github.com",

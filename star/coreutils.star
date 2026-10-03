@@ -13,7 +13,7 @@ load(
 load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
-load("./internal/tracker.star", "tracker_is_skip_add")
+load("./internal/tracker.star", "tracker_add_packages_visibility", "tracker_is_skip_add")
 load("github.com/uutils/coreutils/packages.star", "packages")
 
 COREUTILS_DEFAULT_FUNCTIONS = [
@@ -132,8 +132,9 @@ def coreutils_add(name: str, version: str, functions: list[str] = COREUTILS_DEFA
         visibility: Rule visibility. See visibility.star for more info.
     """
 
-    if tracker_is_skip_add("coreutils_add"):
+    if tracker_is_skip_add("coreutils_add", name):
         return
+    visibility = tracker_add_packages_visibility(visibility)
 
     PLATFORM_CHECKOUT_RULE = "{}_binary_checkout".format(name)
 
@@ -166,8 +167,9 @@ def coreutils_add_rs_tools(name: str, deps: list[str] = [], bat_paging: str = "n
         visibility: Rule visibility. See visibility.star for more info.
     """
 
-    if tracker_is_skip_add("coreutils_add_rs_tools"):
+    if tracker_is_skip_add("coreutils_add_rs_tools", name):
         return
+    visibility = tracker_add_packages_visibility(visibility)
 
     CARGO_BINS = [
         {"crate": "bat", "version": "0.26.1", "bins": ["bat"]},
