@@ -17,7 +17,7 @@ load(
     "info_get_platform_name",
 )
 load("//@star/sdk/star/visibility.star", "visibility_rules")
-load("./internal/tracker.star", "tracker_add")
+load("./internal/tracker.star", "tracker_is_skip_add")
 load("github.com/mikefarah/yq/packages.star", "packages")
 
 def yq_add(name: str, version: str, deps: list[str] = [], visibility: str | dict[str, list[str]] | None = None):
@@ -31,7 +31,7 @@ def yq_add(name: str, version: str, deps: list[str] = [], visibility: str | dict
         visibility: Rule visibility. See visibility.star for more info.
     """
 
-    if tracker_add("yq_add") != None:
+    if tracker_is_skip_add("yq_add"):
         return
 
     PLATFORM_RULE = "{}_platform_archive".format(name)

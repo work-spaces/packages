@@ -20,7 +20,7 @@ load(
     "//@star/sdk/star/ws.star",
     "workspace_get_absolute_path",
 )
-load("./internal/tracker.star", "tracker_add")
+load("./internal/tracker.star", "tracker_is_skip_add")
 
 def _get_starship_preset(preset: str) -> str:
     return "starship preset {} -o $SPACES_WORKSPACE/.spaces/shell/starship.toml".format(preset)
@@ -158,7 +158,7 @@ def starship_add_bash(
         visibility: Rule visibility. See visibility.star for more info.
     """
 
-    if tracker_add("starship_add_bash") != None:
+    if tracker_is_skip_add("starship_add_bash"):
         return
 
     STARTUP_CONTENTS = """eval "$(starship init bash)"
@@ -208,7 +208,7 @@ def starship_add_fish(
         visibility: Rule visibility. See visibility.star for more info.
     """
 
-    if tracker_add("starship_add_fish") != None:
+    if tracker_is_skip_add("starship_add_fish"):
         return
 
     ARGS = [
@@ -251,7 +251,7 @@ def starship_add_zsh(
         visibility: Rule visibility. See visibility.star for more info.
     """
 
-    if tracker_add("starship_add_zsh") != None:
+    if tracker_is_skip_add("starship_add_zsh"):
         return
 
     STARTUP_CONTENTS = """eval "$(starship init zsh)"

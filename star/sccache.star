@@ -12,7 +12,7 @@ load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
-load("./internal/tracker.star", "tracker_add")
+load("./internal/tracker.star", "tracker_is_skip_add")
 
 def sccache_add(name: str, version: str, visibility: str | dict[str, list[str]] | None = None, deps: list[str] = []):
     """
@@ -35,7 +35,7 @@ def sccache_add(name: str, version: str, visibility: str | dict[str, list[str]] 
         visibility: Rule visibility. See visibility.star for more info.
     """
 
-    if tracker_add("sccache_add") != None:
+    if tracker_is_skip_add("sccache_add"):
         return
 
     CARGO_BIN_RULE = "{}_sccache_cargo_bin".format(name)

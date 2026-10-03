@@ -24,7 +24,7 @@ load(
     "env_assign",
     "env_prepend",
 )
-load("./internal/tracker.star", "tracker_add")
+load("./internal/tracker.star", "tracker_is_skip_add")
 load("github.com/astral-sh/packages.star", astral_packages = "packages")
 
 def python_add_uv(
@@ -34,7 +34,7 @@ def python_add_uv(
         python_version: str = "3.13",
         venv_name: str = "venv",
         packages: list[str] = [],
-        visibility: str | dict[str, list[str]] | None = None) -> dict:
+        visibility: str | dict[str, list[str]] | None = None) -> dict | None:
     """
     Add Python to your sysroot.
 
@@ -65,9 +65,8 @@ def python_add_uv(
         "packages",
     ])
 
-    TRACKED_RULES = tracker_add("python_add_uv", value = RULES)
-    if TRACKED_RULES != None:
-        return TRACKED_RULES
+    if tracker_is_skip_add("python_add_uv"):
+        return None
 
     UV_PLATFORMS = astral_packages["uv"][uv_version]
     RUFF_PLATFORMS = astral_packages["ruff"][ruff_version]
@@ -162,7 +161,7 @@ def python_add_uv(
         rules_as_rule(RULES, "venv"),
         deps = [rules_as_dep(RULES, "install_python")],
         command = "uv",
-        args = ["venv", "--python={}".format(python_version), VENV_PATH],
+        args = ["venv", "--clear", "--python={}".format(python_version), VENV_PATH],
         visibility = visibility_private(),
         env = UV_ENV,
     )

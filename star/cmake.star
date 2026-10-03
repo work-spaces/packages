@@ -8,7 +8,7 @@ load(
     "checkout_update_asset",
 )
 load("//@star/sdk/star/visibility.star", "visibility_private")
-load("./internal/tracker.star", "tracker_add")
+load("./internal/tracker.star", "tracker_is_skip_add")
 load("github.com/Kitware/CMake/packages.star", "packages")
 
 def cmake_add(name: str, version: str, visibility: str | dict[str, list[str]] | None = None):
@@ -31,7 +31,7 @@ def cmake_add(name: str, version: str, visibility: str | dict[str, list[str]] | 
         visibility: Rule visibility. See visibility.star for more info.
     """
 
-    if tracker_add("cmake_add") != None:
+    if tracker_is_skip_add("cmake_add"):
         return
 
     PLATFORM_RULE = "{}_platform".format(name)

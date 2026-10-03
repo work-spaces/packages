@@ -14,7 +14,7 @@ load(
     "info_is_platform_x86_64",
 )
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
-load("./internal/tracker.star", "tracker_add")
+load("./internal/tracker.star", "tracker_is_skip_add")
 
 # musl-cross toolchain packages from https://github.com/cross-tools/musl-cross/releases
 _PACKAGES = {
@@ -51,7 +51,7 @@ def musl_gcc_add(
         version: The musl-cross release version (e.g., "20250929").
         visibility: Rule visibility. See visibility.star for more info.
     """
-    if tracker_add("musl_gcc_add") != None:
+    if tracker_is_skip_add("musl_gcc_add"):
         return
 
     checkout_add_platform_archive(
@@ -143,7 +143,7 @@ set(CMAKE_LD ${{MUSL_BIN_PATH}}/{target}-ld CACHE STRING "MUSL GCC TOOLCHAIN LD"
 set(CMAKE_EXE_LINKER_FLAGS_INIT "-static")
 """.format(arch = arch, target = target)
 
-def musl_gcc_add_toolchain_file(name: str, destination: str) -> str:
+def musl_gcc_add_toolchain_file(name: str, destination: str) -> str | None:
     """
     Add a CMake toolchain file for musl-gcc cross-compilation.
 
@@ -156,9 +156,8 @@ def musl_gcc_add_toolchain_file(name: str, destination: str) -> str:
     Returns:
         The destination path of the toolchain file.
     """
-    TRACKED_DESTINATION = tracker_add("musl_gcc_add_toolchain_file", value = destination)
-    if TRACKED_DESTINATION != None:
-        return TRACKED_DESTINATION
+    if tracker_is_skip_add("musl_gcc_add_toolchain_file"):
+        return None
 
     if info_is_platform_x86_64():
         arch = "x86_64"

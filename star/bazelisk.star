@@ -20,7 +20,7 @@ load(
     "info_get_platform_name",
 )
 load("//@star/sdk/star/visibility.star", "visibility_private", "visibility_rules")
-load("./internal/tracker.star", "tracker_add")
+load("./internal/tracker.star", "tracker_is_skip_add")
 load("github.com/bazelbuild/bazelisk/packages.star", "packages")
 
 def bazelisk_add(name: str, version: str, deps: list[str] = [], visibility: str | dict[str, list[str]] | None = None):
@@ -36,7 +36,7 @@ def bazelisk_add(name: str, version: str, deps: list[str] = [], visibility: str 
         visibility: Rule visibility. See visibility.star for more info.
     """
 
-    if tracker_add("bazelisk_add") != None:
+    if tracker_is_skip_add("bazelisk_add"):
         return
 
     PLATFORM_RULE = "{}_platform_archive".format(name)

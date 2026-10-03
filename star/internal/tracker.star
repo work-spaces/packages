@@ -7,19 +7,24 @@ load("../config.star", "CONFIG_TRACKER_OPTION")
 
 _TRACKER_PATH = "//@star/packages/star/internal/package-tracker"
 
-def tracker_add(name: str, value = True) -> str | None:
-    """Record an addition, returning the stored value when already recorded.
+def tracker_is_skip_add(name: str) -> bool:
+    """Record an addition and indicate whether it should be skipped.
 
     The tracker is namespaced separately from package definitions so each add
-    function can be made one-shot during checkout evaluation. `value` can retain
-    a return value needed by later calls, such as a package rule name.
+    function can be made one-shot during checkout evaluation.
+
+    Args:
+        name: The key identifying the addition.
+
+    Returns:
+        True if the addition was already recorded, otherwise False.
     """
     if not checkout_config_load_option(CONFIG_TRACKER_OPTION):
-        return None
+        return False
 
     stored_value = workspace_load_value(name, path = _TRACKER_PATH)
     if stored_value != None:
-        return stored_value
+        return True
 
-    checkout_store_value(name, value, path = _TRACKER_PATH)
-    return None
+    checkout_store_value(name, True, path = _TRACKER_PATH)
+    return False
