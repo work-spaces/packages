@@ -21,6 +21,7 @@ load(
     "rules_new",
 )
 load("//@star/sdk/star/visibility.star", "visibility_private", "visibility_rules")
+load("./internal/tracker.star", "tracker_is_skip_add")
 load("package.star", "package_add")
 
 DIFFUTILS_DEFAULT_FUNCTIONS = [
@@ -140,7 +141,7 @@ def devutils_add(
         bat_paging: str = "never",
         deps: list[str] = [],
         visibility: str | dict[str, list[str]] | None = None,
-        diffutils_functions: list[str] = DIFFUTILS_DEFAULT_FUNCTIONS) -> dict:
+        diffutils_functions: list[str] = DIFFUTILS_DEFAULT_FUNCTIONS) -> dict | None:
     """
     Adds devutils to the workspace.
 
@@ -168,6 +169,9 @@ def devutils_add(
         "diffutils_hardlinks",
         "env_vars",
     ])
+
+    if tracker_is_skip_add("devutils_add"):
+        return None
 
     PACKAGE_RULE_NAME = package_add(
         "github.com",

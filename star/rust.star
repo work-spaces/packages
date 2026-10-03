@@ -24,6 +24,7 @@ load(
 )
 load("//@star/sdk/star/visibility.star", "visibility_private", "visibility_rules")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
+load("./internal/tracker.star", "tracker_is_skip_add")
 
 def _get_url(platform, suffix = None):
     _RUSTUP_VERSION = "1.28.1"
@@ -39,7 +40,7 @@ def rust_add(
         configure_vscode: bool = True,
         configure_zed: bool = True,
         deps: list[str] = [],
-        visibility: str | dict[str, list[str]] | None = None) -> dict:
+        visibility: str | dict[str, list[str]] | None = None) -> dict | None:
     """
     Add the Rust toolchain to your sysroot using rustup in the spaces store.
 
@@ -111,6 +112,9 @@ def rust_add(
         "rustup_show",
     ])
 
+    if tracker_is_skip_add("rust_add"):
+        return None
+
     checkout_add_platform_archive(
         rules_as_rule(RULES, "platform_rule"),
         platforms = {
@@ -144,7 +148,7 @@ def rust_add(
                 help = "The path to the rustup home directory in the spaces store",
             ),
             env_assign(
-                "RUST_TOOLCHAIN",
+                "RUSTUP_TOOLCHAIN",
                 value = version,
                 help = "The version of the rust toolchain to use",
             ),

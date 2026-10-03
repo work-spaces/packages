@@ -9,6 +9,7 @@ load(
 load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
+load("./internal/tracker.star", "tracker_is_skip_add")
 load("package.star", "package_add")
 
 def node_add(name: str, version: str, visibility: str | dict[str, list[str]] | None = None):
@@ -20,6 +21,9 @@ def node_add(name: str, version: str, visibility: str | dict[str, list[str]] | N
         version: The version of node to add
         visibility: Rule visibility. See visibility.star for more info.
     """
+
+    if tracker_is_skip_add("node_add"):
+        return
 
     PACKAGE_RULE_NAME = package_add(
         "nodejs.org",

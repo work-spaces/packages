@@ -17,6 +17,7 @@ load(
     "info_get_platform_name",
 )
 load("//@star/sdk/star/visibility.star", "visibility_rules")
+load("./internal/tracker.star", "tracker_is_skip_add")
 load("github.com/docker/buildx/packages.star", buildx_packages = "packages")
 load("github.com/docker/compose/packages.star", "packages")
 
@@ -30,6 +31,9 @@ def docker_buildx_add(name: str, version: str, deps: list[str] = [], visibility:
         deps: deps for using chmod
         visibility: Rule visibility. See visibility.star for more info.
     """
+
+    if tracker_is_skip_add("docker_buildx_add"):
+        return
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
     HARD_LINK_RULE = "{}_hard_link_asset".format(name)
@@ -82,6 +86,9 @@ def docker_compose_add(name: str, version: str, deps: list[str] = [], visibility
         deps: deps for using chmod
         visibility: Rule visibility. See visibility.star for more info.
     """
+
+    if tracker_is_skip_add("docker_compose_add"):
+        return
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
     HARD_LINK_RULE = "{}_hard_link_asset".format(name)
