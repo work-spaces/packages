@@ -34,7 +34,6 @@ load(
     "workspace_get_absolute_path",
     "workspace_get_path_to_checkout",
 )
-load("./internal/tracker.star", "tracker_add_packages_visibility", "tracker_is_skip_add")
 load("buildifier.star", "buildifier_add")
 load("coreutils.star", "COREUTILS_DEFAULT_FUNCTIONS", "coreutils_add")
 load("devutils.star", "devutils_add", DEVUTILS_COREUTILS_FUNCTIONS = "COREUTILS_DEFAULT_FUNCTIONS")
@@ -62,10 +61,6 @@ def spaces_add(name: str, version: str, add_link_to_workspace_root: bool = False
         add_link_to_workspace_root: Add a link to the binary in the workspace root
         visibility: Rule visibility. See visibility.star for more info.
     """
-
-    if tracker_is_skip_add("spaces_add", name):
-        return
-    visibility = tracker_add_packages_visibility(visibility)
 
     checkout_add_platform_archive(
         name,
@@ -100,10 +95,6 @@ def spaces_isolate_workspace(name: str, version: str, system_paths: list[str] | 
         coreutils_functions: The list of coreutils functions to install (default is all)
         visibility: Rule visibility. See visibility.star for more info.
     """
-
-    if tracker_is_skip_add("spaces_isolate_workspace", name):
-        return
-    visibility = tracker_add_packages_visibility(visibility)
 
     WORKSPACE = workspace_get_absolute_path()
     UPDATE_ENV_NAME = "{}_update_env".format(name)
@@ -163,7 +154,7 @@ def spaces_add_devutils(
         coreutils_functions: list[str] = DEVUTILS_COREUTILS_FUNCTIONS,
         bat_paging: str = "never",
         visibility: str | dict[str, list[str]] | None = None,
-        is_activate_sccache: bool = False) -> dict | None:
+        is_activate_sccache: bool = False) -> dict:
     """
     Create a spaces devutils based workspace.
 
@@ -193,10 +184,6 @@ def spaces_add_devutils(
         "sccache_env",
         "sccache_config",
     ])
-
-    if tracker_is_skip_add("spaces_add_devutils", name):
-        return None
-    visibility = tracker_add_packages_visibility(visibility)
 
     WORKSPACE = workspace_get_absolute_path()
 
@@ -304,10 +291,6 @@ def spaces_add_star_formatter(name: str, configure_zed: bool = False, deps: list
         deps: Dependencies for the rule (chmod needed by buildifier)
         visibility: Rule visibility. See visibility.star for more info.
     """
-
-    if tracker_is_skip_add("spaces_add_star_formatter", name):
-        return
-    visibility = tracker_add_packages_visibility(visibility)
 
     buildifier_add(name, "v8.2.1", deps = deps, visibility = visibility)
 

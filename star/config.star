@@ -1,5 +1,0 @@
-"""
-Checkout configuration options
-"""
-
-CONFIG_TRACKER_OPTION = "PACKAGES_ENABLE_SINGLE_PACKAGE_CHECKOUT"

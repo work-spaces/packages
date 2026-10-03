@@ -20,7 +20,6 @@ load(
     "//@star/sdk/star/ws.star",
     "workspace_get_absolute_path",
 )
-load("./internal/tracker.star", "tracker_add_packages_visibility", "tracker_is_skip_add")
 
 def _get_starship_preset(preset: str) -> str:
     return "starship preset {} -o $SPACES_WORKSPACE/.spaces/shell/starship.toml".format(preset)
@@ -158,10 +157,6 @@ def starship_add_bash(
         visibility: Rule visibility. See visibility.star for more info.
     """
 
-    if tracker_is_skip_add("starship_add_bash", name):
-        return
-    visibility = tracker_add_packages_visibility(visibility)
-
     STARTUP_CONTENTS = """eval "$(starship init bash)"
 {}
 {}
@@ -209,10 +204,6 @@ def starship_add_fish(
         visibility: Rule visibility. See visibility.star for more info.
     """
 
-    if tracker_is_skip_add("starship_add_fish", name):
-        return
-    visibility = tracker_add_packages_visibility(visibility)
-
     ARGS = [
         "--init-command",
         "starship init fish | source && {} && {} && {}".format(_get_starship_preset(preset), _get_starship_prompt(prompt), _get_shortcuts(shortcuts)),
@@ -252,10 +243,6 @@ def starship_add_zsh(
         install_binary: Whether to install the starship binary (default True). Set to False if the workspace already provides it.
         visibility: Rule visibility. See visibility.star for more info.
     """
-
-    if tracker_is_skip_add("starship_add_zsh", name):
-        return
-    visibility = tracker_add_packages_visibility(visibility)
 
     STARTUP_CONTENTS = """eval "$(starship init zsh)"
 {}
