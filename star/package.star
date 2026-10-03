@@ -4,6 +4,7 @@ Add a package to the workspace.
 
 load("//@star/sdk/star/checkout.star", "checkout_add_platform_archive")
 load("//@star/sdk/star/info.star", "info_get_platform_name")
+load("./internal/tracker.star", "tracker_add")
 load("packages.star", "packages")
 
 def package_add(domain: str, owner: str, repo: str, version: str, visibility: str | dict[str, list[str]] | None = None, add_prefix: str | None = None, globs: list[dict] | None = None) -> str:
@@ -38,6 +39,11 @@ def package_add(domain: str, owner: str, repo: str, version: str, visibility: st
     """
 
     RULE_NAME = "{}_{}_{}_{}".format(domain, owner, repo, version)
+    TRACKER_KEY = "package_add:{}:{}:{}".format(domain, owner, repo)
+    ADDED_RULE_NAME = tracker_add(TRACKER_KEY, value = RULE_NAME)
+    if ADDED_RULE_NAME != None:
+        return ADDED_RULE_NAME
+
     platform_packages = packages[domain][owner][repo][version]
 
     # if user provided values for globs or add_prefix, override the existing values

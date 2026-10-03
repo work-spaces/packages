@@ -11,6 +11,7 @@ load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/info.star", "info_get_path_to_store")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
+load("./internal/tracker.star", "tracker_add")
 load("github.com/ccache/ccache/packages.star", "packages")
 
 def ccache_add(name: str, version: str, visibility: str | dict[str, list[str]] | None = None):
@@ -33,6 +34,9 @@ def ccache_add(name: str, version: str, visibility: str | dict[str, list[str]] |
         version: The version of ccache to add.
         visibility: Rule visibility. See visibility.star for more info.
     """
+
+    if tracker_add("ccache_add") != None:
+        return
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
     checkout_add_platform_archive(

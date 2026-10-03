@@ -33,6 +33,7 @@ load(
     "//@star/prelude/rules/ws.star",
     "workspace_get_absolute_path",
 )
+load("./internal/tracker.star", "tracker_add")
 load("buildifier.star", "buildifier_add")
 load("coreutils.star", "COREUTILS_DEFAULT_FUNCTIONS", "coreutils_add")
 load("devutils.star", "devutils_add", DEVUTILS_COREUTILS_FUNCTIONS = "COREUTILS_DEFAULT_FUNCTIONS")
@@ -60,6 +61,9 @@ def spaces_add(name: str, version: str, add_link_to_workspace_root: bool = False
         add_link_to_workspace_root: Add a link to the binary in the workspace root
         visibility: Rule visibility. See visibility.star for more info.
     """
+
+    if tracker_add("spaces_add") != None:
+        return
 
     checkout_add_platform_archive(
         name,
@@ -94,6 +98,9 @@ def spaces_isolate_workspace(name: str, version: str, system_paths: list[str] | 
         coreutils_functions: The list of coreutils functions to install (default is all)
         visibility: Rule visibility. See visibility.star for more info.
     """
+
+    if tracker_add("spaces_isolate_workspace") != None:
+        return
 
     WORKSPACE = workspace_get_absolute_path()
     UPDATE_ENV_NAME = "{}_update_env".format(name)
@@ -182,6 +189,10 @@ def spaces_add_devutils(
         "sccache_env",
         "sccache_config",
     ])
+
+    TRACKED_RULES = tracker_add("spaces_add_devutils", value = RULES)
+    if TRACKED_RULES != None:
+        return TRACKED_RULES
 
     WORKSPACE = workspace_get_absolute_path()
 
@@ -284,6 +295,9 @@ def spaces_add_star_formatter(name: str, configure_zed: bool = False, deps: list
         deps: Dependencies for the rule (chmod needed by buildifier)
         visibility: Rule visibility. See visibility.star for more info.
     """
+
+    if tracker_add("spaces_add_star_formatter") != None:
+        return
 
     buildifier_add(name, "v8.2.1", deps = deps, visibility = visibility)
 

@@ -11,6 +11,7 @@ load(
 load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/visibility.star", "visibility_rules")
 load("//@star/sdk/star/ws.star", "workspace_get_absolute_path")
+load("./internal/tracker.star", "tracker_add")
 load("github.com/llvm/llvm-project/packages.star", github_llvm_project_packages = "packages")
 
 def llvm_add(name: str, version: str, toolchain_name: str = "llvm-toolchain.cmake", visibility: str | dict[str, list[str]] | None = None):
@@ -27,6 +28,9 @@ def llvm_add(name: str, version: str, toolchain_name: str = "llvm-toolchain.cmak
         toolchain_name: The name of the toolchain file (default is "llvm-toolchain.cmake").
         visibility: Rule visibility. See visibility.star for more info.
     """
+
+    if tracker_add("llvm_add") != None:
+        return
 
     CHECKOUT_RULE = "{}_checkout".format(name)
     ENV_RULE = "{}_update_env".format(name)

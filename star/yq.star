@@ -17,6 +17,7 @@ load(
     "info_get_platform_name",
 )
 load("//@star/sdk/star/visibility.star", "visibility_rules")
+load("./internal/tracker.star", "tracker_add")
 load("github.com/mikefarah/yq/packages.star", "packages")
 
 def yq_add(name: str, version: str, deps: list[str] = [], visibility: str | dict[str, list[str]] | None = None):
@@ -29,6 +30,9 @@ def yq_add(name: str, version: str, deps: list[str] = [], visibility: str | dict
         deps: deps for using chmod
         visibility: Rule visibility. See visibility.star for more info.
     """
+
+    if tracker_add("yq_add") != None:
+        return
 
     PLATFORM_RULE = "{}_platform_archive".format(name)
     HARD_LINK_RULE = "{}_hard_link_asset".format(name)

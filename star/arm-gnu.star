@@ -10,6 +10,7 @@ load(
 )
 load("//@star/sdk/star/env.star", "env_assign")
 load("//@star/sdk/star/visibility.star", "visibility_private")
+load("./internal/tracker.star", "tracker_add")
 load("arm.developer.com/gnu/arm-none-eabi/packages.star", "packages")
 
 _TOOLCHAIN_CONTENTS = """
@@ -96,6 +97,9 @@ def arm_gnu_add_arm_none_eabi_add(name: str, version: str, visibility: str | dic
         version: arm-none-eabi version from packages/arm.developer.com/gnu/arm-none-eabi
         visibility: Rule visibility. See visibility.star for more info.
     """
+    if tracker_add("arm_gnu_add_arm_none_eabi_add") != None:
+        return
+
     checkout_add_platform_archive(
         name,
         platforms = packages[version],

@@ -24,6 +24,7 @@ load(
     "env_assign",
     "env_prepend",
 )
+load("./internal/tracker.star", "tracker_add")
 load("github.com/astral-sh/packages.star", astral_packages = "packages")
 
 def python_add_uv(
@@ -54,9 +55,6 @@ def python_add_uv(
     Returns:
         The rules added by this function (see `rules_new()`)
     """
-    UV_PLATFORMS = astral_packages["uv"][uv_version]
-    RUFF_PLATFORMS = astral_packages["ruff"][ruff_version]
-
     RULES = rules_new(name, [
         "checkout_uv",
         "checkout_ruff",
@@ -66,6 +64,13 @@ def python_add_uv(
         "venv",
         "packages",
     ])
+
+    TRACKED_RULES = tracker_add("python_add_uv", value = RULES)
+    if TRACKED_RULES != None:
+        return TRACKED_RULES
+
+    UV_PLATFORMS = astral_packages["uv"][uv_version]
+    RUFF_PLATFORMS = astral_packages["ruff"][ruff_version]
 
     checkout_add_platform_archive(
         rules_as_rule(RULES, "checkout_uv"),
