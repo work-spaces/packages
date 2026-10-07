@@ -32,7 +32,6 @@ load("//@star/prelude/rules/visibility.star", "visibility_private", "visibility_
 load(
     "//@star/prelude/rules/ws.star",
     "workspace_get_absolute_path",
-    "workspace_get_path_to_checkout",
 )
 load("buildifier.star", "buildifier_add")
 load("coreutils.star", "COREUTILS_DEFAULT_FUNCTIONS", "coreutils_add")
@@ -187,12 +186,10 @@ def spaces_add_devutils(
 
     WORKSPACE = workspace_get_absolute_path()
 
-    private_visibility = visibility_rules(["//" + workspace_get_path_to_checkout(), "//@star/packages"])
-
     spaces_add(
         rules_as_rule(RULES, "spaces"),
         spaces_version,
-        visibility = private_visibility,
+        visibility = visibility,
     )
 
     if devutils_version != None:
@@ -201,7 +198,7 @@ def spaces_add_devutils(
             devutils_version,
             coreutils_functions = coreutils_functions,
             bat_paging = bat_paging,
-            visibility = private_visibility,
+            visibility = visibility,
         )
     else:
         checkout_add(
@@ -265,9 +262,6 @@ def spaces_add_devutils(
             },
             visibility = visibility_private(),
         )
-
-    if visibility == visibility_private():
-        visibility = private_visibility
 
     checkout_add(
         name,
