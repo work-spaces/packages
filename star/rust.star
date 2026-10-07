@@ -3,11 +3,11 @@ Add Rust
 """
 
 load(
-    "//@star/sdk/star/checkout.star",
+    "//@star/prelude/rules/checkout.star",
+    "checkout_add",
     "checkout_add_env_vars",
     "checkout_add_exec",
     "checkout_add_platform_archive",
-    "checkout_add_target",
     "checkout_update_asset",
 )
 load(
@@ -144,7 +144,7 @@ def rust_add(
                 help = "The path to the rustup home directory in the spaces store",
             ),
             env_assign(
-                "RUST_TOOLCHAIN",
+                "RUSTUP_TOOLCHAIN",
                 value = version,
                 help = "The version of the rust toolchain to use",
             ),
@@ -190,7 +190,7 @@ def rust_add(
             env = ENV_VARS | {"PATH": CARGO_PATH},
         )
     else:
-        checkout_add_target(
+        checkout_add(
             rules_as_rule(RULES, "rustup_show"),
             deps = [rules_as_dep(RULES, "rustup_init")],
             visibility = visibility_private(),
@@ -252,7 +252,7 @@ def rust_add(
             visibility = visibility_private(),
         )
 
-    checkout_add_target(
+    checkout_add(
         name,
         deps = [rules_as_dep(RULES, "rustup_show")],
         visibility = visibility,

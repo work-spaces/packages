@@ -170,6 +170,7 @@ def spaces_add_devutils(
         coreutils_functions: The list of coreutils functions to install (default is all)
         bat_paging: Bat paging mode: `never|always|auto`.
         visibility: Rule visibility. See visibility.star for more info.
+        is_activate_sccache: True to activate sccache env values
 
     Returns:
         The rules added by this function (see `rules_new()`)
@@ -188,7 +189,7 @@ def spaces_add_devutils(
     spaces_add(
         rules_as_rule(RULES, "spaces"),
         spaces_version,
-        visibility = visibility_private(),
+        visibility = visibility,
     )
 
     if devutils_version != None:
@@ -197,7 +198,7 @@ def spaces_add_devutils(
             devutils_version,
             coreutils_functions = coreutils_functions,
             bat_paging = bat_paging,
-            visibility = visibility_private(),
+            visibility = visibility,
         )
     else:
         checkout_add(

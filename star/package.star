@@ -38,6 +38,7 @@ def package_add(domain: str, owner: str, repo: str, version: str, visibility: st
     """
 
     RULE_NAME = "{}_{}_{}_{}".format(domain, owner, repo, version)
+
     platform_packages = packages[domain][owner][repo][version]
 
     # if user provided values for globs or add_prefix, override the existing values
