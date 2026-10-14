@@ -50,6 +50,7 @@ def musl_gcc_add(
         version: The musl-cross release version (e.g., "20250929").
         visibility: Rule visibility. See visibility.star for more info.
     """
+
     checkout_add_platform_archive(
         name,
         platforms = _PACKAGES[version],
@@ -152,6 +153,7 @@ def musl_gcc_add_toolchain_file(name: str, destination: str) -> str:
     Returns:
         The destination path of the toolchain file.
     """
+
     if info_is_platform_x86_64():
         arch = "x86_64"
     elif info_is_platform_aarch64():

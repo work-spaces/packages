@@ -96,6 +96,7 @@ def arm_gnu_add_arm_none_eabi_add(name: str, version: str, visibility: str | dic
         version: arm-none-eabi version from packages/arm.developer.com/gnu/arm-none-eabi
         visibility: Rule visibility. See visibility.star for more info.
     """
+
     checkout_add_platform_archive(
         name,
         platforms = packages[version],
