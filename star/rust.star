@@ -48,7 +48,7 @@ def rust_add(
 
     It sets up `rust-analyzer` VS code settings for the workspace. It also sets:
     - `RUSTUP_HOME` to the rustup directory in the spaces store
-    - `RUST_TOOLCHAIN` to the version of the rust toolchain to use
+    - `RUSTUP_TOOLCHAIN` to the version of the rust toolchain to use
     - `CARGO_HOME` to the cargo directory in the spaces store
 
     Example:
@@ -144,11 +144,6 @@ def rust_add(
                 help = "The path to the rustup home directory in the spaces store",
             ),
             env_assign(
-                "RUSTUP_TOOLCHAIN",
-                value = version,
-                help = "The version of the rust toolchain to use",
-            ),
-            env_assign(
                 "CARGO_HOME",
                 value = CARGO_HOME,
                 help = "The path to the cargo home directory in the spaces store",
@@ -158,7 +153,11 @@ def rust_add(
                 value = CARGO_PATH,
                 help = "The path to the cargo bin directory",
             ),
-        ],
+        ] + ([env_assign(
+            "RUSTUP_TOOLCHAIN",
+            value = version,
+            help = "The version of the rust toolchain to use",
+        )] if version != None else []),
         visibility = visibility_private(),
     )
 
