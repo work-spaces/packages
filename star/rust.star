@@ -108,7 +108,7 @@ def rust_add(
         "zed_settings",
         "init_permissions",
         "rustup_init",
-        "rustup_show",
+        "rustup_update",
     ])
 
     checkout_add_platform_archive(
@@ -131,9 +131,9 @@ def rust_add(
     ENV_VARS = {
         "RUSTUP_HOME": RUSTUP_HOME,
         "CARGO_HOME": CARGO_HOME,
-    } | {
-        "RUST_TOOLCHAIN": version,
-    } if version != None else {}
+    } | ({
+        "RUSTUP_TOOLCHAIN": version,
+    } if version != None else {})
 
     checkout_add_env_vars(
         rules_as_rule(RULES, "update_env"),
@@ -180,17 +180,17 @@ def rust_add(
 
     if rust_toolchain_toml_dir != None:
         checkout_add_exec(
-            rules_as_rule(RULES, "rustup_show"),
+            rules_as_rule(RULES, "rustup_update"),
             deps = [rules_as_dep(RULES, "rustup_init")],
             command = "rustup",
-            args = ["show"],
+            args = ["update"],
             working_directory = rust_toolchain_toml_dir,
             visibility = visibility_private(),
             env = ENV_VARS | {"PATH": CARGO_PATH},
         )
     else:
         checkout_add(
-            rules_as_rule(RULES, "rustup_show"),
+            rules_as_rule(RULES, "rustup_update"),
             deps = [rules_as_dep(RULES, "rustup_init")],
             visibility = visibility_private(),
         )
@@ -253,7 +253,7 @@ def rust_add(
 
     checkout_add(
         name,
-        deps = [rules_as_dep(RULES, "rustup_show")],
+        deps = [rules_as_dep(RULES, "rustup_update")],
         visibility = visibility,
     )
 
