@@ -1,5 +1,6 @@
 """star/github.com/docker/compose packages"""
 
+load("v5.6.0.star", platforms_v5_6_0_star = "platforms")
 load("v2.40.3.star", platforms_v2_40_3_star = "platforms")
 load("v2.39.4.star", platforms_v2_39_4_star = "platforms")
 load("v5.1.2.star", platforms_v5_1_2_star = "platforms")
@@ -20,6 +21,7 @@ load("v5.1.1.star", platforms_v5_1_1_star = "platforms")
 
 
 packages = {
+    "v5.6.0": platforms_v5_6_0_star,
     "v2.40.3": platforms_v2_40_3_star,
     "v2.39.4": platforms_v2_39_4_star,
     "v5.1.2": platforms_v5_1_2_star,
