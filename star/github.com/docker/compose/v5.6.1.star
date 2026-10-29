@@ -1,0 +1,39 @@
+
+"""
+Spaces starlark checkout for https://github.com/docker/compose:v5.6.1
+"""
+
+
+platforms = {
+  "macos-aarch64": {
+    "url": "https://github.com/docker/compose/releases/download/v5.6.1/docker-compose-darwin-aarch64",
+    "sha256": "fcce41226abd2b7b2936094e688bbd61284673dddafea542e08cb9a3b4423a8b",
+    "link": "Hard",
+    "add_prefix": "sysroot/bin"
+  },
+  "macos-x86_64": {
+    "url": "https://github.com/docker/compose/releases/download/v5.6.1/docker-compose-darwin-x86_64",
+    "sha256": "245c191b11a6345dd3b32b8f6eadeed1e1dcd5147aa46dfa423462e95f587e93",
+    "link": "Hard",
+    "add_prefix": "sysroot/bin"
+  },
+  "linux-x86_64": {
+    "url": "https://github.com/docker/compose/releases/download/v5.6.1/docker-compose-linux-x86_64",
+    "sha256": "47737f4236e6d3ccea7291995203f8f018058783b4c3a9469119811a0b5db8c0",
+    "link": "Hard",
+    "add_prefix": "sysroot/bin"
+  },
+  "linux-aarch64": {
+    "url": "https://github.com/docker/compose/releases/download/v5.6.1/docker-compose-linux-aarch64",
+    "sha256": "42cfa75f51ad0ccf290bad37899e0038a8c10a0069e85233ecc1d53e3ff1347d",
+    "link": "Hard",
+    "add_prefix": "sysroot/bin"
+  },
+  "windows-x86_64": {
+    "url": "https://github.com/docker/compose/releases/download/v5.6.1/docker-compose-windows-x86_64.exe",
+    "sha256": "91b1492f0a923427651e2b955739d732ac36b8191193bf4799e62f3e3525c4cd",
+    "link": "Hard",
+    "add_prefix": "sysroot/bin"
+  }
+}
+
