@@ -245,6 +245,15 @@ def rust_add(
                             "path": "{}/cargo/bin/rust-analyzer".format(STORE_PATH),
                             "ignore_system_version": True,
                         },
+                        "initialization_options": {
+                            "cargo": {
+                                "extraEnv": {
+                                    "CARGO_HOME": "{}/cargo".format(STORE_PATH),
+                                    "PATH": "{}/sysroot/bin:{}:/usr/bin:/bin".format(workspace_get_absolute_path(), CARGO_PATH),
+                                    "RUSTUP_HOME": "{}/rustup".format(STORE_PATH),
+                                },
+                            },
+                        },
                     },
                 },
             },
