@@ -14,6 +14,7 @@ load("cargo-bins/packages.star", cargo_bins = "packages")
 load("llvm/packages.star", llvm = "packages")
 load("koalaman/packages.star", koalaman = "packages")
 load("xpack-dev-tools/packages.star", xpack_dev_tools = "packages")
+load("can1357/packages.star", can1357 = "packages")
 load("cli/packages.star", cli = "packages")
 load("mvdan/packages.star", mvdan = "packages")
 load("gohugoio/packages.star", gohugoio = "packages")
@@ -41,6 +42,7 @@ packages = {
     "llvm": llvm,
     "koalaman": koalaman,
     "xpack-dev-tools": xpack_dev_tools,
+    "can1357": can1357,
     "cli": cli,
     "mvdan": mvdan,
     "gohugoio": gohugoio,
