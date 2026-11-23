@@ -858,4 +858,31 @@ gh_releases = xpack_releases | {
             },
         },
     },
+    "can1357_oh-my-pi": {
+        "settings": {
+            "domain": "github.com",
+            "owner": "can1357",
+            "repo": "oh-my-pi",
+        } | sysroot_bin,
+        "platforms": {
+            "macos-aarch64": {
+                "name_pattern": "omp-darwin-arm64",
+            },
+            "macos-x86_64": {
+                "name_pattern": "omp-darwin-x64",
+            },
+            "windows-aarch64": {
+                "name_pattern": "omp-windows-arm64.exe",
+            },
+            "windows-x86_64": {
+                "name_pattern": "omp-windows-x64.exe",
+            },
+            "linux-aarch64": {
+                "name_pattern": "omp-linux-arm64",
+            },
+            "linux-x86_64": {
+                "name_pattern": "omp-linux-x64",
+            },
+        },
+    },
 }

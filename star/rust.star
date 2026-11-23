@@ -267,3 +267,22 @@ def rust_add(
     )
 
     return RULES
+
+def rust_checkout_update(
+        name: str,
+        projects: list[str],
+        script = "@star/packages/script/rustup-init.exec.star"):
+    """
+    Add a checkout rule that updates Rust toolchains and Cargo dependencies in projects.
+
+    Args:
+        name: The name of the checkout rule.
+        projects: Directories to update.
+        script: The Spaces executable script to run.
+    """
+    checkout_add_exec(
+        name,
+        command = script,
+        args = projects,
+        help = "Update Rust toolchains and Cargo dependencies in the specified projects.",
+    )
