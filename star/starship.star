@@ -22,7 +22,7 @@ load(
 )
 
 def _get_starship_preset(preset: str) -> str:
-    return "starship preset {} -o $SPACES_WORKSPACE/.spaces/shell/starship.toml".format(preset)
+    return "starship preset --force {} -o $SPACES_WORKSPACE/.spaces/shell/starship.toml".format(preset)
 
 def _get_shortcuts(shortcuts: dict | None) -> str:
     if shortcuts != None:
@@ -158,10 +158,14 @@ def starship_add_bash(
     """
 
     STARTUP_CONTENTS = """eval "$(starship init bash)"
-{}
-{}
-{}
-""".format(_get_starship_preset(preset), _get_starship_prompt(prompt), _get_shortcuts(shortcuts))
+{shortcuts}
+{preset}
+{prompt}
+""".format(
+        shortcuts = _get_shortcuts(shortcuts),
+        preset = _get_starship_preset(preset),
+        prompt = _get_starship_prompt(prompt),
+    )
 
     ARGS = [
         "--init-file",
